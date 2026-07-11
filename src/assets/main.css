@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* Il tema scuro si attiva quando <html> ha la classe .dark */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===========================================================
+   PALETTE — Iako Style
+   Stile elegante/moderno, ispirato al logo e all'ambiente del
+   salone (marmo, oro, verde teal).
+   Cambia i colori SOLO qui: tutto il sito si aggiorna.
+   =========================================================== */
+@theme {
+  /* ---- Tema chiaro (default) ---- */
+  --color-primary: #1f8174;        /* verde/teal del logo */
+  --color-primary-soft: #d6ebe8;   /* teal chiarissimo */
+  --color-gold: #b4924a;           /* oro del logo, leggermente più profondo */
+  --color-gold-soft: #f2e8cf;      /* oro chiarissimo */
+  --color-accent: #46b1cd;         /* celestino di supporto */
+  --color-accent-soft: #d7eef5;    /* celestino chiarissimo */
+
+  --color-background: #faf8f4;      /* sfondo pagina, tono avorio/marmo */
+  --color-surface: #ffffff;         /* card / superfici */
+  --color-surface-2: #f1ede4;       /* superfici alternate, tono marmo caldo */
+  --color-foreground: #1c2b28;      /* testo principale */
+  --color-muted: #6b6a63;           /* testo secondario */
+  --color-border: #e3ddd0;          /* bordi */
+
+  /* Font — pairing elegante */
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-body: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-blob: 1.25rem;
+}
+
+/* ---- Override tema scuro ---- */
+.dark {
+  --color-primary: #35a897;
+  --color-primary-soft: #103833;
+  --color-gold: #cdac60;
+  --color-gold-soft: #38311d;
+  --color-accent: #5cc4de;
+  --color-accent-soft: #123a44;
+
+  --color-background: #14201d;
+  --color-surface: #1b2b27;
+  --color-surface-2: #223730;
+  --color-foreground: #f0ece2;
+  --color-muted: #a3ab9f;
+  --color-border: #2f4640;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Animazioni sobrie: presenza discreta, non giocosa */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-floaty { animation: floaty 7s ease-in-out infinite; }
+
+@keyframes floaty-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+.animate-floaty-slow { animation: floaty-slow 10s ease-in-out infinite; }
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-pop-in { animation: pop-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
