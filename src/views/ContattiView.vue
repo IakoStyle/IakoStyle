@@ -78,7 +78,7 @@ const mapsLink = computed(
             :class="status.isOpen ? 'bg-primary-soft text-primary' : 'bg-closed-soft text-closed'"
           >
             <span class="h-1.5 w-1.5 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
-            {{ status.label }} · {{ status.detail }}
+            {{ status.isOpen ? `${status.label} · ${status.detail}` : status.nextOpenLabel }}
           </span>
           <span class="flex items-center gap-1.5 rounded-full bg-gold-soft px-3 py-1 text-xs font-bold text-gold">
             <font-awesome-icon :icon="['fas', 'sun']" />
@@ -91,12 +91,21 @@ const mapsLink = computed(
           v-for="(d, i) in openingHours"
           :key="d.day"
           class="flex items-center justify-between gap-3 rounded-2xl px-4 py-3 text-sm"
-          :class="i === idx ? 'bg-primary-soft font-bold text-primary' : 'text-foreground'"
+          :class="i === idx
+            ? (status.isOpen ? 'bg-primary-soft font-bold text-primary' : 'bg-closed-soft font-bold text-closed')
+            : 'text-foreground'"
         >
           <span class="flex items-center gap-2">
-            <font-awesome-icon v-if="i === idx" :icon="['fas', 'circle-check']" class="text-primary" />
+            <font-awesome-icon
+              v-if="i === idx"
+              :icon="[ 'fas', status.isOpen ? 'circle-check' : 'circle-exclamation' ]"
+            />
             {{ d.day }}
-            <span v-if="i === idx" class="rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-white">Oggi</span>
+            <span
+              v-if="i === idx"
+              class="rounded-full px-2 py-0.5 text-[10px] font-bold text-white"
+              :class="status.isOpen ? 'bg-primary' : 'bg-closed'"
+            >Oggi</span>
           </span>
           <span class="text-right" :class="d.closed ? 'font-bold text-closed' : ''">{{ d.hours }}</span>
         </li>

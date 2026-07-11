@@ -70,7 +70,7 @@ const status = computed(() => getOpenStatus())
             :class="status.isOpen ? 'bg-primary-soft text-primary' : 'bg-closed-soft text-closed'"
           >
             <span class="h-1.5 w-1.5 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
-            {{ status.label }}
+            {{ status.isOpen ? status.label : status.nextOpenLabel }}
           </span>
           <span class="flex items-center gap-1.5 text-xs font-bold text-gold">
             <font-awesome-icon :icon="['fas', 'sun']" />
@@ -82,7 +82,9 @@ const status = computed(() => getOpenStatus())
             v-for="(d, i) in openingHours"
             :key="d.day"
             class="flex justify-between gap-3 rounded-lg px-2 py-1"
-            :class="i === idx ? 'bg-primary-soft font-bold text-primary' : 'text-muted'"
+            :class="i === idx
+              ? (status.isOpen ? 'bg-primary-soft font-bold text-primary' : 'bg-closed-soft font-bold text-closed')
+              : 'text-muted'"
           >
             <span>{{ d.day }}</span>
             <span class="text-right" :class="d.closed ? 'font-bold text-closed' : ''">{{ d.hours }}</span>
