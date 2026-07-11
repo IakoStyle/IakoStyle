@@ -68,16 +68,54 @@ function parseRanges(hours: string): Array<{ start: number; end: number }> {
     })
 }
 
+function formatTime(minutes: number): string {
+  const h = String(Math.floor(minutes / 60)).padStart(2, '0')
+  const m = String(minutes % 60).padStart(2, '0')
+  return `${h}:${m}`
+}
+
+// Cerca la prossima apertura, oggi (se resta un turno) oppure nei giorni
+// successivi, e restituisce una frase pronta tipo "Apre oggi alle 16:00",
+// "Apre domani alle 09:00" oppure "Apre Lunedì alle 09:00".
+function getNextOpeningLabel(): string {
+  const now = new Date()
+  const nowMinutes = now.getHours() * 60 + now.getMinutes()
+  const currentIdx = todayIndex()
+
+  const today = openingHours[currentIdx]
+  if (today && !today.closed) {
+    const ranges = parseRanges(today.hours)
+    const next = ranges.find((r) => nowMinutes < r.start)
+    if (next) return `Apre oggi alle ${formatTime(next.start)}`
+  }
+
+  for (let offset = 1; offset <= 7; offset++) {
+    const idx = (currentIdx + offset) % 7
+    const day = openingHours[idx]
+    if (day && !day.closed) {
+      const ranges = parseRanges(day.hours)
+      const first = ranges[0]
+      if (first) {
+        const dayLabel = offset === 1 ? 'domani' : day.day
+        return `Apre ${dayLabel} alle ${formatTime(first.start)}`
+      }
+    }
+  }
+
+  return 'Al momento chiuso'
+}
+
 export interface OpenStatus {
   isOpen: boolean
   label: string // es. "Aperto" oppure "Chiuso"
   detail: string // es. "chiude alle 13:00" oppure "riapre alle 16:00" oppure l'orario del giorno
+  nextOpenLabel: string // es. "Apre Lunedì alle 09:00", usata quando il salone è chiuso
 }
 
 export function getOpenStatus(): OpenStatus {
   const today = openingHours[todayIndex()]
   if (!today || today.closed) {
-    return { isOpen: false, label: 'Chiuso', detail: 'Chiuso oggi' }
+    return { isOpen: false, label: 'Chiuso', detail: 'Chiuso oggi', nextOpenLabel: getNextOpeningLabel() }
   }
 
   const now = new Date()
@@ -86,20 +124,26 @@ export function getOpenStatus(): OpenStatus {
 
   const activeRange = ranges.find((r) => nowMinutes >= r.start && nowMinutes < r.end)
   if (activeRange) {
-    const h = String(Math.floor(activeRange.end / 60)).padStart(2, '0')
-    const m = String(activeRange.end % 60).padStart(2, '0')
-    return { isOpen: true, label: 'Aperto', detail: `chiude alle ${h}:${m}` }
+    return {
+      isOpen: true,
+      label: 'Aperto',
+      detail: `chiude alle ${formatTime(activeRange.end)}`,
+      nextOpenLabel: '',
+    }
   }
 
   // Non è nella fascia attuale: cerca la prossima apertura di oggi
   const nextRange = ranges.find((r) => nowMinutes < r.start)
   if (nextRange) {
-    const h = String(Math.floor(nextRange.start / 60)).padStart(2, '0')
-    const m = String(nextRange.start % 60).padStart(2, '0')
-    return { isOpen: false, label: 'Chiuso', detail: `riapre alle ${h}:${m}` }
+    return {
+      isOpen: false,
+      label: 'Chiuso',
+      detail: `riapre alle ${formatTime(nextRange.start)}`,
+      nextOpenLabel: getNextOpeningLabel(),
+    }
   }
 
-  return { isOpen: false, label: 'Chiuso', detail: today.hours }
+  return { isOpen: false, label: 'Chiuso', detail: today.hours, nextOpenLabel: getNextOpeningLabel() }
 }
 
 export interface Service {

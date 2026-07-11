@@ -73,7 +73,7 @@ const status = computed(() => getOpenStatus())
                   class="h-1.5 w-1.5 rounded-full"
                   :class="status.isOpen ? 'bg-primary' : 'bg-closed'"
                 ></span>
-                {{ status.label }} · {{ status.detail }}
+                {{ status.isOpen ? `${status.label} · ${status.detail}` : status.nextOpenLabel }}
               </span>
             </div>
             <p class="mt-6 font-display text-2xl font-bold text-foreground">Iako Style</p>
