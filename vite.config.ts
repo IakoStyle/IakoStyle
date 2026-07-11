@@ -7,9 +7,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Percorso relativo: fondamentale per GitHub Pages (es. utente.github.io/IakoStyle/)
-  // così CSS/JS/immagini si caricano correttamente da qualunque sottocartella.
-  base: './',
+  // Vercel serve sempre dalla root del dominio, quindi il base path resta '/'
+  base: '/',
   plugins: [
     vue(),
     vueDevTools(),

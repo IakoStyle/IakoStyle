@@ -18,6 +18,17 @@ bun run preview      # anteprima della build
 bun run type-check   # controllo dei tipi TypeScript
 ```
 
+## Pubblicazione (Vercel)
+
+Il sito è pensato per essere pubblicato su **Vercel**:
+
+1. Su [vercel.com](https://vercel.com) → *Add New → Project* → importa questo repository GitHub
+2. Vercel rileva automaticamente Vite: build command `bun run build` (o `vite build`), output directory `dist`
+3. Deploy — ad ogni push su `main` Vercel ripubblica automaticamente il sito
+
+Il file `vercel.json` nella root gestisce già i redirect necessari per il routing
+(così ricaricando pagine come `/listino` non si ottiene un errore 404).
+
 ## Pagine
 
 - **Home** — hero, servizi più richiesti, galleria, recensioni

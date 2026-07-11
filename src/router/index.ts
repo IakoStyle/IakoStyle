@@ -1,10 +1,8 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
-  // Hash history: funziona su qualunque hosting statico (es. GitHub Pages)
-  // senza bisogno di configurare regole server per le rotte SPA.
-  history: createWebHashHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
     return { top: 0 }
   },
