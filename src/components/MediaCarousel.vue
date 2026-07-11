@@ -2,103 +2,123 @@
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { gallery } from '@/data/media'
 
-const track = ref<HTMLElement | null>(null)
-
-// ------------------------------------------------------------------
-// Carosello manuale con loop "a ruota" in entrambe le direzioni.
-//
-// Il contenuto è ripetuto 3 volte (prima, centrale, dopo) e si parte
-// sempre al centro. Dopo ogni click, UNA SOLA correzione di posizione
-// viene programmata (con debounce: se arrivano altri click prima che
-// scatti, quella precedente viene annullata e ne resta in sospeso
-// sempre e solo una). Questo evita che più controlli si sommino e
-// mandino la posizione troppo indietro — il bug precedente.
-// ------------------------------------------------------------------
+const N = gallery.length
+// Contenuto triplicato: copia prima, centrale (quella "vera", da cui si parte),
+// copia dopo. Serve per poter scorrere all'infinito in entrambe le direzioni.
 const tripleGallery = computed(() => [...gallery, ...gallery, ...gallery])
 
-let setWidth = 0 // larghezza di una singola copia del contenuto
-let correctionTimer: ReturnType<typeof setTimeout> | null = null
+const trackEl = ref<HTMLElement | null>(null)
+const currentIndex = ref(N) // si parte dal primo elemento della copia centrale
+const transitionEnabled = ref(false) // niente animazione sul posizionamento iniziale
 
-// Esegue un cambio di scrollLeft VERAMENTE istantaneo, disattivando
-// temporaneamente lo scroll-behavior: smooth impostato via CSS
-// (classe "scroll-smooth"). Senza questo, il browser anima anche
-// l'assegnazione diretta di scrollLeft, rendendo visibile il salto
-// che dovrebbe invece essere invisibile.
-function jumpInstant(el: HTMLElement, newScrollLeft: number) {
-  const prevBehavior = el.style.scrollBehavior
-  el.style.scrollBehavior = 'auto'
-  el.scrollLeft = newScrollLeft
-  void el.offsetHeight // forza il browser ad applicare il cambio prima di ripristinare lo smooth
-  el.style.scrollBehavior = prevBehavior
-}
+let itemStep = 0 // larghezza di un elemento + gap, in pixel
 
-function measure() {
-  const el = track.value
+function measureStep() {
+  const el = trackEl.value
   if (!el) return
-  setWidth = el.scrollWidth / 3
+  const first = el.children[0] as HTMLElement | undefined
+  if (!first) return
+  const style = getComputedStyle(el)
+  const gap = parseFloat(style.columnGap || (style as unknown as { gap: string }).gap || '0') || 0
+  itemStep = first.getBoundingClientRect().width + gap
 }
 
-function centerInstant() {
-  const el = track.value
-  if (!el || !setWidth) return
-  jumpInstant(el, setWidth)
-}
+// Offset di trascinamento manuale (drag/swipe), sommato alla posizione
+// durante il gesto, per far seguire il dito/il cursore in tempo reale.
+const dragOffset = ref(0)
 
-// Programma un unico controllo di posizione, da eseguire dopo che lo
-// scroll "smooth" si è fermato. Se viene richiamata di nuovo prima che
-// scatti, quella precedente viene annullata: resta sempre e solo
-// un controllo in sospeso, mai più di uno.
-function scheduleCorrection() {
-  const el = track.value
-  if (!el) return
-  if (correctionTimer) clearTimeout(correctionTimer)
-  correctionTimer = setTimeout(() => {
-    correctionTimer = null
-    if (!setWidth) measure()
-    if (!setWidth) return
-    if (el.scrollLeft >= setWidth * 2) {
-      jumpInstant(el, el.scrollLeft - setWidth)
-    } else if (el.scrollLeft < setWidth) {
-      jumpInstant(el, el.scrollLeft + setWidth)
-    }
-  }, 450) // copre la durata tipica dell'animazione "smooth"
-}
+const trackStyle = computed(() => ({
+  transform: `translateX(calc(-${currentIndex.value * itemStep}px + ${dragOffset.value}px))`,
+  transition: transitionEnabled.value ? 'transform 450ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
+}))
 
 function next() {
-  const el = track.value
-  if (!el) return
-  el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' })
-  scheduleCorrection()
+  currentIndex.value += 1
 }
-
 function prev() {
-  const el = track.value
-  if (!el) return
-  el.scrollBy({ left: -el.clientWidth * 0.8, behavior: 'smooth' })
-  scheduleCorrection()
+  currentIndex.value -= 1
 }
 
-function handleResize() {
-  const el = track.value
-  if (!el) return
-  measure()
-  // Ricentra solo se siamo usciti parecchio dal centro, per non
-  // interferire mentre l'utente sta scorrendo.
-  if (el.scrollLeft < setWidth * 0.5 || el.scrollLeft > setWidth * 1.5) {
-    centerInstant()
+// Al termine di ogni animazione, se siamo entrati in una delle due copie
+// duplicate, ci "teletrasportiamo" alla posizione equivalente nella copia
+// centrale — con la transizione disattivata, quindi in modo istantaneo e
+// invisibile (il contenuto è identico). Usiamo l'evento nativo
+// 'transitionend': scatta una sola volta per ogni animazione completata,
+// quindi nessun rischio che più correzioni si sommino.
+function handleTransitionEnd(e: TransitionEvent) {
+  if (e.propertyName !== 'transform') return
+
+  if (currentIndex.value >= N * 2) {
+    transitionEnabled.value = false
+    currentIndex.value -= N
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        transitionEnabled.value = true
+      })
+    })
+  } else if (currentIndex.value < N) {
+    transitionEnabled.value = false
+    currentIndex.value += N
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        transitionEnabled.value = true
+      })
+    })
   }
 }
 
+// --- Trascinamento manuale (swipe su mobile, drag col mouse) ---
+let dragStartX = 0
+let isDragging = false
+const DRAG_THRESHOLD = 40 // px minimi di trascinamento per cambiare elemento
+
+function onPointerDown(e: PointerEvent) {
+  isDragging = true
+  dragStartX = e.clientX
+  transitionEnabled.value = false
+  ;(e.target as HTMLElement).setPointerCapture?.(e.pointerId)
+}
+
+function onPointerMove(e: PointerEvent) {
+  if (!isDragging) return
+  dragOffset.value = e.clientX - dragStartX
+}
+
+function onPointerUp() {
+  if (!isDragging) return
+  isDragging = false
+
+  const delta = dragOffset.value
+  dragOffset.value = 0
+  transitionEnabled.value = true
+
+  if (delta <= -DRAG_THRESHOLD) {
+    next()
+  } else if (delta >= DRAG_THRESHOLD) {
+    prev()
+  }
+  // altrimenti (trascinamento troppo piccolo) si riassesta sull'elemento corrente
+}
+
+let resizeObserver: ResizeObserver | null = null
+
 onMounted(async () => {
   await nextTick()
-  measure()
-  centerInstant()
-  window.addEventListener('resize', handleResize)
+  measureStep()
+  // Attiva l'animazione solo DOPO aver applicato la posizione iniziale,
+  // altrimenti il primo posizionamento verrebbe animato da 0.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      transitionEnabled.value = true
+    })
+  })
+
+  resizeObserver = new ResizeObserver(() => measureStep())
+  if (trackEl.value) resizeObserver.observe(trackEl.value)
 })
 
 onUnmounted(() => {
-  if (correctionTimer) clearTimeout(correctionTimer)
-  window.removeEventListener('resize', handleResize)
+  resizeObserver?.disconnect()
 })
 
 const tintMap: Record<string, string> = {
@@ -126,60 +146,69 @@ const tintMap: Record<string, string> = {
       <font-awesome-icon :icon="['fas', 'arrow-right']" />
     </button>
 
-    <!-- Track scrollabile: contenuto triplicato per il loop in entrambe le direzioni -->
-    <div
-      ref="track"
-      class="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2"
-    >
+    <!-- Finestra visibile: il track scorre tramite transform, non scroll nativo -->
+    <div class="overflow-hidden">
       <div
-        v-for="(item, i) in tripleGallery"
-        :key="i"
-        class="relative aspect-[4/5] w-[78%] shrink-0 snap-center overflow-hidden rounded-xl border border-border sm:w-[46%] lg:w-[31%]"
-        :aria-hidden="i < gallery.length || i >= gallery.length * 2"
+        ref="trackEl"
+        class="flex gap-4 pb-2 will-change-transform"
+        :style="trackStyle"
+        @transitionend="handleTransitionEnd"
+        @pointerdown="onPointerDown"
+        @pointermove="onPointerMove"
+        @pointerup="onPointerUp"
+        @pointercancel="onPointerUp"
       >
-        <!-- MEDIA REALE -->
-        <template v-if="!item.placeholder">
-          <img
-            v-if="item.type === 'image'"
-            :src="item.src"
-            :alt="item.alt || 'Foto Iako Style'"
-            class="h-full w-full object-cover"
-            loading="lazy"
-          />
-          <video
-            v-else
-            :src="item.src"
-            :poster="item.poster"
-            class="h-full w-full object-cover"
-            controls
-            playsinline
-          ></video>
-        </template>
-
-        <!-- SEGNAPOSTO (in attesa dei media) -->
         <div
-          v-else
-          class="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br p-6 text-center"
-          :class="tintMap[item.tint || 'mint']"
+          v-for="(item, i) in tripleGallery"
+          :key="i"
+          class="relative aspect-[4/5] w-[78%] shrink-0 select-none overflow-hidden rounded-xl border border-border sm:w-[46%] lg:w-[31%]"
+          :aria-hidden="i < N || i >= N * 2"
         >
-          <div class="flex h-14 w-14 items-center justify-center rounded-full bg-surface/70 text-primary">
-            <font-awesome-icon
-              :icon="item.type === 'video' ? ['fas', 'play'] : ['fas', 'images']"
-              class="text-xl"
+          <!-- MEDIA REALE -->
+          <template v-if="!item.placeholder">
+            <img
+              v-if="item.type === 'image'"
+              :src="item.src"
+              :alt="item.alt || 'Foto Iako Style'"
+              class="h-full w-full object-cover"
+              loading="lazy"
+              draggable="false"
             />
-          </div>
-          <p class="font-display font-semibold text-foreground">{{ item.caption }}</p>
-          <span class="rounded-full bg-surface/80 px-3 py-1 text-xs font-bold text-muted">
-            {{ item.type === 'video' ? 'Video in arrivo' : 'Foto in arrivo' }}
-          </span>
-        </div>
+            <video
+              v-else
+              :src="item.src"
+              :poster="item.poster"
+              class="h-full w-full object-cover"
+              controls
+              playsinline
+            ></video>
+          </template>
 
-        <!-- Etichetta caption su media reale -->
-        <div
-          v-if="!item.placeholder && item.caption"
-          class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent p-4"
-        >
-          <p class="font-display font-semibold text-white">{{ item.caption }}</p>
+          <!-- SEGNAPOSTO (in attesa dei media) -->
+          <div
+            v-else
+            class="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br p-6 text-center"
+            :class="tintMap[item.tint || 'mint']"
+          >
+            <div class="flex h-14 w-14 items-center justify-center rounded-full bg-surface/70 text-primary">
+              <font-awesome-icon
+                :icon="item.type === 'video' ? ['fas', 'play'] : ['fas', 'images']"
+                class="text-xl"
+              />
+            </div>
+            <p class="font-display font-semibold text-foreground">{{ item.caption }}</p>
+            <span class="rounded-full bg-surface/80 px-3 py-1 text-xs font-bold text-muted">
+              {{ item.type === 'video' ? 'Video in arrivo' : 'Foto in arrivo' }}
+            </span>
+          </div>
+
+          <!-- Etichetta caption su media reale -->
+          <div
+            v-if="!item.placeholder && item.caption"
+            class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent p-4"
+          >
+            <p class="font-display font-semibold text-white">{{ item.caption }}</p>
+          </div>
         </div>
       </div>
     </div>
