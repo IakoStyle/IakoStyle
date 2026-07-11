@@ -76,7 +76,7 @@ function onPointerDown(e: PointerEvent) {
   isDragging = true
   dragStartX = e.clientX
   transitionEnabled.value = false
-  ;(e.target as HTMLElement).setPointerCapture?.(e.pointerId)
+  ;(e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId)
 }
 
 function onPointerMove(e: PointerEvent) {
@@ -150,7 +150,7 @@ const tintMap: Record<string, string> = {
     <div class="overflow-hidden">
       <div
         ref="trackEl"
-        class="flex gap-4 pb-2 will-change-transform"
+        class="flex gap-4 pb-2 will-change-transform touch-pan-y select-none"
         :style="trackStyle"
         @transitionend="handleTransitionEnd"
         @pointerdown="onPointerDown"
