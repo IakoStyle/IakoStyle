@@ -73,8 +73,7 @@ let isDragging = false
 const DRAG_THRESHOLD = 40 // px minimi di trascinamento per cambiare elemento
 
 // Decide se, in base allo spostamento accumulato, cambiare elemento
-// oppure tornare semplicemente alla posizione attuale. Usata sia dal
-// trascinamento (touch/mouse) sia dallo swipe del touchpad.
+// oppure tornare semplicemente alla posizione attuale.
 function finalizeDrag() {
   const delta = dragOffset.value
   dragOffset.value = 0
@@ -106,31 +105,6 @@ function onPointerUp() {
   finalizeDrag()
 }
 
-// --- Swipe con il touchpad (trackpad di un portatile) ---
-// Un gesto a due dita sul touchpad NON genera eventi touch/pointer come
-// su uno smartphone: genera eventi "wheel" con deltaX per la componente
-// orizzontale. Li accumuliamo mentre il gesto è in corso (per un feedback
-// visivo fluido, uguale al trascinamento) e, dopo una breve pausa senza
-// nuovi eventi (= gesto terminato), decidiamo se cambiare elemento.
-let wheelEndTimer: ReturnType<typeof setTimeout> | null = null
-
-function onWheel(e: WheelEvent) {
-  // Reagisce solo se il gesto è prevalentemente orizzontale, per non
-  // rubare lo scroll verticale della pagina quando si passa sopra
-  // il carosello con la rotellina del mouse.
-  if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return
-
-  e.preventDefault()
-  transitionEnabled.value = false
-  dragOffset.value -= e.deltaX
-
-  if (wheelEndTimer) clearTimeout(wheelEndTimer)
-  wheelEndTimer = setTimeout(() => {
-    wheelEndTimer = null
-    finalizeDrag()
-  }, 150) // trascorso senza nuovi eventi "wheel" = gesto concluso
-}
-
 let resizeObserver: ResizeObserver | null = null
 
 onMounted(async () => {
@@ -150,7 +124,6 @@ onMounted(async () => {
 
 onUnmounted(() => {
   resizeObserver?.disconnect()
-  if (wheelEndTimer) clearTimeout(wheelEndTimer)
 })
 
 const tintMap: Record<string, string> = {
@@ -189,7 +162,6 @@ const tintMap: Record<string, string> = {
         @pointermove="onPointerMove"
         @pointerup="onPointerUp"
         @pointercancel="onPointerUp"
-        @wheel="onWheel"
       >
         <div
           v-for="(item, i) in tripleGallery"
