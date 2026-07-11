@@ -19,6 +19,19 @@ const tripleGallery = computed(() => [...gallery, ...gallery, ...gallery])
 let setWidth = 0 // larghezza di una singola copia del contenuto
 let correctionTimer: ReturnType<typeof setTimeout> | null = null
 
+// Esegue un cambio di scrollLeft VERAMENTE istantaneo, disattivando
+// temporaneamente lo scroll-behavior: smooth impostato via CSS
+// (classe "scroll-smooth"). Senza questo, il browser anima anche
+// l'assegnazione diretta di scrollLeft, rendendo visibile il salto
+// che dovrebbe invece essere invisibile.
+function jumpInstant(el: HTMLElement, newScrollLeft: number) {
+  const prevBehavior = el.style.scrollBehavior
+  el.style.scrollBehavior = 'auto'
+  el.scrollLeft = newScrollLeft
+  void el.offsetHeight // forza il browser ad applicare il cambio prima di ripristinare lo smooth
+  el.style.scrollBehavior = prevBehavior
+}
+
 function measure() {
   const el = track.value
   if (!el) return
@@ -28,7 +41,7 @@ function measure() {
 function centerInstant() {
   const el = track.value
   if (!el || !setWidth) return
-  el.scrollLeft = setWidth
+  jumpInstant(el, setWidth)
 }
 
 // Programma un unico controllo di posizione, da eseguire dopo che lo
@@ -44,9 +57,9 @@ function scheduleCorrection() {
     if (!setWidth) measure()
     if (!setWidth) return
     if (el.scrollLeft >= setWidth * 2) {
-      el.scrollLeft -= setWidth
+      jumpInstant(el, el.scrollLeft - setWidth)
     } else if (el.scrollLeft < setWidth) {
-      el.scrollLeft += setWidth
+      jumpInstant(el, el.scrollLeft + setWidth)
     }
   }, 450) // copre la durata tipica dell'animazione "smooth"
 }
