@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { salon, socials, openingHours, todayIndex } from '@/data/salon'
+import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
 
 const idx = todayIndex()
+const status = computed(() => getOpenStatus())
 
 const mapsEmbed = computed(
   () => `https://www.google.com/maps?q=${encodeURIComponent(salon.mapsQuery)}&output=embed`,
@@ -64,17 +65,26 @@ const mapsLink = computed(
 
     <!-- ORARI -->
     <div class="rounded-xl border border-border bg-surface p-6">
-      <div class="flex items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-          <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-soft text-primary">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary-soft text-primary">
             <font-awesome-icon :icon="['fas', 'clock']" />
           </span>
           <h2 class="font-display text-xl font-bold text-foreground">Orari</h2>
         </div>
-        <span class="flex items-center gap-1.5 rounded-full bg-gold-soft px-3 py-1 text-xs font-bold text-gold">
-          <font-awesome-icon :icon="['fas', 'sun']" />
-          {{ salon.seasonLabel }}
-        </span>
+        <div class="flex flex-wrap items-center gap-2">
+          <span
+            class="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold"
+            :class="status.isOpen ? 'bg-primary-soft text-primary' : 'bg-closed-soft text-closed'"
+          >
+            <span class="h-1.5 w-1.5 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
+            {{ status.label }} · {{ status.detail }}
+          </span>
+          <span class="flex items-center gap-1.5 rounded-full bg-gold-soft px-3 py-1 text-xs font-bold text-gold">
+            <font-awesome-icon :icon="['fas', 'sun']" />
+            {{ salon.seasonLabel }}
+          </span>
+        </div>
       </div>
       <ul class="mt-5 space-y-1.5">
         <li
@@ -88,7 +98,7 @@ const mapsLink = computed(
             {{ d.day }}
             <span v-if="i === idx" class="rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-white">Oggi</span>
           </span>
-          <span class="text-right" :class="d.closed ? 'text-muted' : ''">{{ d.hours }}</span>
+          <span class="text-right" :class="d.closed ? 'font-bold text-closed' : ''">{{ d.hours }}</span>
         </li>
       </ul>
     </div>

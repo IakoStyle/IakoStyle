@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import { salon, socials, openingHours, todayIndex } from '@/data/salon'
+import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/salon'
 import logoUrl from '@/assets/logo-iako.jpg'
 
 const idx = todayIndex()
+const status = computed(() => getOpenStatus())
 </script>
 
 <template>
@@ -62,9 +64,18 @@ const idx = todayIndex()
       <!-- Orari -->
       <div>
         <h3 class="font-display font-bold text-foreground">Orari</h3>
-        <p class="mt-1 flex items-center gap-1.5 text-xs font-bold text-gold">
-          <font-awesome-icon :icon="['fas', 'sun']" />
-          {{ salon.seasonLabel }}
+        <p class="mt-1 flex flex-wrap items-center gap-2">
+          <span
+            class="flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold"
+            :class="status.isOpen ? 'bg-primary-soft text-primary' : 'bg-closed-soft text-closed'"
+          >
+            <span class="h-1.5 w-1.5 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
+            {{ status.label }}
+          </span>
+          <span class="flex items-center gap-1.5 text-xs font-bold text-gold">
+            <font-awesome-icon :icon="['fas', 'sun']" />
+            {{ salon.seasonLabel }}
+          </span>
         </p>
         <ul class="mt-3 space-y-1.5 text-xs">
           <li
@@ -74,7 +85,7 @@ const idx = todayIndex()
             :class="i === idx ? 'bg-primary-soft font-bold text-primary' : 'text-muted'"
           >
             <span>{{ d.day }}</span>
-            <span class="text-right">{{ d.hours }}</span>
+            <span class="text-right" :class="d.closed ? 'font-bold text-closed' : ''">{{ d.hours }}</span>
           </li>
         </ul>
       </div>

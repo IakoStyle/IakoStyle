@@ -48,6 +48,60 @@ export function todayIndex(): number {
   return d === 0 ? 6 : d - 1
 }
 
+// ---- Stato apertura in tempo reale -------------------------------------
+// Analizza stringhe come "09:00 – 13:00" o turno spezzato
+// "09:00 – 13:00 / 16:00 – 20:30" e le confronta con l'orario attuale.
+
+function parseRanges(hours: string): Array<{ start: number; end: number }> {
+  return hours
+    .split('/')
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => {
+      const [startStr, endStr] = part.split('–').map((t) => t.trim())
+      const toMinutes = (t?: string) => {
+        if (!t) return 0
+        const [h, m] = t.split(':').map(Number)
+        return (h ?? 0) * 60 + (m ?? 0)
+      }
+      return { start: toMinutes(startStr), end: toMinutes(endStr) }
+    })
+}
+
+export interface OpenStatus {
+  isOpen: boolean
+  label: string // es. "Aperto" oppure "Chiuso"
+  detail: string // es. "chiude alle 13:00" oppure "riapre alle 16:00" oppure l'orario del giorno
+}
+
+export function getOpenStatus(): OpenStatus {
+  const today = openingHours[todayIndex()]
+  if (!today || today.closed) {
+    return { isOpen: false, label: 'Chiuso', detail: 'Chiuso oggi' }
+  }
+
+  const now = new Date()
+  const nowMinutes = now.getHours() * 60 + now.getMinutes()
+  const ranges = parseRanges(today.hours)
+
+  const activeRange = ranges.find((r) => nowMinutes >= r.start && nowMinutes < r.end)
+  if (activeRange) {
+    const h = String(Math.floor(activeRange.end / 60)).padStart(2, '0')
+    const m = String(activeRange.end % 60).padStart(2, '0')
+    return { isOpen: true, label: 'Aperto', detail: `chiude alle ${h}:${m}` }
+  }
+
+  // Non è nella fascia attuale: cerca la prossima apertura di oggi
+  const nextRange = ranges.find((r) => nowMinutes < r.start)
+  if (nextRange) {
+    const h = String(Math.floor(nextRange.start / 60)).padStart(2, '0')
+    const m = String(nextRange.start % 60).padStart(2, '0')
+    return { isOpen: false, label: 'Chiuso', detail: `riapre alle ${h}:${m}` }
+  }
+
+  return { isOpen: false, label: 'Chiuso', detail: today.hours }
+}
+
 export interface Service {
   name: string
   duration: string

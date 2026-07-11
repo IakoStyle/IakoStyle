@@ -17,6 +17,8 @@
   --color-gold-soft: #f2e8cf;      /* oro chiarissimo */
   --color-accent: #46b1cd;         /* celestino di supporto */
   --color-accent-soft: #d7eef5;    /* celestino chiarissimo */
+  --color-closed: #b3423a;         /* rosso per lo stato "chiuso" */
+  --color-closed-soft: #f6dedd;    /* rosso chiarissimo */
 
   --color-background: #faf8f4;      /* sfondo pagina, tono avorio/marmo */
   --color-surface: #ffffff;         /* card / superfici */
@@ -40,6 +42,8 @@
   --color-gold-soft: #38311d;
   --color-accent: #5cc4de;
   --color-accent-soft: #123a44;
+  --color-closed: #e0776e;
+  --color-closed-soft: #3a1c19;
 
   --color-background: #14201d;
   --color-surface: #1b2b27;

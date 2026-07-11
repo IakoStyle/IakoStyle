@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import { salon, services, macroServices, reviews, openingHours, todayIndex } from '@/data/salon'
+import { salon, services, macroServices, reviews, getOpenStatus } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
 import MediaCarousel from '@/components/MediaCarousel.vue'
 import ServiceCard from '@/components/ServiceCard.vue'
@@ -10,9 +10,7 @@ import StarRating from '@/components/StarRating.vue'
 
 const featured = services.filter((s) => s.featured)
 
-const today = computed(
-  () => openingHours[todayIndex()] ?? { day: '', hours: '', closed: true },
-)
+const status = computed(() => getOpenStatus())
 </script>
 
 <template>
@@ -68,10 +66,14 @@ const today = computed(
                 <img src="@/assets/logo-iako.jpg" alt="Iako Style" class="h-full w-full object-contain" />
               </span>
               <span
-                class="rounded-full px-3 py-1 text-xs font-bold"
-                :class="today.closed ? 'bg-surface-2 text-muted' : 'bg-primary-soft text-primary'"
+                class="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold"
+                :class="status.isOpen ? 'bg-primary-soft text-primary' : 'bg-closed-soft text-closed'"
               >
-                {{ today.closed ? 'Chiuso oggi' : 'Oggi ' + today.hours }}
+                <span
+                  class="h-1.5 w-1.5 rounded-full"
+                  :class="status.isOpen ? 'bg-primary' : 'bg-closed'"
+                ></span>
+                {{ status.label }} · {{ status.detail }}
               </span>
             </div>
             <p class="mt-6 font-display text-2xl font-bold text-foreground">Iako Style</p>
