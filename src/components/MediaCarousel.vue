@@ -1,15 +1,72 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { gallery } from '@/data/media'
 
 const track = ref<HTMLElement | null>(null)
 
-function scrollByDir(dir: 1 | -1) {
+const AUTOPLAY_DELAY = 3800 // ms tra un avanzamento automatico e il successivo
+const RESUME_DELAY = 5000 // ms di pausa dopo un'interazione manuale, prima di ripartire
+
+let autoplayTimer: ReturnType<typeof setInterval> | null = null
+let resumeTimer: ReturnType<typeof setTimeout> | null = null
+const prefersReducedMotion =
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+// Avanza di uno "schermo"; se ha già raggiunto la fine, torna dolcemente
+// all'inizio invece di restare bloccato sull'ultimo elemento.
+function advance(dir: 1 | -1 = 1) {
   const el = track.value
   if (!el) return
-  const amount = el.clientWidth * 0.8 * dir
-  el.scrollBy({ left: amount, behavior: 'smooth' })
+
+  const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4
+  const atStart = el.scrollLeft <= 4
+
+  if (dir === 1 && atEnd) {
+    el.scrollTo({ left: 0, behavior: 'smooth' })
+    return
+  }
+  if (dir === -1 && atStart) {
+    el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' })
+    return
+  }
+
+  el.scrollBy({ left: el.clientWidth * 0.8 * dir, behavior: 'smooth' })
 }
+
+function startAutoplay() {
+  if (prefersReducedMotion) return
+  stopAutoplay()
+  autoplayTimer = setInterval(() => advance(1), AUTOPLAY_DELAY)
+}
+
+function stopAutoplay() {
+  if (autoplayTimer) {
+    clearInterval(autoplayTimer)
+    autoplayTimer = null
+  }
+}
+
+// Quando l'utente interagisce manualmente, mettiamo in pausa l'autoplay
+// e lo facciamo ripartire dopo un breve momento di tranquillità.
+function pauseThenResume() {
+  stopAutoplay()
+  if (resumeTimer) clearTimeout(resumeTimer)
+  resumeTimer = setTimeout(startAutoplay, RESUME_DELAY)
+}
+
+function scrollByDir(dir: 1 | -1) {
+  advance(dir)
+  pauseThenResume()
+}
+
+onMounted(() => {
+  startAutoplay()
+})
+
+onUnmounted(() => {
+  stopAutoplay()
+  if (resumeTimer) clearTimeout(resumeTimer)
+})
 
 const tintMap: Record<string, string> = {
   mint: 'from-primary-soft to-accent-soft',
@@ -19,7 +76,12 @@ const tintMap: Record<string, string> = {
 </script>
 
 <template>
-  <div class="relative">
+  <div
+    class="relative"
+    @mouseenter="stopAutoplay"
+    @mouseleave="startAutoplay"
+    @touchstart.passive="pauseThenResume"
+  >
     <!-- Frecce (desktop) -->
     <button
       class="absolute -left-3 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface text-foreground shadow-md transition-all hover:bg-primary hover:text-surface md:flex"
@@ -62,6 +124,8 @@ const tintMap: Record<string, string> = {
             class="h-full w-full object-cover"
             controls
             playsinline
+            @play="stopAutoplay"
+            @pause="pauseThenResume"
           ></video>
         </template>
 
