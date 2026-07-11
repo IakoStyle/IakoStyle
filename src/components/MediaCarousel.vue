@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { gallery } from '@/data/media'
 
 const track = ref<HTMLElement | null>(null)
@@ -12,24 +12,45 @@ let resumeTimer: ReturnType<typeof setTimeout> | null = null
 const prefersReducedMotion =
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-// Avanza di uno "schermo"; se ha già raggiunto la fine, torna dolcemente
-// all'inizio invece di restare bloccato sull'ultimo elemento.
+// ------------------------------------------------------------------
+// Loop infinito "a ruota": il contenuto è ripetuto 3 volte di fila.
+// Si parte al centro (copia 1). Uno scroll listener controlla in
+// continuazione la posizione: appena si esce dalla copia centrale
+// (avanti o indietro), la posizione viene "teletrasportata" di uno
+// spessore esatto nella copia equivalente — invisibile, perché il
+// contenuto è identico. Il risultato: si può scorrere sempre nella
+// stessa direzione, senza mai fermarsi o tornare indietro.
+// ------------------------------------------------------------------
+const tripleGallery = computed(() => [...gallery, ...gallery, ...gallery])
+
+let setWidth = 0 // larghezza di una singola copia del contenuto
+
+function measureSetWidth() {
+  const el = track.value
+  if (!el) return
+  setWidth = el.scrollWidth / 3
+}
+
+function centerTrack(instant = true) {
+  const el = track.value
+  if (!el || !setWidth) return
+  el.scrollTo({ left: setWidth, behavior: instant ? 'auto' : 'smooth' })
+}
+
+function handleScroll() {
+  const el = track.value
+  if (!el || !setWidth) return
+
+  if (el.scrollLeft >= setWidth * 2) {
+    el.scrollLeft -= setWidth
+  } else if (el.scrollLeft < setWidth) {
+    el.scrollLeft += setWidth
+  }
+}
+
 function advance(dir: 1 | -1 = 1) {
   const el = track.value
   if (!el) return
-
-  const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4
-  const atStart = el.scrollLeft <= 4
-
-  if (dir === 1 && atEnd) {
-    el.scrollTo({ left: 0, behavior: 'smooth' })
-    return
-  }
-  if (dir === -1 && atStart) {
-    el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' })
-    return
-  }
-
   el.scrollBy({ left: el.clientWidth * 0.8 * dir, behavior: 'smooth' })
 }
 
@@ -59,13 +80,29 @@ function scrollByDir(dir: 1 | -1) {
   pauseThenResume()
 }
 
-onMounted(() => {
+let resizeObserver: ResizeObserver | null = null
+
+onMounted(async () => {
+  await nextTick()
+  measureSetWidth()
+  centerTrack(true)
+  track.value?.addEventListener('scroll', handleScroll, { passive: true })
+
+  // Ricalcola se cambiano le dimensioni (resize, cambio breakpoint, font caricati)
+  resizeObserver = new ResizeObserver(() => {
+    measureSetWidth()
+    centerTrack(true)
+  })
+  if (track.value) resizeObserver.observe(track.value)
+
   startAutoplay()
 })
 
 onUnmounted(() => {
   stopAutoplay()
   if (resumeTimer) clearTimeout(resumeTimer)
+  track.value?.removeEventListener('scroll', handleScroll)
+  resizeObserver?.disconnect()
 })
 
 const tintMap: Record<string, string> = {
@@ -98,15 +135,16 @@ const tintMap: Record<string, string> = {
       <font-awesome-icon :icon="['fas', 'arrow-right']" />
     </button>
 
-    <!-- Track scrollabile -->
+    <!-- Track scrollabile: contenuto triplicato per il loop infinito -->
     <div
       ref="track"
       class="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2"
     >
       <div
-        v-for="(item, i) in gallery"
+        v-for="(item, i) in tripleGallery"
         :key="i"
         class="relative aspect-[4/5] w-[78%] shrink-0 snap-center overflow-hidden rounded-xl border border-border sm:w-[46%] lg:w-[31%]"
+        :aria-hidden="i < gallery.length || i >= gallery.length * 2"
       >
         <!-- MEDIA REALE -->
         <template v-if="!item.placeholder">
