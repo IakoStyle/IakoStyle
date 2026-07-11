@@ -1,108 +1,71 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { gallery } from '@/data/media'
 
 const track = ref<HTMLElement | null>(null)
 
-const AUTOPLAY_DELAY = 3800 // ms tra un avanzamento automatico e il successivo
-const RESUME_DELAY = 5000 // ms di pausa dopo un'interazione manuale, prima di ripartire
-
-let autoplayTimer: ReturnType<typeof setInterval> | null = null
-let resumeTimer: ReturnType<typeof setTimeout> | null = null
-const prefersReducedMotion =
-  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
 // ------------------------------------------------------------------
-// Loop infinito "a ruota": il contenuto è ripetuto 3 volte di fila.
-// Si parte al centro (copia 1). Uno scroll listener controlla in
-// continuazione la posizione: appena si esce dalla copia centrale
-// (avanti o indietro), la posizione viene "teletrasportata" di uno
-// spessore esatto nella copia equivalente — invisibile, perché il
-// contenuto è identico. Il risultato: si può scorrere sempre nella
-// stessa direzione, senza mai fermarsi o tornare indietro.
+// Carosello COMPLETAMENTE MANUALE: nessun autoplay, nessun timer,
+// nessun monitoraggio continuo dello scroll. Si muove solo quando
+// l'utente clicca una freccia (o scorre a mano su mobile).
+//
+// Il contenuto è ripetuto 2 volte di fila, così cliccando "avanti"
+// dall'ultima foto si continua a scorrere in avanti nella copia
+// duplicata (identica) invece di animare un salto all'indietro.
+// Una volta che l'animazione si è fermata, la posizione viene
+// "teletrasportata" UNA SOLA VOLTA e in modo istantaneo all'inizio
+// della copia originale — invisibile, perché il contenuto è identico.
+// Nessun controllo continuo => nessun rischio di sfarfallio.
 // ------------------------------------------------------------------
-const tripleGallery = computed(() => [...gallery, ...gallery, ...gallery])
+const doubleGallery = computed(() => [...gallery, ...gallery])
 
 let setWidth = 0 // larghezza di una singola copia del contenuto
 
 function measureSetWidth() {
   const el = track.value
   if (!el) return
-  setWidth = el.scrollWidth / 3
+  setWidth = el.scrollWidth / 2
 }
 
-function centerTrack(instant = true) {
-  const el = track.value
-  if (!el || !setWidth) return
-  el.scrollTo({ left: setWidth, behavior: instant ? 'auto' : 'smooth' })
-}
-
-function handleScroll() {
-  const el = track.value
-  if (!el || !setWidth) return
-
-  if (el.scrollLeft >= setWidth * 2) {
-    el.scrollLeft -= setWidth
-  } else if (el.scrollLeft < setWidth) {
-    el.scrollLeft += setWidth
-  }
-}
-
-function advance(dir: 1 | -1 = 1) {
+function settleAfterScroll(cb: () => void) {
   const el = track.value
   if (!el) return
-  el.scrollBy({ left: el.clientWidth * 0.8 * dir, behavior: 'smooth' })
-}
-
-function startAutoplay() {
-  if (prefersReducedMotion) return
-  stopAutoplay()
-  autoplayTimer = setInterval(() => advance(1), AUTOPLAY_DELAY)
-}
-
-function stopAutoplay() {
-  if (autoplayTimer) {
-    clearInterval(autoplayTimer)
-    autoplayTimer = null
+  // Preferisce l'evento nativo 'scrollend' quando disponibile;
+  // altrimenti un timeout che copre la durata dello scroll "smooth".
+  if ('onscrollend' in el) {
+    el.addEventListener('scrollend', cb, { once: true })
+  } else {
+    setTimeout(cb, 500)
   }
 }
 
-// Quando l'utente interagisce manualmente, mettiamo in pausa l'autoplay
-// e lo facciamo ripartire dopo un breve momento di tranquillità.
-function pauseThenResume() {
-  stopAutoplay()
-  if (resumeTimer) clearTimeout(resumeTimer)
-  resumeTimer = setTimeout(startAutoplay, RESUME_DELAY)
+function next() {
+  const el = track.value
+  if (!el) return
+  el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' })
+  settleAfterScroll(() => {
+    if (!setWidth) measureSetWidth()
+    if (el.scrollLeft >= setWidth) {
+      el.scrollLeft -= setWidth // salto istantaneo, invisibile
+    }
+  })
 }
 
-function scrollByDir(dir: 1 | -1) {
-  advance(dir)
-  pauseThenResume()
+function prev() {
+  const el = track.value
+  if (!el) return
+  el.scrollBy({ left: -el.clientWidth * 0.8, behavior: 'smooth' })
+  settleAfterScroll(() => {
+    if (!setWidth) measureSetWidth()
+    if (el.scrollLeft <= 0) {
+      el.scrollLeft = setWidth // salto all'ultima copia originale
+    }
+  })
 }
-
-let resizeObserver: ResizeObserver | null = null
 
 onMounted(async () => {
   await nextTick()
   measureSetWidth()
-  centerTrack(true)
-  track.value?.addEventListener('scroll', handleScroll, { passive: true })
-
-  // Ricalcola se cambiano le dimensioni (resize, cambio breakpoint, font caricati)
-  resizeObserver = new ResizeObserver(() => {
-    measureSetWidth()
-    centerTrack(true)
-  })
-  if (track.value) resizeObserver.observe(track.value)
-
-  startAutoplay()
-})
-
-onUnmounted(() => {
-  stopAutoplay()
-  if (resumeTimer) clearTimeout(resumeTimer)
-  track.value?.removeEventListener('scroll', handleScroll)
-  resizeObserver?.disconnect()
 })
 
 const tintMap: Record<string, string> = {
@@ -113,38 +76,33 @@ const tintMap: Record<string, string> = {
 </script>
 
 <template>
-  <div
-    class="relative"
-    @mouseenter="stopAutoplay"
-    @mouseleave="startAutoplay"
-    @touchstart.passive="pauseThenResume"
-  >
+  <div class="relative">
     <!-- Frecce (desktop) -->
     <button
       class="absolute -left-3 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface text-foreground shadow-md transition-all hover:bg-primary hover:text-surface md:flex"
       aria-label="Elemento precedente"
-      @click="scrollByDir(-1)"
+      @click="prev"
     >
       <font-awesome-icon :icon="['fas', 'arrow-left']" />
     </button>
     <button
       class="absolute -right-3 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface text-foreground shadow-md transition-all hover:bg-primary hover:text-surface md:flex"
       aria-label="Elemento successivo"
-      @click="scrollByDir(1)"
+      @click="next"
     >
       <font-awesome-icon :icon="['fas', 'arrow-right']" />
     </button>
 
-    <!-- Track scrollabile: contenuto triplicato per il loop infinito -->
+    <!-- Track scrollabile: contenuto duplicato per il loop in avanti -->
     <div
       ref="track"
       class="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2"
     >
       <div
-        v-for="(item, i) in tripleGallery"
+        v-for="(item, i) in doubleGallery"
         :key="i"
         class="relative aspect-[4/5] w-[78%] shrink-0 snap-center overflow-hidden rounded-xl border border-border sm:w-[46%] lg:w-[31%]"
-        :aria-hidden="i < gallery.length || i >= gallery.length * 2"
+        :aria-hidden="i >= gallery.length"
       >
         <!-- MEDIA REALE -->
         <template v-if="!item.placeholder">
@@ -162,8 +120,6 @@ const tintMap: Record<string, string> = {
             class="h-full w-full object-cover"
             controls
             playsinline
-            @play="stopAutoplay"
-            @pause="pauseThenResume"
           ></video>
         </template>
 
