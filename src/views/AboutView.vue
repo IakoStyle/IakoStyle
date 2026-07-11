@@ -4,6 +4,7 @@ import { salon, team } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
 import StarRating from '@/components/StarRating.vue'
 import MediaCarousel from '@/components/MediaCarousel.vue'
+import matteoPhoto from '@/assets/team/matteo.jpg'
 
 const strengths = [
   { icon: ['fas', 'spa'], title: 'Ambiente', desc: 'Professionale e curato, pensato per farti sentire a tuo agio.' },
@@ -50,8 +51,13 @@ const strengths = [
         </p>
       </div>
       <div class="flex items-center justify-center">
-        <div class="animate-floaty flex h-48 w-48 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-soft to-accent-soft">
-          <font-awesome-icon :icon="['fas', 'user-tie']" class="text-6xl text-primary" />
+        <div class="animate-floaty h-56 w-56 overflow-hidden rounded-2xl bg-gradient-to-br from-primary-soft to-accent-soft p-2">
+          <img
+            :src="matteoPhoto"
+            alt="Matteo Iacovello, titolare di Iako Style"
+            class="h-full w-full rounded-xl object-cover"
+            style="object-position: 38% 20%"
+          />
         </div>
       </div>
     </div>
@@ -90,7 +96,21 @@ const strengths = [
         :key="i"
         class="flex items-center gap-4 rounded-xl border border-border bg-surface p-6"
       >
-        <span class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-soft to-accent-soft text-2xl text-primary">
+        <span
+          v-if="m.photo"
+          class="h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-surface-2"
+        >
+          <img
+            :src="m.photo"
+            :alt="m.name"
+            class="h-full w-full object-cover"
+            style="object-position: 38% 20%"
+          />
+        </span>
+        <span
+          v-else
+          class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-soft to-accent-soft text-2xl text-primary"
+        >
           <font-awesome-icon :icon="m.icon" />
         </span>
         <div>
