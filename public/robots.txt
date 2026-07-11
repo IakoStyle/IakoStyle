@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://iakostyle.it/sitemap.xml
