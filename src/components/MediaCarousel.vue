@@ -1,71 +1,91 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { gallery } from '@/data/media'
 
 const track = ref<HTMLElement | null>(null)
 
 // ------------------------------------------------------------------
-// Carosello COMPLETAMENTE MANUALE: nessun autoplay, nessun timer,
-// nessun monitoraggio continuo dello scroll. Si muove solo quando
-// l'utente clicca una freccia (o scorre a mano su mobile).
+// Carosello manuale con loop "a ruota" in entrambe le direzioni.
 //
-// Il contenuto è ripetuto 2 volte di fila, così cliccando "avanti"
-// dall'ultima foto si continua a scorrere in avanti nella copia
-// duplicata (identica) invece di animare un salto all'indietro.
-// Una volta che l'animazione si è fermata, la posizione viene
-// "teletrasportata" UNA SOLA VOLTA e in modo istantaneo all'inizio
-// della copia originale — invisibile, perché il contenuto è identico.
-// Nessun controllo continuo => nessun rischio di sfarfallio.
+// Il contenuto è ripetuto 3 volte (prima, centrale, dopo) e si parte
+// sempre al centro. Dopo ogni click, UNA SOLA correzione di posizione
+// viene programmata (con debounce: se arrivano altri click prima che
+// scatti, quella precedente viene annullata e ne resta in sospeso
+// sempre e solo una). Questo evita che più controlli si sommino e
+// mandino la posizione troppo indietro — il bug precedente.
 // ------------------------------------------------------------------
-const doubleGallery = computed(() => [...gallery, ...gallery])
+const tripleGallery = computed(() => [...gallery, ...gallery, ...gallery])
 
 let setWidth = 0 // larghezza di una singola copia del contenuto
+let correctionTimer: ReturnType<typeof setTimeout> | null = null
 
-function measureSetWidth() {
+function measure() {
   const el = track.value
   if (!el) return
-  setWidth = el.scrollWidth / 2
+  setWidth = el.scrollWidth / 3
 }
 
-function settleAfterScroll(cb: () => void) {
+function centerInstant() {
+  const el = track.value
+  if (!el || !setWidth) return
+  el.scrollLeft = setWidth
+}
+
+// Programma un unico controllo di posizione, da eseguire dopo che lo
+// scroll "smooth" si è fermato. Se viene richiamata di nuovo prima che
+// scatti, quella precedente viene annullata: resta sempre e solo
+// un controllo in sospeso, mai più di uno.
+function scheduleCorrection() {
   const el = track.value
   if (!el) return
-  // Preferisce l'evento nativo 'scrollend' quando disponibile;
-  // altrimenti un timeout che copre la durata dello scroll "smooth".
-  if ('onscrollend' in el) {
-    el.addEventListener('scrollend', cb, { once: true })
-  } else {
-    setTimeout(cb, 500)
-  }
+  if (correctionTimer) clearTimeout(correctionTimer)
+  correctionTimer = setTimeout(() => {
+    correctionTimer = null
+    if (!setWidth) measure()
+    if (!setWidth) return
+    if (el.scrollLeft >= setWidth * 2) {
+      el.scrollLeft -= setWidth
+    } else if (el.scrollLeft < setWidth) {
+      el.scrollLeft += setWidth
+    }
+  }, 450) // copre la durata tipica dell'animazione "smooth"
 }
 
 function next() {
   const el = track.value
   if (!el) return
   el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' })
-  settleAfterScroll(() => {
-    if (!setWidth) measureSetWidth()
-    if (el.scrollLeft >= setWidth) {
-      el.scrollLeft -= setWidth // salto istantaneo, invisibile
-    }
-  })
+  scheduleCorrection()
 }
 
 function prev() {
   const el = track.value
   if (!el) return
   el.scrollBy({ left: -el.clientWidth * 0.8, behavior: 'smooth' })
-  settleAfterScroll(() => {
-    if (!setWidth) measureSetWidth()
-    if (el.scrollLeft <= 0) {
-      el.scrollLeft = setWidth // salto all'ultima copia originale
-    }
-  })
+  scheduleCorrection()
+}
+
+function handleResize() {
+  const el = track.value
+  if (!el) return
+  measure()
+  // Ricentra solo se siamo usciti parecchio dal centro, per non
+  // interferire mentre l'utente sta scorrendo.
+  if (el.scrollLeft < setWidth * 0.5 || el.scrollLeft > setWidth * 1.5) {
+    centerInstant()
+  }
 }
 
 onMounted(async () => {
   await nextTick()
-  measureSetWidth()
+  measure()
+  centerInstant()
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  if (correctionTimer) clearTimeout(correctionTimer)
+  window.removeEventListener('resize', handleResize)
 })
 
 const tintMap: Record<string, string> = {
@@ -93,16 +113,16 @@ const tintMap: Record<string, string> = {
       <font-awesome-icon :icon="['fas', 'arrow-right']" />
     </button>
 
-    <!-- Track scrollabile: contenuto duplicato per il loop in avanti -->
+    <!-- Track scrollabile: contenuto triplicato per il loop in entrambe le direzioni -->
     <div
       ref="track"
       class="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2"
     >
       <div
-        v-for="(item, i) in doubleGallery"
+        v-for="(item, i) in tripleGallery"
         :key="i"
         class="relative aspect-[4/5] w-[78%] shrink-0 snap-center overflow-hidden rounded-xl border border-border sm:w-[46%] lg:w-[31%]"
-        :aria-hidden="i >= gallery.length"
+        :aria-hidden="i < gallery.length || i >= gallery.length * 2"
       >
         <!-- MEDIA REALE -->
         <template v-if="!item.placeholder">
