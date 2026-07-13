@@ -1,5 +1,20 @@
 import './assets/main.css'
 
+// Font auto-ospitati (nessuna richiesta a Google Fonts): stesso identico
+// aspetto grafico, ma senza inviare l'indirizzo IP di chi visita a
+// server terzi prima ancora che dia un consenso — requisito privacy.
+import '@fontsource/playfair-display/500.css'
+import '@fontsource/playfair-display/600.css'
+import '@fontsource/playfair-display/700.css'
+import '@fontsource/playfair-display/500-italic.css'
+import '@fontsource/playfair-display/600-italic.css'
+import '@fontsource/poppins/300.css'
+import '@fontsource/poppins/400.css'
+import '@fontsource/poppins/500.css'
+import '@fontsource/poppins/600.css'
+import '@fontsource/poppins/700.css'
+import '@fontsource/poppins/400-italic.css'
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'

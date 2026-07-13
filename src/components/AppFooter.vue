@@ -2,10 +2,12 @@
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/salon'
+import { useCookieConsent } from '@/composables/useCookieConsent'
 import logoUrl from '@/assets/logo-iako.jpg'
 
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
+const { reset } = useCookieConsent()
 </script>
 
 <template>
@@ -41,6 +43,7 @@ const status = computed(() => getOpenStatus())
           <li><RouterLink to="/listino" class="text-muted transition-colors hover:text-primary">Listino Prezzi</RouterLink></li>
           <li><RouterLink to="/prodotti" class="text-muted transition-colors hover:text-primary">Prodotti</RouterLink></li>
           <li><RouterLink to="/contatti" class="text-muted transition-colors hover:text-primary">Contatti</RouterLink></li>
+          <li><RouterLink to="/privacy" class="text-muted transition-colors hover:text-primary">Privacy Policy</RouterLink></li>
         </ul>
       </div>
 
@@ -100,8 +103,12 @@ const status = computed(() => getOpenStatus())
     </div>
 
     <div class="border-t border-border">
-      <p class="mx-auto max-w-6xl px-6 py-5 text-center text-xs text-muted">
-        © {{ new Date().getFullYear() }} Iako Style · {{ salon.city }} · Tutti i diritti riservati
+      <p class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-6 py-5 text-center text-xs text-muted">
+        <span>© {{ new Date().getFullYear() }} Iako Style · {{ salon.city }} · Tutti i diritti riservati</span>
+        <span aria-hidden="true">·</span>
+        <button class="font-bold text-muted underline-offset-2 hover:text-primary hover:underline" @click="reset">
+          Preferenze cookie
+        </button>
       </p>
     </div>
   </footer>
