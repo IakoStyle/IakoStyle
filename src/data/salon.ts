@@ -146,45 +146,100 @@ export function getOpenStatus(): OpenStatus {
   return { isOpen: false, label: 'Chiuso', detail: today.hours, nextOpenLabel: getNextOpeningLabel() }
 }
 
-export interface Service {
-  name: string
+// Alcuni servizi hanno prezzo variabile in base all'opzione scelta
+// (es. Piega Liscia o Mossa/Onde). In quel caso "variants" elenca le
+// opzioni, ciascuna con la propria durata e il proprio prezzo.
+export interface ServiceVariant {
+  label: string
   duration: string
   price: number
+}
+
+export interface Service {
+  name: string
+  duration: string // per i servizi con varianti: intervallo (es. "1 ora - 1 ora 15 min")
+  price: number // per i servizi con varianti: il prezzo "da"
   category: string
   featured?: boolean
+  variants?: ServiceVariant[]
 }
 
-// Servizi con NOME e PREZZO reali (fonte: Treatwell).
+// Listino completo, per categoria (fonte: Treatwell).
 export const services: Service[] = [
-  { name: 'Rituale Origine', duration: '1 ora', price: 48, category: 'Trattamenti', featured: true },
-  { name: 'Rituale Rinascita', duration: '1 ora 15 min', price: 63, category: 'Trattamenti' },
+  // Barba
   { name: 'Modellatura Barba', duration: '15 min', price: 10, category: 'Barba', featured: true },
-  { name: 'Biondo Perfetto | Solo Consulenza', duration: '15 min', price: 20, category: 'Consulenza', featured: true },
+  { name: 'Rituale Rinascita', duration: '1 ora 15 min', price: 63, category: 'Barba' },
+  { name: 'Rituale Origine', duration: '1 ora', price: 48, category: 'Barba', featured: true },
+
+  // Trattamenti Per Cute E Capello
+  { name: 'Ricostruzione capello', duration: '1 ora 30 min', price: 85, category: 'Trattamenti Per Cute E Capello' },
+
+  // Consulenza
   { name: 'Consulenza Tecnica/Stilistica', duration: '15 min', price: 20, category: 'Consulenza', featured: true },
   { name: 'Consulenza Tricologica', duration: '15 min', price: 20, category: 'Consulenza', featured: true },
+  { name: 'Biondo Perfetto | Solo Consulenza', duration: '15 min', price: 20, category: 'Consulenza', featured: true },
+
+  // Piega (prezzo variabile in base alla piega)
+  {
+    name: 'Piega Benessere',
+    duration: '1 ora - 1 ora 15 min',
+    price: 35,
+    category: 'Piega',
+    variants: [
+      { label: 'Liscia', duration: '1 ora', price: 35 },
+      { label: 'Mossa/Onde', duration: '1 ora 15 min', price: 42 },
+    ],
+  },
+  {
+    name: 'Piega Illuminante',
+    duration: '1 ora - 1 ora 15 min',
+    price: 40,
+    category: 'Piega',
+    variants: [
+      { label: 'Liscia', duration: '1 ora', price: 40 },
+      { label: 'Mossa/Onde', duration: '1 ora 15 min', price: 47 },
+    ],
+  },
+
+  // Taglio (donna, prezzo variabile in base alla piega finale)
+  {
+    name: 'Taglio Donna | Benessere Cute',
+    duration: '1 ora 15 min - 1 ora 30 min',
+    price: 55,
+    category: 'Taglio',
+    variants: [
+      { label: 'Shampoo SPA / Taglio dei capelli / Piega Liscia', duration: '1 ora 15 min', price: 55 },
+      { label: 'Shampoo SPA / Taglio dei capelli / Piega Mossa/Onde', duration: '1 ora 30 min', price: 60 },
+    ],
+  },
+
+  // Taglio Uomo
+  { name: 'Taglio Uomo | Benessere Cute', duration: '45 min', price: 37, category: 'Taglio Uomo' },
+
+  // Colore (prezzo variabile in base al servizio colore)
+  {
+    name: 'Colore',
+    duration: '1 ora 45 min - 2 ore 15 min',
+    price: 45,
+    category: 'Colore',
+    variants: [
+      { label: 'Tonalizzante - Piega', duration: '1 ora 45 min', price: 45 },
+      { label: 'Ricrescita - Piega', duration: '2 ore', price: 55 },
+      { label: 'Completo: Ricrescita e Lunghezze - Piega', duration: '2 ore 15 min', price: 70 },
+    ],
+  },
 ]
 
-// Categorie con NUMERO di servizi e prezzo di partenza (fonte: Treatwell).
-// Usate per la panoramica: i singoli nomi non tutti pubblici → si prenota su Treatwell.
-export interface CategoryInfo {
-  name: string
-  count: number
-  from: number
-  exact?: boolean
-  icon: string[]
-}
-
-export const categoryOverview: CategoryInfo[] = [
-  { name: 'Taglio', count: 1, from: 55, icon: ['fas', 'scissors'] },
-  { name: 'Taglio Uomo', count: 1, from: 37, exact: true, icon: ['fas', 'scissors'] },
-  { name: 'Colore', count: 1, from: 45, icon: ['fas', 'palette'] },
-  { name: 'Piega', count: 2, from: 35, icon: ['fas', 'wind'] },
-  { name: 'Barba', count: 3, from: 10, icon: ['fas', 'wand-magic-sparkles'] },
-  { name: 'Trattamenti per cute e capello', count: 1, from: 85, exact: true, icon: ['fas', 'spa'] },
-  { name: 'Consulenza', count: 3, from: 20, exact: true, icon: ['fas', 'hand-sparkles'] },
+export const serviceCategories = [
+  'Tutti',
+  'Barba',
+  'Trattamenti Per Cute E Capello',
+  'Consulenza',
+  'Piega',
+  'Taglio',
+  'Taglio Uomo',
+  'Colore',
 ]
-
-export const serviceCategories = ['Tutti', 'Trattamenti', 'Barba', 'Consulenza']
 
 export interface Macro {
   label: string

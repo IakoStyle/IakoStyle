@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { salon, services, serviceCategories, categoryOverview } from '@/data/salon'
+import { salon, services, serviceCategories } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
 import ServiceCard from '@/components/ServiceCard.vue'
 
@@ -35,7 +35,7 @@ function count(cat: string) {
   </section>
 
   <!-- SERVIZI CON NOME E PREZZO -->
-  <section class="mx-auto max-w-6xl px-6 pb-6">
+  <section class="mx-auto max-w-6xl px-6 pb-16">
     <div class="no-scrollbar mb-8 flex gap-2 overflow-x-auto pb-2">
       <button
         v-for="cat in serviceCategories"
@@ -62,39 +62,10 @@ function count(cat: string) {
     >
       <ServiceCard v-for="s in filtered" :key="s.name + s.category" :service="s" />
     </TransitionGroup>
-  </section>
-
-  <!-- PANORAMICA CATEGORIE (conteggi + prezzo di partenza da Treatwell) -->
-  <section class="mx-auto max-w-6xl px-6 py-10">
-    <div class="mb-6">
-      <p class="font-display text-sm font-bold uppercase tracking-wide text-gold">Tutte le categorie</p>
-      <h2 class="mt-1 font-display text-2xl font-bold text-foreground">Panoramica servizi &amp; prezzi</h2>
-      <p class="mt-1 text-sm text-muted">Numero di servizi e prezzo di partenza per categoria. Il dettaglio completo si prenota su Treatwell.</p>
-    </div>
-
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <div
-        v-for="c in categoryOverview"
-        :key="c.name"
-        class="group flex items-center gap-4 rounded-xl border border-border bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg hover:shadow-gold/10"
-      >
-        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gold-soft text-gold transition-transform duration-300 group-hover:rotate-6">
-          <font-awesome-icon :icon="c.icon" />
-        </span>
-        <div class="min-w-0 flex-1">
-          <h3 class="font-display text-lg font-semibold text-foreground">{{ c.name }}</h3>
-          <p class="text-sm text-muted">{{ c.count }} {{ c.count === 1 ? 'servizio' : 'servizi' }}</p>
-        </div>
-        <div class="shrink-0 text-right">
-          <p class="text-xs text-muted">{{ c.exact ? '' : 'da' }}</p>
-          <p class="font-display text-xl font-bold text-primary">€ {{ c.from }}</p>
-        </div>
-      </div>
-    </div>
 
     <p class="mt-8 text-center text-sm text-muted">
       <font-awesome-icon :icon="['fas', 'circle-check']" class="mr-1 text-primary" />
-      Prezzi da listino Treatwell. La consulenza aiuta a definire il servizio più adatto a te.
+      Alcuni servizi hanno prezzo variabile in base all'opzione scelta: tocca la card per vedere tutti i dettagli.
     </p>
 
     <div class="mt-8 text-center">
