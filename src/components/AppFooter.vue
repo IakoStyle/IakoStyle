@@ -104,7 +104,7 @@ const { reset } = useCookieConsent()
 
     <div class="border-t border-border">
       <p class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-6 py-5 text-center text-xs text-muted">
-        <span>© {{ new Date().getFullYear() }} Iako Style · {{ salon.city }} · Tutti i diritti riservati</span>
+        <span>© {{ new Date().getFullYear() }} Iako Style · {{ salon.city }} · P.IVA {{ salon.vatNumber }} · Tutti i diritti riservati</span>
         <span aria-hidden="true">·</span>
         <button class="font-bold text-muted underline-offset-2 hover:text-primary hover:underline" @click="reset">
           Preferenze cookie

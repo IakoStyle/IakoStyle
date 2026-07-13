@@ -27,7 +27,7 @@ const { reset } = useCookieConsent()
     <div class="rounded-xl border border-border bg-surface p-6">
       <h2 class="font-display text-xl font-bold text-foreground">Titolare del trattamento</h2>
       <p class="mt-3 text-muted">
-        {{ salon.name }} di {{ salon.owner }} — {{ salon.address }}.
+        {{ salon.name }} di {{ salon.owner }} — {{ salon.address }} — P.IVA {{ salon.vatNumber }}.
         Per qualsiasi richiesta relativa a questa informativa puoi scrivere su
         WhatsApp al numero {{ salon.whatsappDisplay }}.
       </p>

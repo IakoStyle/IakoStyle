@@ -16,6 +16,7 @@ export const salon = {
   whatsappNumber: '3200155148',
   whatsappDisplay: '320 015 5148',
   owner: 'Matteo Iacovello',
+  vatNumber: '03209300593',
   seasonLabel: 'Orario estivo 2026',
 }
 
