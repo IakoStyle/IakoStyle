@@ -146,7 +146,7 @@ const status = computed(() => getOpenStatus())
     </div>
     <div class="mt-8 text-center">
       <a
-        :href="salon.bookingUrl"
+        :href="salon.reviewsUrl"
         target="_blank"
         rel="noopener"
         class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
