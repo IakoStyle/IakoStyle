@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { trackPageView } from '@/composables/useAnalytics'
 
 const SITE_URL = 'https://iakostyle.it'
 const DEFAULT_DESCRIPTION =
@@ -106,6 +107,8 @@ router.afterEach((to) => {
     document.head.appendChild(canonical)
   }
   canonical.setAttribute('href', canonicalUrl)
+
+  trackPageView(to.path, fullTitle)
 })
 
 export default router

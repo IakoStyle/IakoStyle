@@ -1,4 +1,5 @@
 import { ref, watch } from 'vue'
+import { loadAnalytics } from './useAnalytics'
 
 const STORAGE_KEY = 'iako-cookie-consent'
 
@@ -14,14 +15,23 @@ function readStored(): ConsentValue {
   return saved === 'accepted' || saved === 'rejected' ? saved : null
 }
 
-watch(optional, (value) => {
-  if (typeof window === 'undefined') return
-  if (value === null) {
-    window.localStorage.removeItem(STORAGE_KEY)
-  } else {
-    window.localStorage.setItem(STORAGE_KEY, value)
-  }
-})
+watch(
+  optional,
+  (value) => {
+    if (typeof window === 'undefined') return
+    if (value === null) {
+      window.localStorage.removeItem(STORAGE_KEY)
+    } else {
+      window.localStorage.setItem(STORAGE_KEY, value)
+    }
+    // Si attiva SOLO in caso di consenso esplicito — anche per chi lo
+    // aveva già dato in una visita precedente (immediate: true sotto).
+    if (value === 'accepted') {
+      loadAnalytics()
+    }
+  },
+  { immediate: true },
+)
 
 export function useCookieConsent() {
   function acceptAll() {
