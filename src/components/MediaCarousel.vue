@@ -90,6 +90,11 @@ function handleTransitionEnd(e: TransitionEvent) {
 }
 
 // --- Trascinamento manuale (swipe su mobile, drag col mouse) ---
+// Usiamo eventi touch/mouse nativi e separati invece dei Pointer Events
+// unificati: Safari su iOS ha un supporto storicamente meno affidabile
+// dei Pointer Events per i gesti di trascinamento personalizzati (a
+// volte annulla il gesto troppo presto), mentre gli eventi touch/mouse
+// classici sono maturi e coerenti su tutti i browser.
 let dragStartX = 0
 let isDragging = false
 const DRAG_THRESHOLD = 40 // px minimi di trascinamento per cambiare elemento
@@ -109,22 +114,51 @@ function finalizeDrag() {
   // altrimenti (spostamento troppo piccolo) si riassesta sull'elemento corrente
 }
 
-function onPointerDown(e: PointerEvent) {
+// Touch (smartphone/tablet)
+function onTouchStart(e: TouchEvent) {
+  const touch = e.touches[0]
+  if (!touch) return
+  isDragging = true
+  dragStartX = touch.clientX
+  transitionEnabled.value = false
+}
+
+function onTouchMove(e: TouchEvent) {
+  if (!isDragging) return
+  const touch = e.touches[0]
+  if (!touch) return
+  dragOffset.value = touch.clientX - dragStartX
+  // Evita che la pagina scorra verticalmente mentre si trascina
+  // orizzontalmente il carosello.
+  if (Math.abs(dragOffset.value) > 10) e.preventDefault()
+}
+
+function onTouchEnd() {
+  if (!isDragging) return
+  isDragging = false
+  finalizeDrag()
+}
+
+// Mouse (drag da desktop)
+function onMouseDown(e: MouseEvent) {
   isDragging = true
   dragStartX = e.clientX
   transitionEnabled.value = false
-  ;(e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId)
+  window.addEventListener('mousemove', onMouseMove)
+  window.addEventListener('mouseup', onMouseUp)
 }
 
-function onPointerMove(e: PointerEvent) {
+function onMouseMove(e: MouseEvent) {
   if (!isDragging) return
   dragOffset.value = e.clientX - dragStartX
 }
 
-function onPointerUp() {
+function onMouseUp() {
   if (!isDragging) return
   isDragging = false
   finalizeDrag()
+  window.removeEventListener('mousemove', onMouseMove)
+  window.removeEventListener('mouseup', onMouseUp)
 }
 
 let resizeObserver: ResizeObserver | null = null
@@ -152,6 +186,8 @@ watch(activeGallery, recenter)
 
 onUnmounted(() => {
   resizeObserver?.disconnect()
+  window.removeEventListener('mousemove', onMouseMove)
+  window.removeEventListener('mouseup', onMouseUp)
 })
 
 const tintMap: Record<string, string> = {
@@ -186,10 +222,11 @@ const tintMap: Record<string, string> = {
         class="flex gap-4 pb-2 will-change-transform touch-pan-y select-none"
         :style="trackStyle"
         @transitionend="handleTransitionEnd"
-        @pointerdown="onPointerDown"
-        @pointermove="onPointerMove"
-        @pointerup="onPointerUp"
-        @pointercancel="onPointerUp"
+        @touchstart="onTouchStart"
+        @touchmove="onTouchMove"
+        @touchend="onTouchEnd"
+        @touchcancel="onTouchEnd"
+        @mousedown="onMouseDown"
       >
         <div
           v-for="(item, i) in tripleGallery"
