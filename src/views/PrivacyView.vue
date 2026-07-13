@@ -84,32 +84,6 @@ const { reset } = useCookieConsent()
     </div>
 
     <div class="rounded-xl border border-border bg-surface p-6">
-      <h2 class="font-display text-xl font-bold text-foreground">Servizi di terze parti sempre attivi</h2>
-      <p class="mt-3 text-muted">
-        Alcuni elementi del sito richiedono di contattare server esterni per
-        funzionare, indipendentemente dalla scelta sui cookie, perché sono parte
-        integrante del contenuto stesso (non tracciamento):
-      </p>
-      <ul class="mt-3 space-y-2 text-muted">
-        <li>
-          <strong class="text-foreground">Google Drive</strong> — la galleria fotografica del salone legge
-          le immagini da una cartella pubblica; non viene inviato alcun dato personale
-          di chi visita il sito.
-        </li>
-        <li>
-          <strong class="text-foreground">Link a Treatwell, Instagram, Facebook e WhatsApp</strong> — cliccando
-          questi link esci dal nostro sito verso piattaforme di terzi, ciascuna con la
-          propria informativa privacy.
-        </li>
-      </ul>
-      <p class="mt-3 text-sm text-muted">
-        I caratteri tipografici del sito sono invece ospitati direttamente da questo
-        dominio, non da Google Fonts: nessun dato viene condiviso con terzi solo per
-        visualizzare il testo.
-      </p>
-    </div>
-
-    <div class="rounded-xl border border-border bg-surface p-6">
       <h2 class="font-display text-xl font-bold text-foreground">I tuoi diritti</h2>
       <p class="mt-3 text-muted">
         In base al Regolamento UE 2016/679 (GDPR) hai diritto di accedere, rettificare
