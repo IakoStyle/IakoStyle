@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useCookieConsent } from '@/composables/useCookieConsent'
 
+const router = useRouter()
 const { optional, acceptAll, rejectOptional } = useCookieConsent()
+
+function goToPrivacy() {
+  router.push('/privacy')
+}
 </script>
 
 <template>
@@ -14,30 +19,51 @@ const { optional, acceptAll, rejectOptional } = useCookieConsent()
   >
     <div
       v-if="optional === null"
-      class="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-surface/98 px-4 py-5 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] backdrop-blur-sm sm:px-6"
+      class="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-4 sm:inset-x-auto sm:left-4 sm:justify-start"
       role="dialog"
-      aria-label="Preferenze sui cookie"
+      aria-label="Informativa sui cookie"
     >
-      <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p class="text-sm text-foreground">
-          <font-awesome-icon :icon="['fas', 'circle-check']" class="mr-1.5 text-primary" />
-          Usiamo cookie tecnici necessari al funzionamento del sito, e — solo con il tuo consenso —
-          la mappa di Google e strumenti statistici anonimi. Puoi cambiare idea quando vuoi dal
-          footer. Leggi la
-          <RouterLink to="/privacy" class="font-bold text-primary hover:underline">Privacy Policy</RouterLink>.
-        </p>
-        <div class="flex shrink-0 gap-3">
+      <div class="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-[0_8px_30px_rgba(0,0,0,0.15)]">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="font-display text-lg font-bold text-foreground">Informativa</h2>
           <button
-            class="rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
+            class="shrink-0 rounded-full p-1 text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
+            aria-label="Chiudi e continua senza accettare"
             @click="rejectOptional"
           >
-            Solo necessari
+            <font-awesome-icon :icon="['fas', 'xmark']" />
           </button>
+        </div>
+
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          Noi e terze parti selezionate utilizziamo cookie o tecnologie simili per finalità
+          tecniche e, con il tuo consenso, anche per finalità di
+          <strong class="text-foreground">esperienza e misurazione</strong> (mappa e statistiche
+          anonime), come specificato nella
+          <RouterLink to="/privacy" class="font-bold text-primary hover:underline">cookie policy</RouterLink>.
+        </p>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          Puoi liberamente prestare, rifiutare o revocare il tuo consenso in qualsiasi momento,
+          accedendo al link "Preferenze cookie" in fondo alla pagina. Il rifiuto del consenso può
+          rendere non disponibili le relative funzioni (es. mappa interattiva).
+        </p>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          Usa il pulsante "Accetta tutto" per acconsentire. Chiudi questa informativa con la
+          "×" per continuare senza accettare.
+        </p>
+
+        <div class="mt-5 flex flex-col gap-2.5">
           <button
-            class="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-white transition-transform hover:scale-105"
+            class="w-full rounded-full bg-primary py-2.5 text-sm font-bold text-white transition-transform hover:scale-[1.02]"
             @click="acceptAll"
           >
             Accetta tutto
+          </button>
+          <button
+            class="w-full rounded-full border border-border bg-surface py-2.5 text-sm font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
+            @click="goToPrivacy"
+          >
+            Scopri di più e personalizza
           </button>
         </div>
       </div>
