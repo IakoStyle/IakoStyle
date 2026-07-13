@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
-import { gallery } from '@/data/media'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
+import { gallery as fallbackGallery } from '@/data/media'
+import { useDriveGallery } from '@/composables/useDriveGallery'
 
-const N = gallery.length
+// Si parte subito con le foto di riserva (niente attesa a vuoto per chi
+// visita il sito). In background carichiamo quelle vere da Google Drive:
+// se ce ne sono, sostituiscono automaticamente quelle di riserva.
+const activeGallery = ref(fallbackGallery)
+const drive = useDriveGallery()
+
+const N = computed(() => activeGallery.value.length)
 // Contenuto triplicato: copia prima, centrale (quella "vera", da cui si parte),
 // copia dopo. Serve per poter scorrere all'infinito in entrambe le direzioni.
-const tripleGallery = computed(() => [...gallery, ...gallery, ...gallery])
+const tripleGallery = computed(() => [...activeGallery.value, ...activeGallery.value, ...activeGallery.value])
 
 const trackEl = ref<HTMLElement | null>(null)
-const currentIndex = ref(N) // si parte dal primo elemento della copia centrale
+const currentIndex = ref(0) // impostato correttamente al montaggio, prima di mostrare qualsiasi cosa
 const transitionEnabled = ref(false) // niente animazione sul posizionamento iniziale
 
 let itemStep = 0 // larghezza di un elemento + gap, in pixel
@@ -21,6 +28,21 @@ function measureStep() {
   const style = getComputedStyle(el)
   const gap = parseFloat(style.columnGap || (style as unknown as { gap: string }).gap || '0') || 0
   itemStep = first.getBoundingClientRect().width + gap
+}
+
+// Ricentra la carrellata sulla copia centrale, senza animazione. Usata sia
+// al primo montaggio sia ogni volta che la sorgente delle foto cambia
+// (es. quando arrivano quelle vere da Drive al posto di quelle di riserva).
+async function recenter() {
+  transitionEnabled.value = false
+  await nextTick()
+  measureStep()
+  currentIndex.value = N.value
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      transitionEnabled.value = true
+    })
+  })
 }
 
 // Offset di trascinamento manuale (drag/swipe), sommato alla posizione
@@ -48,17 +70,17 @@ function prev() {
 function handleTransitionEnd(e: TransitionEvent) {
   if (e.propertyName !== 'transform') return
 
-  if (currentIndex.value >= N * 2) {
+  if (currentIndex.value >= N.value * 2) {
     transitionEnabled.value = false
-    currentIndex.value -= N
+    currentIndex.value -= N.value
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         transitionEnabled.value = true
       })
     })
-  } else if (currentIndex.value < N) {
+  } else if (currentIndex.value < N.value) {
     transitionEnabled.value = false
-    currentIndex.value += N
+    currentIndex.value += N.value
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         transitionEnabled.value = true
@@ -108,19 +130,25 @@ function onPointerUp() {
 let resizeObserver: ResizeObserver | null = null
 
 onMounted(async () => {
-  await nextTick()
-  measureStep()
-  // Attiva l'animazione solo DOPO aver applicato la posizione iniziale,
-  // altrimenti il primo posizionamento verrebbe animato da 0.
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      transitionEnabled.value = true
-    })
-  })
+  await recenter()
 
   resizeObserver = new ResizeObserver(() => measureStep())
   if (trackEl.value) resizeObserver.observe(trackEl.value)
+
+  // Carica le foto vere da Google Drive in background. Se la cartella
+  // contiene almeno un'immagine, sostituiscono quelle di riserva mostrate
+  // inizialmente; altrimenti (cartella vuota o errore) restano quelle
+  // di riserva, senza che l'utente se ne accorga.
+  await drive.load()
+  if (drive.items.value.length > 0) {
+    activeGallery.value = drive.items.value
+  }
 })
+
+// Quando la sorgente delle foto cambia (di riserva -> Drive), ricentra
+// e rimisura, altrimenti la posizione resterebbe basata sul numero di
+// elementi precedente.
+watch(activeGallery, recenter)
 
 onUnmounted(() => {
   resizeObserver?.disconnect()
