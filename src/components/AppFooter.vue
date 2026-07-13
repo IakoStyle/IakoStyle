@@ -53,6 +53,12 @@ const status = computed(() => getOpenStatus())
             <span>{{ salon.address }}</span>
           </li>
           <li class="flex gap-2">
+            <font-awesome-icon :icon="['fas', 'phone']" class="mt-1 text-primary" />
+            <a :href="`tel:+39${salon.whatsappNumber}`" class="hover:text-primary">
+              {{ salon.whatsappDisplay }}
+            </a>
+          </li>
+          <li class="flex gap-2">
             <font-awesome-icon :icon="['fab', 'whatsapp']" class="mt-1 text-primary" />
             <a :href="`https://wa.me/39${salon.whatsappNumber}`" target="_blank" rel="noopener" class="hover:text-primary">
               {{ salon.whatsappDisplay }}
