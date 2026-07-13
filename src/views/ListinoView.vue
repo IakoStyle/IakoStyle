@@ -56,7 +56,7 @@ function count(cat: string) {
 
     <TransitionGroup
       tag="div"
-      class="grid gap-4 md:grid-cols-2"
+      class="grid items-start gap-4 md:grid-cols-2"
       enter-active-class="transition duration-300 ease-out"
       enter-from-class="opacity-0 scale-95"
     >

@@ -201,33 +201,17 @@ export const services: Service[] = [
     ],
   },
 
-  // Taglio (donna, prezzo variabile in base alla piega finale)
-  {
-    name: 'Taglio Donna | Benessere Cute',
-    duration: '1 ora 15 min - 1 ora 30 min',
-    price: 55,
-    category: 'Taglio',
-    variants: [
-      { label: 'Shampoo SPA / Taglio dei capelli / Piega Liscia', duration: '1 ora 15 min', price: 55 },
-      { label: 'Shampoo SPA / Taglio dei capelli / Piega Mossa/Onde', duration: '1 ora 30 min', price: 60 },
-    ],
-  },
+  // Taglio (donna) — servizi separati, uno per ogni opzione di piega finale
+  { name: 'Taglio Donna | Benessere Cute (Shampoo SPA / Taglio dei capelli / Piega Liscia)', duration: '1 ora 15 min', price: 55, category: 'Taglio' },
+  { name: 'Taglio Donna | Benessere Cute (Shampoo SPA / Taglio dei capelli / Piega Mossa/Onde)', duration: '1 ora 30 min', price: 60, category: 'Taglio' },
 
   // Taglio Uomo
   { name: 'Taglio Uomo | Benessere Cute', duration: '45 min', price: 37, category: 'Taglio Uomo' },
 
-  // Colore (prezzo variabile in base al servizio colore)
-  {
-    name: 'Colore',
-    duration: '1 ora 45 min - 2 ore 15 min',
-    price: 45,
-    category: 'Colore',
-    variants: [
-      { label: 'Tonalizzante - Piega', duration: '1 ora 45 min', price: 45 },
-      { label: 'Ricrescita - Piega', duration: '2 ore', price: 55 },
-      { label: 'Completo: Ricrescita e Lunghezze - Piega', duration: '2 ore 15 min', price: 70 },
-    ],
-  },
+  // Colore — servizi separati, uno per ogni tipo di colore
+  { name: 'Colore (Tonalizzante) - Piega', duration: '1 ora 45 min', price: 45, category: 'Colore' },
+  { name: 'Colore (Ricrescita) - Piega', duration: '2 ore', price: 55, category: 'Colore' },
+  { name: 'Colore (Completo: Ricrescita e Lunghezze) - Piega', duration: '2 ore 15 min', price: 70, category: 'Colore' },
 ]
 
 export const serviceCategories = [
