@@ -10,16 +10,6 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 
 ## 🟡 In corso
 
-- [ ] **Link diretto "scrivi una recensione" su Google Maps.**
-      Il link attuale (`salon.googleMapsReviewUrl`) porta solo alla scheda del locale,
-      non apre direttamente il modulo di recensione.
-      Serve il **Place ID** ufficiale (formato `ChIJ...`, diverso dal CID numerico già
-      provato e non funzionante). Va recuperato con lo strumento ufficiale Google:
-      https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder
-      (cerca "Iako Style Fondi", clicca sul marker, copia il "Place ID").
-      Una volta ottenuto: costruire `https://search.google.com/local/writereview?placeid=ID`
-      e TESTARLO su più dispositivi prima di sostituirlo sul sito.
-
 - [ ] **Widget di prenotazione Treatwell incorporato nel sito** (invece del semplice link
       che porta fuori dal sito). Serve il codice del "Widget" dal pannello
       Treatwell Connect del salone (Impostazioni → Prenotazione online → Widget).
@@ -56,3 +46,4 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 - Carosello: loop infinito fluido, swipe touch (iOS e Android) e drag da mouse
 - Partita IVA nel footer e nella Privacy Policy
 - Due pulsanti recensioni in home: Google Maps e Treatwell
+- Link diretto "scrivi una recensione" su Google Maps (Place ID corretto)
