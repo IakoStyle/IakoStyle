@@ -2,11 +2,11 @@
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { salon, services, macroServices, reviews, getOpenStatus } from '@/data/salon'
-import BlobDecor from '@/components/BlobDecor.vue'
 import MediaCarousel from '@/components/MediaCarousel.vue'
 import ServiceCard from '@/components/ServiceCard.vue'
 import ReviewCard from '@/components/ReviewCard.vue'
 import StarRating from '@/components/StarRating.vue'
+import heroPhoto from '@/assets/gallery/salone-ingresso.jpg'
 
 const featured = services.filter((s) => s.featured)
 
@@ -14,91 +14,73 @@ const status = computed(() => getOpenStatus())
 </script>
 
 <template>
-  <!-- HERO -->
-  <section class="relative overflow-hidden">
-    <BlobDecor />
-    <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 pb-16 pt-14 md:grid-cols-2 md:pt-20">
-      <div class="animate-pop-in">
-        <span class="inline-flex items-center gap-2 rounded-full bg-primary-soft px-4 py-1.5 text-sm font-bold text-primary">
-          <font-awesome-icon :icon="['fas', 'location-dot']" />
-          {{ salon.city }}
-        </span>
-        <h1 class="mt-5 font-display text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
-          Il tuo look,<br />
-          <span class="text-primary">su misura</span><span class="text-accent">.</span>
-        </h1>
-        <p class="mt-5 max-w-md text-lg text-muted">
-          Salone di parrucchieri per uomo, donna e bambino. Taglio, colore, barba e
-          trattamenti curati nei minimi dettagli da {{ salon.owner }}.
-        </p>
+  <!-- HERO: banner fotografico con vignetta -->
+  <section class="relative h-[26rem] w-full overflow-hidden sm:h-[24rem]">
+    <img
+      :src="heroPhoto"
+      alt="Interno del salone Iako Style"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <!-- Scurimento uniforme -->
+    <div class="absolute inset-0 bg-black/50"></div>
+    <!-- Vignetta: bordi più scuri, centro più leggibile -->
+    <div
+      class="absolute inset-0"
+      style="background: radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.55) 100%)"
+    ></div>
+    <!-- Gradiente dal basso, per far risaltare testo e bottoni -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
 
-        <div class="mt-7 flex flex-wrap items-center gap-3">
-          <a
-            :href="salon.bookingUrl"
-            target="_blank"
-            rel="noopener"
-            class="flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 font-bold text-white shadow-lg shadow-primary/30 transition-transform hover:scale-105"
-          >
-            <font-awesome-icon :icon="['fas', 'calendar-check']" />
-            Prenota ora
-          </a>
-          <RouterLink
-            to="/listino"
-            class="flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3.5 font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
-          >
-            Vedi il listino
-            <font-awesome-icon :icon="['fas', 'arrow-right']" />
-          </RouterLink>
-        </div>
+    <div class="relative mx-auto flex h-full max-w-6xl flex-col justify-center px-6">
+      <span class="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-bold text-white ring-1 ring-white/25 backdrop-blur-sm">
+        <font-awesome-icon :icon="['fas', 'location-dot']" />
+        {{ salon.city }}
+      </span>
 
-        <div class="mt-8 flex items-center gap-3">
+      <h1 class="mt-5 font-display text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+        Il tuo look,<br />
+        <span class="text-gold">su misura</span><span class="text-white">.</span>
+      </h1>
+
+      <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span class="flex items-center gap-2">
           <StarRating class="text-lg" />
-          <span class="font-display text-lg font-bold text-foreground">{{ salon.rating.toFixed(1) }}</span>
-          <span class="text-sm text-muted">· {{ salon.reviewsCount }} recensioni</span>
-        </div>
+          <span class="font-display font-bold text-white">{{ salon.rating.toFixed(1) }}</span>
+          <span class="text-sm text-white/75">· {{ salon.reviewsCount }} recensioni</span>
+        </span>
+        <span class="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white ring-1 ring-white/25 backdrop-blur-sm">
+          <span class="h-1.5 w-1.5 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
+          {{ status.isOpen ? `${status.label} · ${status.detail}` : status.nextOpenLabel }}
+        </span>
       </div>
 
-      <div class="relative animate-pop-in">
-        <div class="animate-floaty rounded-2xl bg-gradient-to-br from-primary-soft via-surface to-accent-soft p-8 shadow-xl">
-          <div class="rounded-xl bg-surface p-8">
-            <div class="flex items-center justify-between">
-              <span class="flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 ring-1 ring-border">
-                <img src="@/assets/logo-iako.jpg" alt="Iako Style" class="h-full w-full object-contain" />
-              </span>
-              <span
-                class="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold"
-                :class="status.isOpen ? 'bg-primary-soft text-primary' : 'bg-closed-soft text-closed'"
-              >
-                <span
-                  class="h-1.5 w-1.5 rounded-full"
-                  :class="status.isOpen ? 'bg-primary' : 'bg-closed'"
-                ></span>
-                {{ status.isOpen ? `${status.label} · ${status.detail}` : status.nextOpenLabel }}
-              </span>
-            </div>
-            <p class="mt-6 font-display text-2xl font-bold text-foreground">Iako Style</p>
-            <p class="mt-1 text-sm text-muted">{{ salon.address }}</p>
-            <div class="mt-6 grid grid-cols-3 gap-3 text-center">
-              <div class="rounded-2xl bg-surface-2 py-3">
-                <p class="font-display text-xl font-bold text-primary">5.0</p>
-                <p class="text-xs text-muted">Rating</p>
-              </div>
-              <div class="rounded-2xl bg-surface-2 py-3">
-                <p class="font-display text-xl font-bold text-primary">116</p>
-                <p class="text-xs text-muted">Recensioni</p>
-              </div>
-              <div class="rounded-2xl bg-surface-2 py-3">
-                <p class="font-display text-xl font-bold text-primary">1</p>
-                <p class="text-xs text-muted">Salone</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="animate-floaty-slow absolute -right-4 -top-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gold text-2xl text-white shadow-lg">
-          <font-awesome-icon :icon="['fas', 'heart']" />
-        </div>
+      <div class="mt-7 flex flex-wrap items-center gap-3">
+        <a
+          :href="salon.bookingUrl"
+          target="_blank"
+          rel="noopener"
+          class="flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 font-bold text-white shadow-lg shadow-black/30 transition-transform hover:scale-105"
+        >
+          <font-awesome-icon :icon="['fas', 'calendar-check']" />
+          Prenota ora
+        </a>
+        <RouterLink
+          to="/listino"
+          class="flex items-center gap-2 rounded-full bg-white/10 px-6 py-3.5 font-bold text-white ring-1 ring-white/30 backdrop-blur-sm transition-colors hover:bg-white/20"
+        >
+          Vedi il listino
+          <font-awesome-icon :icon="['fas', 'arrow-right']" />
+        </RouterLink>
       </div>
     </div>
+  </section>
+
+  <!-- Testo descrittivo -->
+  <section class="mx-auto max-w-2xl px-6 py-12 text-center">
+    <p class="text-lg text-muted">
+      Salone di parrucchieri per uomo, donna e bambino. Taglio, colore, barba e
+      trattamenti curati nei minimi dettagli da {{ salon.owner }}.
+    </p>
   </section>
 
   <!-- MACRO SERVIZI -->
