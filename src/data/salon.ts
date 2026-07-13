@@ -13,6 +13,7 @@ export const salon = {
   reviewsCount: 116,
   bookingUrl: 'https://www.treatwell.it/salone/iako-style/',
   reviewsUrl: 'https://www.treatwell.it/salone/iako-style/reviews/pagina-2/',
+  googleMapsReviewUrl: 'https://maps.app.goo.gl/m1QMDV3baBSMVD3y7',
   whatsappNumber: '3200155148',
   whatsappDisplay: '320 015 5148',
   owner: 'Matteo Iacovello',
