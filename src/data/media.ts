@@ -3,30 +3,30 @@
 //  ------------------------------------------------------------
 //  Per aggiungere altri media:
 //  1. Metti il file dentro  src/assets/gallery/
-//  2. Importalo in cima a questo file (import nome from '@/assets/gallery/file.jpg')
+//  2. Importalo in cima a questo file (import nome from '@/assets/gallery/file.webp')
 //  3. Aggiungi un oggetto all'array "gallery" qui sotto.
 //
 //  Per i VIDEO: { type: 'video', src: video, poster: immaginePoster }
 // ============================================================
 
-import salone1 from '@/assets/gallery/salone-1.jpg'
-import salone2 from '@/assets/gallery/salone-2.jpg'
-import reception from '@/assets/gallery/reception.png'
-import capelli from '@/assets/gallery/capelli.jpg'
-import riccio from '@/assets/gallery/riccio.jpg'
-import primaDopo from '@/assets/gallery/prima-dopo.jpg'
-import rinascita from '@/assets/gallery/rinascita.jpg'
-import ricostruzione from '@/assets/gallery/ricostruzione.jpg'
-import tricologia from '@/assets/gallery/tricologia.jpg'
-import hairBalayage from '@/assets/gallery/hair-balayage.jpg'
-import hairRicciRame from '@/assets/gallery/hair-ricci-rame.jpg'
-import hairMosso from '@/assets/gallery/hair-mosso.jpg'
-import lavoroPiega from '@/assets/gallery/lavoro-piega.jpg'
-import saloneIngresso from '@/assets/gallery/salone-ingresso.jpg'
-import salonePostazioni from '@/assets/gallery/salone-postazioni.jpg'
-import lavoroProdotti from '@/assets/gallery/lavoro-prodotti.jpg'
-import promoStiraggio from '@/assets/gallery/promo-stiraggio.jpg'
-import promoPermanente from '@/assets/gallery/promo-permanente.jpg'
+import salone1 from '@/assets/gallery/salone-1.webp'
+import salone2 from '@/assets/gallery/salone-2.webp'
+import reception from '@/assets/gallery/reception.webp'
+import capelli from '@/assets/gallery/capelli.webp'
+import riccio from '@/assets/gallery/riccio.webp'
+import primaDopo from '@/assets/gallery/prima-dopo.webp'
+import rinascita from '@/assets/gallery/rinascita.webp'
+import ricostruzione from '@/assets/gallery/ricostruzione.webp'
+import tricologia from '@/assets/gallery/tricologia.webp'
+import hairBalayage from '@/assets/gallery/hair-balayage.webp'
+import hairRicciRame from '@/assets/gallery/hair-ricci-rame.webp'
+import hairMosso from '@/assets/gallery/hair-mosso.webp'
+import lavoroPiega from '@/assets/gallery/lavoro-piega.webp'
+import saloneIngresso from '@/assets/gallery/salone-ingresso.webp'
+import salonePostazioni from '@/assets/gallery/salone-postazioni.webp'
+import lavoroProdotti from '@/assets/gallery/lavoro-prodotti.webp'
+import promoStiraggio from '@/assets/gallery/promo-stiraggio.webp'
+import promoPermanente from '@/assets/gallery/promo-permanente.webp'
 
 export interface MediaItem {
   type: 'image' | 'video'

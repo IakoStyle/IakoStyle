@@ -238,7 +238,7 @@ export const macroServices: Macro[] = [
   { label: 'Counselling & Olistico', icon: ['fas', 'spa'], desc: 'Consulenze e percorsi personalizzati, corpo e mente.' },
 ]
 
-import matteoPhoto from '@/assets/team/matteo.jpg'
+import matteoPhoto from '@/assets/team/matteo.webp'
 
 export interface TeamMember {
   name: string
@@ -272,13 +272,13 @@ export const reviews: Review[] = [
 
 export const reviewStats = { ambiente: 5.0, pulizia: 5.0, staff: 5.0, fiveStar: 107 }
 
-import goldwellImg from '@/assets/products/goldwell.jpg'
-import insightImg from '@/assets/products/insight.jpg'
-import insightDonnaImg from '@/assets/products/insight-2.jpg'
-import nubeaImg from '@/assets/products/nubea.jpg'
-import ghdImg from '@/assets/products/ghd.png'
-import prorasoImg from '@/assets/products/proraso.png'
-import redkenImg from '@/assets/products/redken.jpg'
+import goldwellImg from '@/assets/products/goldwell.webp'
+import insightImg from '@/assets/products/insight.webp'
+import insightDonnaImg from '@/assets/products/insight-2.webp'
+import nubeaImg from '@/assets/products/nubea.webp'
+import ghdImg from '@/assets/products/ghd.webp'
+import prorasoImg from '@/assets/products/proraso.webp'
+import redkenImg from '@/assets/products/redken.webp'
 
 export interface Product {
   brand: string

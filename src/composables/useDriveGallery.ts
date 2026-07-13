@@ -7,6 +7,7 @@ interface DriveFile {
   name: string
   mimeType: string
   createdTime: string
+  thumbnailLink?: string
 }
 
 interface DriveListResponse {
@@ -14,10 +15,20 @@ interface DriveListResponse {
   error?: { message: string }
 }
 
-// Costruisce l'URL diretto per mostrare un'immagine ospitata su Drive,
-// passando dall'endpoint ufficiale "alt=media" dell'API v3.
-function driveImageUrl(fileId: string): string {
-  return `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${DRIVE_API_KEY}`
+// Dimensione richiesta per le foto nel carosello: sufficiente per schermi
+// anche ad alta densità, ma molto più leggera di una foto originale da
+// telefono (che può arrivare a 3000-4000px di lato).
+const DISPLAY_SIZE = 1000
+
+// Usa la miniatura generata da Google stesso (CDN veloce, spesso serve
+// automaticamente WebP ai browser che lo supportano) invece di scaricare
+// il file originale a piena risoluzione tramite l'endpoint "alt=media".
+function driveImageUrl(file: DriveFile): string {
+  if (file.thumbnailLink) {
+    return file.thumbnailLink.replace(/=s\d+$/, `=s${DISPLAY_SIZE}`)
+  }
+  // Ripiego se Drive non fornisce una thumbnailLink per qualche motivo
+  return `https://www.googleapis.com/drive/v3/files/${file.id}?alt=media&key=${DRIVE_API_KEY}`
 }
 
 /**
@@ -38,7 +49,7 @@ export function useDriveGallery() {
       const params = new URLSearchParams({
         q: `'${DRIVE_FOLDER_ID}' in parents and mimeType contains 'image/' and trashed = false`,
         key: DRIVE_API_KEY,
-        fields: 'files(id,name,mimeType,createdTime)',
+        fields: 'files(id,name,mimeType,createdTime,thumbnailLink)',
         orderBy: 'createdTime desc',
         pageSize: '50',
       })
@@ -52,7 +63,7 @@ export function useDriveGallery() {
 
       items.value = (data.files ?? []).map((file) => ({
         type: 'image',
-        src: driveImageUrl(file.id),
+        src: driveImageUrl(file),
         alt: 'Foto Iako Style',
       }))
     } catch (err) {

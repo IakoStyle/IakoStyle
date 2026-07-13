@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/salon'
 import { useCookieConsent } from '@/composables/useCookieConsent'
-import logoUrl from '@/assets/logo-iako.jpg'
+import logoUrl from '@/assets/logo-iako.webp'
 
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())

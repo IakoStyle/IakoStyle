@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useTheme } from '@/composables/useTheme'
 import { salon } from '@/data/salon'
-import logoUrl from '@/assets/logo-iako.jpg'
+import logoUrl from '@/assets/logo-iako.webp'
 
 const { isDark, toggle } = useTheme()
 const menuOpen = ref(false)

@@ -6,7 +6,7 @@ import MediaCarousel from '@/components/MediaCarousel.vue'
 import ServiceCard from '@/components/ServiceCard.vue'
 import ReviewCard from '@/components/ReviewCard.vue'
 import StarRating from '@/components/StarRating.vue'
-import heroPhoto from '@/assets/gallery/salone-ingresso.jpg'
+import heroPhoto from '@/assets/gallery/salone-ingresso.webp'
 
 const featured = services.filter((s) => s.featured)
 

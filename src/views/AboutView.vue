@@ -4,7 +4,7 @@ import { salon, team } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
 import StarRating from '@/components/StarRating.vue'
 import MediaCarousel from '@/components/MediaCarousel.vue'
-import matteoPhoto from '@/assets/team/matteo.jpg'
+import matteoPhoto from '@/assets/team/matteo.webp'
 
 const strengths = [
   { icon: ['fas', 'spa'], title: 'Ambiente', desc: 'Professionale e curato, pensato per farti sentire a tuo agio.' },
