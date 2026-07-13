@@ -125,14 +125,12 @@ const mapsLink = computed(
       <ul class="mt-5 space-y-3">
         <li>
           <a
-            :href="`https://wa.me/39${salon.whatsappNumber}`"
-            target="_blank"
-            rel="noopener"
+            :href="`tel:+39${salon.whatsappNumber}`"
             class="flex items-center gap-3 rounded-2xl bg-surface-2 p-4 transition-colors hover:bg-primary-soft"
           >
-            <font-awesome-icon :icon="['fab', 'whatsapp']" class="text-xl text-primary" />
+            <font-awesome-icon :icon="['fas', 'phone']" class="text-xl text-primary" />
             <span>
-              <span class="block text-xs text-muted">WhatsApp</span>
+              <span class="block text-xs text-muted">Telefono</span>
               <span class="font-bold text-foreground">{{ salon.whatsappDisplay }}</span>
             </span>
           </a>

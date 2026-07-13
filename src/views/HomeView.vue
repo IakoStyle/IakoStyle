@@ -144,6 +144,17 @@ const status = computed(() => getOpenStatus())
     <div class="grid gap-4 md:grid-cols-3">
       <ReviewCard v-for="r in reviews.slice(0, 3)" :key="r.author" :review="r" />
     </div>
+    <div class="mt-8 text-center">
+      <a
+        :href="salon.bookingUrl"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
+      >
+        <font-awesome-icon :icon="['fas', 'star']" class="text-gold" />
+        Lascia una recensione su Treatwell
+      </a>
+    </div>
   </section>
 
   <!-- CTA -->
