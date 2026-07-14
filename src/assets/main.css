@@ -27,11 +27,11 @@
   --color-muted: #6b6a63;           /* testo secondario */
   --color-border: #e3ddd0;          /* bordi */
 
-  /* Font — pairing elegante (Iako Style) */
-  --font-display: "Playfair Display", ui-serif, Georgia, serif;
-  --font-body: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  /* Font — pairing elegante, condiviso da Iako Style e Iako Ritual */
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-body: "Montserrat", ui-sans-serif, system-ui, sans-serif;
 
-  /* Font del marchio Iako Ritual (dal manuale del brand) */
+  /* Font aggiuntivi del marchio Iako Ritual (dal manuale del brand) */
   --font-ritual-display: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-ritual-body: "Montserrat", ui-sans-serif, system-ui, sans-serif;
   --font-ritual-serif: "Libre Baskerville", ui-serif, Georgia, serif;
@@ -154,12 +154,9 @@ h1, h2, h3, h4, .font-display {
    di em): 124 -> 0.124em, 446 -> 0.446em, ecc.
    =========================================================== */
 
-/* Dentro il mondo Ritual, i titoli usano Cormorant Garamond
-   e i testi Montserrat, al posto di Playfair/Poppins. */
-.brand-ritual {
-  --font-display: var(--font-ritual-display);
-  --font-body: var(--font-ritual-body);
-}
+/* Titoli e testi usano ora sempre Cormorant Garamond / Montserrat,
+   sia per Iako Style che per Iako Ritual — non serve più un override
+   qui, dato che sono già i font di base definiti in @theme sopra. */
 
 /* "IAKO" — Cormorant Garamond, spaziatura 124 */
 .ritual-wordmark {
