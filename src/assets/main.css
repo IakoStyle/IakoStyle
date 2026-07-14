@@ -27,9 +27,15 @@
   --color-muted: #6b6a63;           /* testo secondario */
   --color-border: #e3ddd0;          /* bordi */
 
-  /* Font — pairing elegante */
+  /* Font — pairing elegante (Iako Style) */
   --font-display: "Playfair Display", ui-serif, Georgia, serif;
   --font-body: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  /* Font del marchio Iako Ritual (dal manuale del brand) */
+  --font-ritual-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-ritual-body: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-ritual-serif: "Libre Baskerville", ui-serif, Georgia, serif;
+  --font-ritual-script: "Allura", cursive;
 
   --radius-blob: 1.25rem;
 }
@@ -51,6 +57,45 @@
   --color-foreground: #f0ece2;
   --color-muted: #a3ab9f;
   --color-border: #2f4640;
+}
+
+/* ===========================================================
+   PALETTE — Iako Ritual
+   Si attiva quando <html> ha la classe .brand-ritual.
+   Colori ufficiali dal manuale del brand:
+     #4A3428 marrone (testo)  ·  #966706 oro (sottolineatura)
+   Toni caldi e naturali, coerenti con la pochette in cotone.
+   =========================================================== */
+.brand-ritual {
+  --color-primary: #4a3428;        /* marrone del brand */
+  --color-primary-soft: #ece2d8;   /* marrone chiarissimo */
+  --color-gold: #966706;           /* oro del brand */
+  --color-gold-soft: #f6ead1;      /* oro chiarissimo */
+  --color-accent: #966706;         /* niente celestino: l'accento è l'oro */
+  --color-accent-soft: #f6ead1;
+
+  --color-background: #fbf8f3;      /* avorio/cotone naturale */
+  --color-surface: #ffffff;
+  --color-surface-2: #f3ece2;
+  --color-foreground: #4a3428;      /* il marrone è anche il colore del testo */
+  --color-muted: #8a7466;
+  --color-border: #e5d9c9;
+}
+
+.dark.brand-ritual {
+  --color-primary: #c9a888;
+  --color-primary-soft: #33261e;
+  --color-gold: #d4a53c;
+  --color-gold-soft: #3a2c14;
+  --color-accent: #d4a53c;
+  --color-accent-soft: #3a2c14;
+
+  --color-background: #1c1511;
+  --color-surface: #271e18;
+  --color-surface-2: #322720;
+  --color-foreground: #f3e9dd;
+  --color-muted: #b3a091;
+  --color-border: #453629;
 }
 
 html {
@@ -101,3 +146,46 @@ h1, h2, h3, h4, .font-display {
   to { opacity: 1; transform: translateY(0); }
 }
 .animate-pop-in { animation: pop-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ===========================================================
+   TIPOGRAFIA — Iako Ritual
+   Font e spaziature esatte dal manuale del brand.
+   Le spaziature originali sono in unità Illustrator (millesimi
+   di em): 124 -> 0.124em, 446 -> 0.446em, ecc.
+   =========================================================== */
+
+/* Dentro il mondo Ritual, i titoli usano Cormorant Garamond
+   e i testi Montserrat, al posto di Playfair/Poppins. */
+.brand-ritual {
+  --font-display: var(--font-ritual-display);
+  --font-body: var(--font-ritual-body);
+}
+
+/* "IAKO" — Cormorant Garamond, spaziatura 124 */
+.ritual-wordmark {
+  font-family: var(--font-ritual-display);
+  letter-spacing: 0.124em;
+}
+
+/* "RITUAL" — Montserrat, spaziatura 446 (molto larga) */
+.ritual-subword {
+  font-family: var(--font-ritual-body);
+  letter-spacing: 0.446em;
+}
+
+/* "Head Spa Experience" — Libre Baskerville, spaziatura 174 */
+.ritual-eyebrow {
+  font-family: var(--font-ritual-serif);
+  letter-spacing: 0.174em;
+}
+
+/* "EVERYWHERE" — Cormorant Garamond */
+.ritual-claim {
+  font-family: var(--font-ritual-display);
+  letter-spacing: 0.08em;
+}
+
+/* "with you" — script (in attesa della licenza di Brittany) */
+.ritual-script {
+  font-family: var(--font-ritual-script);
+}

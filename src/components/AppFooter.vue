@@ -3,11 +3,13 @@ import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/salon'
 import { useCookieConsent } from '@/composables/useCookieConsent'
+import { useBrand } from '@/composables/useBrand'
 import logoUrl from '@/assets/logo-iako.webp'
 
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
 const { reset } = useCookieConsent()
+const { brand, isRitual } = useBrand()
 </script>
 
 <template>
@@ -16,9 +18,9 @@ const { reset } = useCookieConsent()
       <!-- Brand -->
       <div>
         <div class="inline-flex items-center gap-2 rounded-2xl bg-white p-2 shadow-sm ring-1 ring-border">
-          <img :src="logoUrl" alt="Iako Style" class="h-16 w-16 object-contain" />
+          <img :src="logoUrl" :alt="brand.name" class="h-16 w-16 object-contain" />
         </div>
-        <p class="mt-4 text-sm text-muted">{{ salon.tagline }}.</p>
+        <p class="mt-4 text-sm text-muted">{{ brand.tagline }}.</p>
         <div class="mt-4 flex gap-2">
           <a
             v-for="s in socials"
@@ -44,6 +46,15 @@ const { reset } = useCookieConsent()
           <li><RouterLink to="/prodotti" class="text-muted transition-colors hover:text-primary">Prodotti</RouterLink></li>
           <li><RouterLink to="/contatti" class="text-muted transition-colors hover:text-primary">Contatti</RouterLink></li>
           <li><RouterLink to="/privacy" class="text-muted transition-colors hover:text-primary">Privacy Policy</RouterLink></li>
+          <li class="pt-2">
+            <RouterLink
+              :to="isRitual ? '/' : '/ritual'"
+              class="inline-flex items-center gap-1.5 font-bold text-gold transition-colors hover:underline"
+            >
+              <font-awesome-icon :icon="['fas', 'arrow-right']" class="text-xs" />
+              {{ isRitual ? 'Vai a Iako Style' : 'Scopri Iako Ritual' }}
+            </RouterLink>
+          </li>
         </ul>
       </div>
 
@@ -104,7 +115,7 @@ const { reset } = useCookieConsent()
 
     <div class="border-t border-border">
       <p class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-6 py-5 text-center text-xs text-muted">
-        <span>© {{ new Date().getFullYear() }} Iako Style · {{ salon.city }} · P.IVA {{ salon.vatNumber }} · Tutti i diritti riservati</span>
+        <span>© {{ new Date().getFullYear() }} {{ brand.name }} · {{ salon.city }} · P.IVA {{ salon.vatNumber }} · Tutti i diritti riservati</span>
         <span aria-hidden="true">·</span>
         <button class="font-bold text-muted underline-offset-2 hover:text-primary hover:underline" @click="reset">
           Preferenze cookie

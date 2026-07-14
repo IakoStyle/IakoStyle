@@ -15,16 +15,35 @@ import '@fontsource/poppins/600.css'
 import '@fontsource/poppins/700.css'
 import '@fontsource/poppins/400-italic.css'
 
+// Font del marchio Iako Ritual
+import '@fontsource/cormorant-garamond/400.css'
+import '@fontsource/cormorant-garamond/500.css'
+import '@fontsource/cormorant-garamond/600.css'
+import '@fontsource/cormorant-garamond/700.css'
+import '@fontsource/montserrat/300.css'
+import '@fontsource/montserrat/400.css'
+import '@fontsource/montserrat/500.css'
+import '@fontsource/montserrat/600.css'
+import '@fontsource/libre-baskerville/400.css'
+import '@fontsource/libre-baskerville/700.css'
+import '@fontsource/allura/400.css'
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { FontAwesomeIcon } from './plugins/fontawesome'
 import { useTheme } from './composables/useTheme'
+import { applyBrandToDom, currentBrandFromPath } from './composables/useBrand'
 
 // Applica il tema salvato PRIMA del mount, in modo esplicito e sincrono:
 // evita sia il flash del tema sbagliato sia il disallineamento tra icona
 // e colore effettivo del toggle (bug legato all'ordine di import dei moduli).
 useTheme().initTheme()
+
+// Stessa logica per il marchio: la palette giusta (Style o Ritual) deve
+// essere già applicata al primo pixel disegnato, altrimenti si vedrebbe
+// un lampeggio di colori sbagliati aprendo direttamente una pagina /ritual.
+applyBrandToDom(currentBrandFromPath(window.location.pathname))
 
 const app = createApp(App)
 

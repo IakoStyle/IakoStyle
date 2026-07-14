@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { trackPageView } from '@/composables/useAnalytics'
+import { applyBrandToDom, currentBrandFromPath } from '@/composables/useBrand'
 
 const SITE_URL = 'https://iakostyle.it'
 const DEFAULT_DESCRIPTION =
@@ -62,6 +63,16 @@ const router = createRouter({
       },
     },
     {
+      path: '/ritual',
+      name: 'ritual',
+      component: () => import('../views/RitualHomeView.vue'),
+      meta: {
+        title: 'Iako Ritual · Head Spa Experience',
+        description:
+          'Iako Ritual — Head Spa Experience a Fondi (LT). Un rituale di benessere per cute e capelli: massaggio, trattamenti e profumi naturali.',
+      },
+    },
+    {
       path: '/privacy',
       name: 'privacy',
       component: () => import('../views/PrivacyView.vue'),
@@ -87,7 +98,20 @@ function setMeta(attr: 'name' | 'property', key: string, content: string) {
 
 router.afterEach((to) => {
   const pageTitle = to.meta.title as string | undefined
-  const fullTitle = pageTitle ? `Iako Style · ${pageTitle}` : 'Iako Style · Parrucchiere a Fondi (LT)'
+  const isRitual = currentBrandFromPath(to.path)  === 'ritual'
+
+  // Il titolo deve riflettere il marchio della pagina: senza questo,
+  // una pagina di Ritual si annuncerebbe come "Iako Style · ..." sia
+  // nella scheda del browser sia nei risultati di ricerca.
+  const fullTitle = isRitual
+    ? (pageTitle ?? 'Iako Ritual · Head Spa Experience')
+    : pageTitle
+      ? `Iako Style · ${pageTitle}`
+      : 'Iako Style · Parrucchiere a Fondi (LT)'
+
+  // La palette del marchio va applicata ad ogni cambio rotta, non solo
+  // al primo caricamento (lo switch Style/Ritual è una navigazione).
+  applyBrandToDom(isRitual ? 'ritual' : 'style')
   const description = (to.meta.description as string | undefined) ?? DEFAULT_DESCRIPTION
   const canonicalUrl = `${SITE_URL}${to.path === '/' ? '/' : to.path}`
 

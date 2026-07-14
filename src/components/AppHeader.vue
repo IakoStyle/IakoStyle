@@ -1,34 +1,53 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useTheme } from '@/composables/useTheme'
+import { useBrand } from '@/composables/useBrand'
 import { salon } from '@/data/salon'
+import BrandSwitch from '@/components/BrandSwitch.vue'
 import logoUrl from '@/assets/logo-iako.webp'
 
 const { isDark, toggle } = useTheme()
+const { brand, isRitual } = useBrand()
 const menuOpen = ref(false)
 
-const links = [
+// Ogni marchio ha la propria navigazione. Le pagine condivise
+// (contatti, privacy) restano uniche: stesso salone, stessa sede.
+const styleLinks = [
   { to: '/', label: 'Home' },
   { to: '/chi-siamo', label: 'Chi Siamo' },
   { to: '/listino', label: 'Listino' },
   { to: '/prodotti', label: 'Prodotti' },
   { to: '/contatti', label: 'Contatti' },
 ]
+
+const ritualLinks = [
+  { to: '/ritual', label: 'Home' },
+  { to: '/contatti', label: 'Contatti' },
+]
+
+const links = computed(() => (isRitual.value ? ritualLinks : styleLinks))
 </script>
 
 <template>
   <header class="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-lg">
-    <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-      <!-- Logo -->
-      <RouterLink to="/" class="flex items-center gap-2" @click="menuOpen = false">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
+      <!-- Logo + nome del marchio attivo -->
+      <RouterLink :to="brand.basePath" class="flex shrink-0 items-center gap-2" @click="menuOpen = false">
         <span class="flex items-center justify-center rounded-2xl bg-white p-1.5 shadow-sm ring-1 ring-border">
-          <img :src="logoUrl" alt="Iako Style" class="h-9 w-9 object-contain" />
+          <img :src="logoUrl" :alt="brand.name" class="h-9 w-9 object-contain" />
         </span>
-        <span class="hidden font-display text-xl font-bold text-foreground sm:block">
+        <span v-if="!isRitual" class="hidden font-display text-xl font-bold text-foreground lg:block">
           Iako <span class="text-primary">Style</span>
         </span>
+        <span v-else class="hidden text-left leading-tight lg:block">
+          <span class="ritual-wordmark block text-lg font-semibold text-foreground">IAKO</span>
+          <span class="ritual-subword block text-[0.6rem] font-medium text-gold">RITUAL</span>
+        </span>
       </RouterLink>
+
+      <!-- Switch tra i due marchi -->
+      <BrandSwitch />
 
       <!-- Link desktop -->
       <div class="hidden items-center gap-1 md:flex">
@@ -44,7 +63,7 @@ const links = [
       </div>
 
       <!-- Azioni -->
-      <div class="flex items-center gap-2">
+      <div class="flex shrink-0 items-center gap-2">
         <button
           class="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-surface-2"
           :aria-label="isDark ? 'Passa al tema chiaro' : 'Passa al tema scuro'"
@@ -57,7 +76,7 @@ const links = [
           :href="salon.bookingUrl"
           target="_blank"
           rel="noopener"
-          class="hidden items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/30 ring-1 ring-gold/40 transition-transform hover:scale-105 sm:flex"
+          class="hidden items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/30 ring-1 ring-gold/40 transition-transform hover:scale-105 lg:flex"
         >
           <font-awesome-icon :icon="['fas', 'calendar-check']" />
           Prenota ora

@@ -10,6 +10,19 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 
 ## 🟡 In corso
 
+- [ ] **Font "Brittany" per il claim di Ritual** ("with you" sulla pochette).
+      È un font COMMERCIALE (Brittany Signature): non posso distribuirlo senza licenza.
+      Attualmente sostituito con **Allura** (font libero, script simile).
+      Opzioni: (1) Matteo ha già la licenza → serve il file .woff2/.otf e va verificato
+      che copra l'uso "webfont"; (2) comprare la licenza web (~15-30€);
+      (3) tenere Allura.
+
+- [ ] **Contenuti di Iako Ritual**: logo, servizi + prezzi, foto.
+      Il mondo Ritual è già online (/ritual) con branding, palette e claim,
+      ma la sezione servizi è ancora un segnaposto.
+      Per le foto: valutare una SECONDA cartella Google Drive dedicata,
+      così Style e Ritual hanno caroselli separati.
+
 - [ ] **Widget di prenotazione Treatwell incorporato nel sito** (invece del semplice link
       che porta fuori dal sito). Serve il codice del "Widget" dal pannello
       Treatwell Connect del salone (Impostazioni → Prenotazione online → Widget).
@@ -46,4 +59,8 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 - Carosello: loop infinito fluido, swipe touch (iOS e Android) e drag da mouse
 - Partita IVA nel footer e nella Privacy Policy
 - Due pulsanti recensioni in home: Google Maps e Treatwell
+- Sistema a due marchi: switch Style/Ritual nell'header, palette e font per marchio,
+  rotta /ritual con il claim "Everywhere with you" nei font e colori ufficiali
+- Logo rigenerato dal PDF vettoriale (più nitido, trasparente, più leggero);
+  favicon ricostruite dal logo vero
 - Link diretto "scrivi una recensione" su Google Maps (Place ID corretto)

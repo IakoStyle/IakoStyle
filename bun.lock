@@ -5,6 +5,10 @@
     "": {
       "name": "iakostyle",
       "dependencies": {
+        "@fontsource/allura": "^5.2.8",
+        "@fontsource/cormorant-garamond": "^5.2.11",
+        "@fontsource/libre-baskerville": "^5.2.10",
+        "@fontsource/montserrat": "^5.2.8",
         "@fontsource/playfair-display": "^5.2.8",
         "@fontsource/poppins": "^5.2.7",
         "@fortawesome/fontawesome-svg-core": "^7.3.0",
@@ -98,6 +102,14 @@
     "@emnapi/runtime": ["@emnapi/runtime@1.11.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-vgj7R3y3Wgx24IQaGPA/R6YFXLHVMOZ0uVEyIQPaWs+rd1AzfEMXlAC22FYwO1XkKR6NPsq7mUandH8oIRdZFw=="],
 
     "@emnapi/wasi-threads": ["@emnapi/wasi-threads@1.2.2", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-c95qOXkHdydNKhscBTebqEC1CVAZpyqOfVfBzQ1qgzyl3gfeldUjIggDbIZgDKsHLgnsM+igH7TJ/eAasaVuMA=="],
+
+    "@fontsource/allura": ["@fontsource/allura@5.2.8", "", {}, "sha512-NzYZyYj/nET124bL0RfNDRdO2IXG+lhS5AzrwqpBHmovWznJ56t9u3w+RYR4iMa+WuCB6XFE6NTOQ4JzvCOq0A=="],
+
+    "@fontsource/cormorant-garamond": ["@fontsource/cormorant-garamond@5.2.11", "", {}, "sha512-5JjpN023lhA5soijgVT0BdRGzmlijm402ppjccMd6h+vRE0mX2lJnE+41UPfnlidrkV9/rCo1mf58WZlHnB0CA=="],
+
+    "@fontsource/libre-baskerville": ["@fontsource/libre-baskerville@5.2.10", "", {}, "sha512-Y/bGj4cOdWhAxU4+sBPen3MB5Og3t/WvezVL+05CJ7cvhDQUKpQFUuw/hm1IQKRc9u0lWs8VP2MKDOK2uQtloQ=="],
+
+    "@fontsource/montserrat": ["@fontsource/montserrat@5.2.8", "", {}, "sha512-xTjLxSbSfCycDB0pwmNsfNvdfWPaDaRQ2LC6yt/ZI7SdvXG52zHnzNYC/09mzuAuWNJyShkteutfCoDgym56hQ=="],
 
     "@fontsource/playfair-display": ["@fontsource/playfair-display@5.2.8", "", {}, "sha512-fUEhib70SszNhQVsGbUMSsWJhr7Je0rdeuZdtGpDNu0GKF1xJM8QhpI/y0pckU25GcChXm9TLOmeZupkvvZo2g=="],
 
