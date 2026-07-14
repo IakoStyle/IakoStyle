@@ -37,7 +37,7 @@ const status = computed(() => getOpenStatus())
         {{ salon.city }}
       </span>
 
-      <h1 class="mt-5 font-display text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+      <h1 class="mt-5 font-display text-5xl font-bold leading-tight text-white sm:text-6xl lg:text-7xl">
         Il tuo look,<br />
         <span class="text-gold">su misura</span><span class="text-white">.</span>
       </h1>
