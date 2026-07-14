@@ -51,7 +51,7 @@ const mapsLink = computed(
         class="h-72 w-full border-0"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        title="Mappa Iako Style"
+        title="Mappa del salone"
       ></iframe>
       <div v-else class="flex h-72 w-full flex-col items-center justify-center gap-3 bg-surface-2 px-6 text-center">
         <font-awesome-icon :icon="['fas', 'map-location-dot']" class="text-3xl text-muted" />

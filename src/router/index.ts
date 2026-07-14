@@ -73,6 +73,19 @@ const router = createRouter({
       },
     },
     {
+      // Stessa pagina di /contatti (stesso salone, stesso indirizzo):
+      // qui serve solo perché l'URL inizia con /ritual, così la palette
+      // e i colori restano quelli di Iako Ritual invece di tornare a Style.
+      path: '/ritual/contatti',
+      name: 'ritual-contatti',
+      component: () => import('../views/ContattiView.vue'),
+      meta: {
+        title: 'Contatti · Iako Ritual',
+        description:
+          'Contatta Iako Ritual: indirizzo, mappa, orari di apertura e social. Via Vincenzo Gioberti 60, Fondi (LT).',
+      },
+    },
+    {
       path: '/privacy',
       name: 'privacy',
       component: () => import('../views/PrivacyView.vue'),

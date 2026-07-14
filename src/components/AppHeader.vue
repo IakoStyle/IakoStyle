@@ -23,7 +23,7 @@ const styleLinks = [
 
 const ritualLinks = [
   { to: '/ritual', label: 'Home' },
-  { to: '/contatti', label: 'Contatti' },
+  { to: '/ritual/contatti', label: 'Contatti' },
 ]
 
 const links = computed(() => (isRitual.value ? ritualLinks : styleLinks))
