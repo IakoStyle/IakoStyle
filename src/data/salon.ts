@@ -306,7 +306,7 @@ export const styleProducts: ProductShowcase = {
   images: [
     { src: medavitaSalone, alt: 'Prodotti Medavita Beta Refibre in salone', caption: 'Beta Refibre in salone' },
     { src: medavitaLinea, alt: 'Linea completa Medavita Beta Refibre', caption: 'Shampoo, maschera e fluido ricostruttore' },
-    { src: medavitaLavoro, alt: 'Trattamento Medavita Beta Refibre applicato da Matteo', caption: 'Il trattamento in azione' },
+    { src: medavitaLavoro, alt: 'Matteo al lavoro in salone, con Beta Refibre sul set', caption: 'Beta Refibre sul set di lavoro' },
   ],
 }
 
