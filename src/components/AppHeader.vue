@@ -32,26 +32,21 @@ const links = computed(() => (isRitual.value ? ritualLinks : styleLinks))
 
 <template>
   <header class="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-lg">
-    <nav class="relative mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
-      <!-- Logo + nome del marchio attivo -->
-      <RouterLink :to="brand.basePath" class="flex shrink-0 items-center gap-2" @click="menuOpen = false">
-        <span class="flex items-center justify-center rounded-2xl bg-white p-1.5 shadow-sm ring-1 ring-border">
-          <img :src="logoUrl" :alt="brand.name" class="h-9 w-9 object-contain" />
-        </span>
-        <span v-if="!isRitual" class="hidden font-display text-xl font-bold text-foreground lg:block">
-          Iako <span class="text-primary">Style</span>
-        </span>
-        <span v-else class="hidden text-left leading-tight lg:block">
-          <span class="ritual-wordmark block text-lg font-semibold text-foreground">IAKO</span>
-          <span class="ritual-subword block text-[0.6rem] font-medium text-gold">RITUAL</span>
-        </span>
-      </RouterLink>
+    <nav class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
+      <div class="flex shrink-0 items-center gap-3">
+        <!-- Logo: solo icona nell'header (niente testo), così il blocco ha
+             sempre la STESSA larghezza in entrambi i marchi — è il nome nella
+             pillola dello switch, qui accanto, a dire quale marchio è attivo. -->
+        <RouterLink :to="brand.basePath" class="flex shrink-0 items-center" @click="menuOpen = false">
+          <span class="flex items-center justify-center rounded-2xl bg-white p-1.5 shadow-sm ring-1 ring-border">
+            <img :src="logoUrl" :alt="brand.name" class="h-9 w-9 object-contain" />
+          </span>
+        </RouterLink>
 
-      <!-- Switch tra i due marchi: ancorato al centro esatto dello schermo,
-           indipendente dalla larghezza dei link a destra (che cambiano tra
-           Style e Ritual) — altrimenti "justify-between" lo spostava fuori
-           centro ogni volta che i due lati avevano larghezze diverse. -->
-      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <!-- Switch tra i due marchi: sempre subito a destra del logo,
+             nella stessa identica posizione in entrambe le pagine (a
+             differenza del vecchio posizionamento centrato sull'intera
+             larghezza, che spostava tutto il resto). -->
         <BrandSwitch />
       </div>
 
