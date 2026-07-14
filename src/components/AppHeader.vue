@@ -23,6 +23,7 @@ const styleLinks = [
 
 const ritualLinks = [
   { to: '/ritual', label: 'Home' },
+  { to: '/ritual/prodotti', label: 'Prodotti' },
   { to: '/ritual/contatti', label: 'Contatti' },
 ]
 
@@ -31,7 +32,7 @@ const links = computed(() => (isRitual.value ? ritualLinks : styleLinks))
 
 <template>
   <header class="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-lg">
-    <nav class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
+    <nav class="relative mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
       <!-- Logo + nome del marchio attivo -->
       <RouterLink :to="brand.basePath" class="flex shrink-0 items-center gap-2" @click="menuOpen = false">
         <span class="flex items-center justify-center rounded-2xl bg-white p-1.5 shadow-sm ring-1 ring-border">
@@ -46,8 +47,13 @@ const links = computed(() => (isRitual.value ? ritualLinks : styleLinks))
         </span>
       </RouterLink>
 
-      <!-- Switch tra i due marchi -->
-      <BrandSwitch />
+      <!-- Switch tra i due marchi: ancorato al centro esatto dello schermo,
+           indipendente dalla larghezza dei link a destra (che cambiano tra
+           Style e Ritual) — altrimenti "justify-between" lo spostava fuori
+           centro ogni volta che i due lati avevano larghezze diverse. -->
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <BrandSwitch />
+      </div>
 
       <!-- Link desktop -->
       <div class="hidden items-center gap-1 md:flex">

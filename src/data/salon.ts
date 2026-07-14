@@ -274,27 +274,60 @@ export const reviews: Review[] = [
 
 export const reviewStats = { ambiente: 5.0, pulizia: 5.0, staff: 5.0, fiveStar: 107 }
 
-import goldwellImg from '@/assets/products/goldwell.webp'
-import insightImg from '@/assets/products/insight.webp'
-import insightDonnaImg from '@/assets/products/insight-2.webp'
-import nubeaImg from '@/assets/products/nubea.webp'
-import ghdImg from '@/assets/products/ghd.webp'
-import prorasoImg from '@/assets/products/proraso.webp'
-import redkenImg from '@/assets/products/redken.webp'
+import medavitaLinea from '@/assets/medavita/medavita-linea.webp'
+import medavitaSalone from '@/assets/medavita/medavita-salone.webp'
+import medavitaLavoro from '@/assets/medavita/medavita-lavoro.webp'
+import nubeaLinea from '@/assets/nubea/nubea-linea.webp'
+import nubeaShampoo from '@/assets/nubea/nubea-shampoo.webp'
+import nubeaPatch from '@/assets/nubea/nubea-patch.webp'
 
-export interface Product {
-  brand: string
-  reparto: 'Uomo' | 'Donna' | 'Tricologia'
-  desc: string
-  image?: string
+export interface ProductImage {
+  src: string
+  alt: string
+  caption?: string
 }
 
-export const products: Product[] = [
-  { brand: 'Insight', reparto: 'Uomo', desc: 'Cosmetica professionale naturale per la cura quotidiana del capello.', image: insightImg },
-  { brand: 'Proraso', reparto: 'Uomo', desc: 'Icona italiana della rasatura: barba e cura maschile dal 1948.', image: prorasoImg },
-  { brand: 'ghd', reparto: 'Donna', desc: 'Styling di alta gamma: piastre e strumenti caldi di riferimento.', image: ghdImg },
-  { brand: 'Goldwell', reparto: 'Donna', desc: 'Colore professionale e tecniche di schiaritura per un risultato luminoso e su misura.', image: goldwellImg },
-  { brand: 'Insight', reparto: 'Donna', desc: 'Linee naturali e delicate per ogni tipo di capello.', image: insightDonnaImg },
-  { brand: 'Redken', reparto: 'Donna', desc: 'Scienza e performance per trattamenti e styling avanzati.', image: redkenImg },
-  { brand: 'Nubea · Sursum', reparto: 'Tricologia', desc: 'Trattamento coadiuvante anticaduta: shampoo, lozione e patch per rinforzare cute e capelli.', image: nubeaImg },
-]
+export interface ProductShowcase {
+  brand: string
+  line: string
+  tagline: string
+  desc: string
+  highlights: string[]
+  images: ProductImage[]
+}
+
+// Iako Style usa in salone la linea ricostruttiva Medavita Beta Refibre.
+export const styleProducts: ProductShowcase = {
+  brand: 'Medavita',
+  line: 'Beta Refibre',
+  tagline: "La soluzione d'urto che dona forza ai tuoi capelli",
+  desc: 'Linea ricostruttiva professionale al beta-carotene per capelli sfibrati e provati: shampoo, maschera, fluido e fiala concentrata, clinicamente testati e senza parabeni.',
+  highlights: ['Clinicamente testato', 'Senza parabeni', 'Amino Concentré'],
+  images: [
+    { src: medavitaSalone, alt: 'Prodotti Medavita Beta Refibre in salone', caption: 'Beta Refibre in salone' },
+    { src: medavitaLinea, alt: 'Linea completa Medavita Beta Refibre', caption: 'Shampoo, maschera e fluido ricostruttore' },
+    { src: medavitaLavoro, alt: 'Trattamento Medavita Beta Refibre applicato da Matteo', caption: 'Il trattamento in azione' },
+  ],
+}
+
+// Iako Ritual usa la linea anticaduta Nubea Sursum.
+export const ritualProducts: ProductShowcase = {
+  brand: 'Nubea',
+  line: 'Sursum',
+  tagline: 'Essential Oil Therapy — trattamento coadiuvante anticaduta',
+  desc: 'Con oli essenziali di limone e bergamotto ed estratto di Serenoa Repens: nutre, rinforza e prolunga il ciclo vitale del capello.',
+  highlights: ['100% Made in Italy', 'Oli essenziali naturali', 'Nickel tested'],
+  images: [
+    { src: nubeaLinea, alt: 'Linea completa Nubea Sursum', caption: 'La linea Sursum' },
+    {
+      src: nubeaShampoo,
+      alt: 'Shampoo coadiuvante anticaduta Nubea Sursum',
+      caption: 'Shampoo coadiuvante anticaduta',
+    },
+    {
+      src: nubeaPatch,
+      alt: 'Patch coadiuvante anticaduta Nubea Sursum',
+      caption: 'Patch a rilascio prolungato (10-12 ore)',
+    },
+  ],
+}

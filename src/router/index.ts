@@ -73,6 +73,15 @@ const router = createRouter({
       },
     },
     {
+      path: '/ritual/prodotti',
+      name: 'ritual-prodotti',
+      component: () => import('../views/RitualProdottiView.vue'),
+      meta: {
+        title: 'Prodotti · Iako Ritual',
+        description: 'Nubea Sursum: il trattamento coadiuvante anticaduta usato da Iako Ritual.',
+      },
+    },
+    {
       // Stessa pagina di /contatti (stesso salone, stesso indirizzo):
       // qui serve solo perché l'URL inizia con /ritual, così la palette
       // e i colori restano quelli di Iako Ritual invece di tornare a Style.
