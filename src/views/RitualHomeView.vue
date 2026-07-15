@@ -27,7 +27,7 @@ const status = computed(() => getOpenStatus())
           </p>
 
           <div class="mt-6 flex justify-center md:justify-start">
-            <img :src="ritualLogo" alt="Iako Ritual" class="h-16 w-auto object-contain sm:h-20" />
+            <img :src="ritualLogo" alt="Iako Ritual" class="h-24 w-auto object-contain sm:h-32" />
           </div>
 
           <!-- Il claim della pochette: EVERYWHERE / linea oro / with you.

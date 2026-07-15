@@ -100,6 +100,18 @@ const status = computed(() => getOpenStatus())
     </div>
   </section>
 
+  <!-- GALLERIA -->
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="mb-8 text-center">
+      <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Il salone</p>
+      <h2 class="mt-1 font-display text-3xl font-bold text-foreground">Foto</h2>
+      <p class="mx-auto mt-2 max-w-md text-muted">
+        Uno sguardo tra tagli, colori e atmosfera. Scorri la galleria.
+      </p>
+    </div>
+    <MediaCarousel />
+  </section>
+
   <!-- SERVIZI PIÙ RICHIESTI -->
   <section class="mx-auto max-w-6xl px-6 py-12">
     <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
@@ -115,18 +127,6 @@ const status = computed(() => getOpenStatus())
     <div class="grid gap-4 md:grid-cols-2">
       <ServiceCard v-for="s in featured" :key="s.name" :service="s" />
     </div>
-  </section>
-
-  <!-- GALLERIA / CAROSELLO -->
-  <section class="mx-auto max-w-6xl px-6 py-12">
-    <div class="mb-8 text-center">
-      <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Il salone</p>
-      <h2 class="mt-1 font-display text-3xl font-bold text-foreground">Foto &amp; video</h2>
-      <p class="mx-auto mt-2 max-w-md text-muted">
-        Uno sguardo tra tagli, colori e atmosfera. Scorri la galleria.
-      </p>
-    </div>
-    <MediaCarousel />
   </section>
 
   <!-- RECENSIONI -->
