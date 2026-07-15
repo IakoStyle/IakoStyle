@@ -43,19 +43,21 @@ const status = computed(() => getOpenStatus())
               <p class="ritual-claim text-3xl font-medium uppercase text-foreground sm:text-4xl">
                 Everywhere
               </p>
-              <!-- Riga dorata sotto "EVERYWHERE": molto sottile e piatta,
-                   aderente al testo. -->
+              <!-- Riga dorata sotto "EVERYWHERE": tracciata pixel per pixel
+                   dall'etichetta di riferimento. Non è simmetrica: sale
+                   dolcemente fino a un plateau alto verso il centro-sinistra,
+                   poi scende decisamente verso il basso a destra. -->
               <svg
                 class="mt-0.5 w-full text-gold"
-                viewBox="0 0 300 6"
+                viewBox="0 0 300 10"
                 fill="none"
                 preserveAspectRatio="none"
                 aria-hidden="true"
               >
                 <path
-                  d="M0 3 C 90 1.5, 210 1.5, 300 2.5"
+                  d="M0,5 C 40,1.5 100,0.5 150,0.5 C 200,0.5 260,3 300,10"
                   stroke="currentColor"
-                  stroke-width="2"
+                  stroke-width="1.8"
                   stroke-linecap="round"
                 />
               </svg>
