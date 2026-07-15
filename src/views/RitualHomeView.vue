@@ -25,39 +25,37 @@ const status = computed(() => getOpenStatus())
             Head Spa Experience
           </p>
 
-          <div class="mt-6 flex items-start justify-center gap-2 md:justify-start">
-            <div>
-              <span class="ritual-wordmark block text-5xl font-semibold text-foreground sm:text-6xl">
-                IAKO
-              </span>
-              <span class="ritual-subword mt-1 block text-sm font-medium text-gold sm:text-base">
-                RITUAL
-              </span>
-            </div>
-            <!-- Il frutto dell'anno, come sull'etichetta -->
-            <span class="rotate-12 text-3xl leading-none sm:text-4xl" aria-hidden="true">{{ ritualFruit.emoji }}</span>
+          <div class="mt-6">
+            <span class="ritual-wordmark block text-5xl font-semibold text-foreground sm:text-6xl">
+              IAKO
+            </span>
+            <span class="ritual-subword mt-1 block text-sm font-medium text-gold sm:text-base">
+              RITUAL
+            </span>
           </div>
 
-          <!-- Il claim della pochette: EVERYWHERE / linea oro / with you -->
-          <div class="mt-10">
-            <div class="inline-block">
+          <!-- Il claim della pochette: EVERYWHERE / linea oro / with you.
+               "inline-flex flex-col items-center": la larghezza del blocco
+               è quella del testo più largo (di norma "EVERYWHERE"), e
+               "with you" viene centrato sotto di esso automaticamente. -->
+          <div class="mt-10 inline-flex flex-col items-center">
+            <div>
               <p class="ritual-claim text-3xl font-medium uppercase text-foreground sm:text-4xl">
                 Everywhere
               </p>
-              <!-- La riga dorata sotto "EVERYWHERE": larga quanto il testo
-                   stesso (non il blocco intero, altrimenti si allarga fino
-                   a "with you" se più largo, e sporge oltre "EVERYWHERE"). -->
+              <!-- Riga dorata sotto "EVERYWHERE": molto sottile e piatta,
+                   aderente al testo. -->
               <svg
-                class="mt-1 w-full text-gold"
-                viewBox="0 0 300 8"
+                class="mt-0.5 w-full text-gold"
+                viewBox="0 0 300 6"
                 fill="none"
                 preserveAspectRatio="none"
                 aria-hidden="true"
               >
                 <path
-                  d="M0 5 C 90 2, 210 2, 300 4"
+                  d="M0 3 C 90 1.5, 210 1.5, 300 2.5"
                   stroke="currentColor"
-                  stroke-width="2.5"
+                  stroke-width="2"
                   stroke-linecap="round"
                 />
               </svg>
