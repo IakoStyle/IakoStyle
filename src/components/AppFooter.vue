@@ -5,12 +5,17 @@ import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/
 import { useCookieConsent } from '@/composables/useCookieConsent'
 import { useBrand } from '@/composables/useBrand'
 import { brands } from '@/data/brands'
-import logoUrl from '@/assets/logo-iako.webp'
+import styleLogoUrl from '@/assets/logo-iako.webp'
+import ritualLogoUrl from '@/assets/ritual/logo-ritual.webp'
 
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
 const { reset } = useCookieConsent()
 const { brand, brandId } = useBrand()
+
+// Ritual e With You condividono l'identità di Ritual (stessa etichetta):
+// mostrano il suo logo invece di quello di Style.
+const logoUrl = computed(() => (brandId.value === 'style' ? styleLogoUrl : ritualLogoUrl))
 
 // I marchi diversi da quello attivo, per i link "Scopri anche..." in fondo.
 const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== brandId.value))
@@ -21,8 +26,8 @@ const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== 
     <div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
       <!-- Brand -->
       <div>
-        <div class="inline-flex items-center gap-2 rounded-2xl bg-white p-2 shadow-sm ring-1 ring-border">
-          <img :src="logoUrl" :alt="brand.name" class="h-16 w-16 object-contain" />
+        <div class="inline-flex h-16 w-32 items-center justify-center rounded-2xl bg-white px-3 shadow-sm ring-1 ring-border">
+          <img :src="logoUrl" :alt="brand.name" class="h-12 w-auto max-w-full object-contain" />
         </div>
         <p class="mt-4 text-sm text-muted">{{ brand.tagline }}.</p>
         <div class="mt-4 flex gap-2">

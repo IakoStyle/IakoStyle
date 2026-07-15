@@ -5,11 +5,16 @@ import { useTheme } from '@/composables/useTheme'
 import { useBrand } from '@/composables/useBrand'
 import { salon } from '@/data/salon'
 import BrandSwitch from '@/components/BrandSwitch.vue'
-import logoUrl from '@/assets/logo-iako.webp'
+import styleLogoUrl from '@/assets/logo-iako.webp'
+import ritualLogoUrl from '@/assets/ritual/logo-ritual.webp'
 
 const { isDark, toggle } = useTheme()
 const { brand, brandId } = useBrand()
 const menuOpen = ref(false)
+
+// Ritual e With You condividono l'identità di Ritual (stessa etichetta):
+// mostrano il suo logo invece di quello di Style.
+const logoUrl = computed(() => (brandId.value === 'style' ? styleLogoUrl : ritualLogoUrl))
 
 // Ogni marchio ha la propria navigazione. Le pagine condivise
 // (contatti, privacy) restano uniche: stesso salone, stessa sede.
@@ -42,12 +47,13 @@ const links = computed(() => {
   <header class="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-lg">
     <nav class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
       <div class="flex shrink-0 items-center gap-3">
-        <!-- Logo: solo icona nell'header (niente testo), così il blocco ha
-             sempre la STESSA larghezza in entrambi i marchi — è il nome nella
-             pillola dello switch, qui accanto, a dire quale marchio è attivo. -->
+        <!-- Logo del marchio attivo, in un contenitore a LARGHEZZA FISSA:
+             il logo di Ritual è molto più "largo" di quello di Style (non è
+             quadrato), quindi senza una larghezza costante lo switch qui
+             accanto si sposterebbe a seconda del marchio attivo. -->
         <RouterLink :to="brand.basePath" class="flex shrink-0 items-center" @click="menuOpen = false">
-          <span class="flex items-center justify-center rounded-2xl bg-white p-1.5 shadow-sm ring-1 ring-border">
-            <img :src="logoUrl" :alt="brand.name" class="h-9 w-9 object-contain" />
+          <span class="flex h-10 w-20 items-center justify-center rounded-2xl bg-white px-2 shadow-sm ring-1 ring-border">
+            <img :src="logoUrl" :alt="brand.name" class="h-7 w-auto max-w-full object-contain" />
           </span>
         </RouterLink>
 
@@ -56,6 +62,17 @@ const links = computed(() => {
              differenza del vecchio posizionamento centrato sull'intera
              larghezza, che spostava tutto il resto). -->
         <BrandSwitch />
+
+        <!-- Torna alla schermata di scelta tra i marchi: da qualunque
+             pagina, non solo cliccando "Home" su Style. -->
+        <RouterLink
+          to="/"
+          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-primary hover:text-primary"
+          aria-label="Torna alla scelta tra i marchi Iako"
+          title="Tutti i marchi Iako"
+        >
+          <font-awesome-icon :icon="['fas', 'table-cells-large']" class="text-xs" />
+        </RouterLink>
       </div>
 
       <!-- Link desktop -->
@@ -74,11 +91,12 @@ const links = computed(() => {
       <!-- Azioni -->
       <div class="flex shrink-0 items-center gap-2">
         <button
-          class="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-surface-2"
+          class="flex h-10 items-center justify-center gap-1.5 rounded-full border border-border px-3.5 text-xs font-bold text-foreground transition-colors hover:bg-surface-2 sm:text-sm"
           :aria-label="isDark ? 'Passa al tema chiaro' : 'Passa al tema scuro'"
           @click="toggle"
         >
-          <font-awesome-icon :icon="['fas', isDark ? 'sun' : 'moon']" />
+          <font-awesome-icon :icon="['fas', isDark ? 'sun' : 'moon']" class="text-[0.7rem]" />
+          {{ isDark ? 'Giorno' : 'Notte' }}
         </button>
 
         <a

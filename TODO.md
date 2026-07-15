@@ -72,6 +72,11 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
   di ricerca o da Google Maps ora vede prima una schermata di scelta invece di
   atterrare dritto sulle informazioni del salone — un compromesso consapevole,
   segnalato e confermato esplicitamente dal cliente.
+- Pulsante tema ora è testuale (Notte/Giorno) invece che solo icona
+- Pulsante 'torna alla scelta tra i marchi' sempre visibile nell'header, su
+  ogni pagina (prima si poteva tornare alla landing solo da Home di Style)
+- Logo nell'header e nel footer ora è consapevole del marchio: Ritual e With
+  You mostrano il logo di Ritual, non quello di Style
 - Carosello reso riutilizzabile (props items + driveFolderId) invece di
   legato solo alle foto di Style; home di Ritual ora ha il proprio carosello
   (segnaposto per ora, in attesa di una cartella Drive dedicata)
