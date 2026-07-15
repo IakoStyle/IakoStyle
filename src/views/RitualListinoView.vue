@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { salon, ritualServices, ritualSeason } from '@/data/salon'
+
+const openItems = ref<Record<string, boolean>>({})
+function toggle(name: string) {
+  openItems.value[name] = !openItems.value[name]
+}
 </script>
 
 <template>
@@ -36,7 +42,35 @@ import { salon, ritualServices, ritualSeason } from '@/data/salon'
             {{ s.duration }}
           </p>
         </div>
-        <p class="flex-1 text-sm leading-relaxed text-muted">{{ s.desc }}</p>
+
+        <div class="flex-1">
+          <button
+            class="flex items-center gap-1.5 text-sm font-bold text-gold"
+            :aria-expanded="!!openItems[s.name]"
+            @click="toggle(s.name)"
+          >
+            {{ openItems[s.name] ? 'Nascondi dettagli' : 'Scopri di più' }}
+            <font-awesome-icon
+              :icon="['fas', 'chevron-down']"
+              class="text-xs transition-transform duration-300"
+              :class="openItems[s.name] ? 'rotate-180' : ''"
+            />
+          </button>
+
+          <Transition
+            enter-active-class="transition-all duration-300 ease-out"
+            enter-from-class="max-h-0 opacity-0"
+            enter-to-class="max-h-96 opacity-100"
+            leave-active-class="transition-all duration-200 ease-in"
+            leave-from-class="max-h-96 opacity-100"
+            leave-to-class="max-h-0 opacity-0"
+          >
+            <p v-if="openItems[s.name]" class="mt-3 overflow-hidden text-sm leading-relaxed text-muted">
+              {{ s.desc }}
+            </p>
+          </Transition>
+        </div>
+
         <div class="flex items-center justify-between border-t border-border pt-4">
           <span class="font-display text-2xl font-bold text-gold">€ {{ s.price }}</span>
           <a
