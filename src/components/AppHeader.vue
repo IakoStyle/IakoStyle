@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import { useTheme } from '@/composables/useTheme'
 import { useBrand } from '@/composables/useBrand'
 import { salon } from '@/data/salon'
 
+const route = useRoute()
 const { isDark, toggle } = useTheme()
 const { brandId } = useBrand()
 const menuOpen = ref(false)
+
+// Chi Siamo e Contatti sono pagine "indipendenti": raggiungibili solo
+// dalla landing page, non appartengono alla navigazione di un marchio
+// specifico. Niente menu Home/Listino/Prodotti qui — solo torna
+// indietro, tema e prenota ora, sempre visibili anche su mobile.
+const isStandalone = computed(() => route.path === '/chi-siamo' || route.path === '/contatti')
 
 // Ogni marchio ha la propria navigazione. Chi Siamo e Contatti sono
 // condivisi e ora raggiungibili solo dalla landing page (/), non
@@ -50,8 +57,8 @@ const links = computed(() => {
         </RouterLink>
       </div>
 
-      <!-- Link desktop -->
-      <div class="hidden items-center gap-1 md:flex">
+      <!-- Link desktop: nessuno sulle pagine indipendenti (Chi Siamo, Contatti) -->
+      <div v-if="!isStandalone" class="hidden items-center gap-1 md:flex">
         <RouterLink
           v-for="link in links"
           :key="link.to"
@@ -78,13 +85,15 @@ const links = computed(() => {
           :href="salon.bookingUrl"
           target="_blank"
           rel="noopener"
-          class="hidden items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/30 ring-1 ring-gold/40 transition-transform hover:scale-105 lg:flex"
+          class="items-center gap-2 rounded-full bg-primary px-3.5 py-2.5 text-xs font-bold text-white shadow-md shadow-primary/30 ring-1 ring-gold/40 transition-transform hover:scale-105 sm:px-5 sm:text-sm"
+          :class="isStandalone ? 'flex' : 'hidden lg:flex'"
         >
           <font-awesome-icon :icon="['fas', 'calendar-check']" />
-          Prenota ora
+          <span class="hidden sm:inline">Prenota ora</span>
         </a>
 
         <button
+          v-if="!isStandalone"
           class="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground md:hidden"
           :aria-label="menuOpen ? 'Chiudi menu' : 'Apri menu'"
           @click="menuOpen = !menuOpen"
@@ -94,8 +103,9 @@ const links = computed(() => {
       </div>
     </nav>
 
-    <!-- Menu mobile -->
+    <!-- Menu mobile: non esiste sulle pagine indipendenti -->
     <Transition
+      v-if="!isStandalone"
       enter-active-class="transition duration-200 ease-out"
       enter-from-class="opacity-0 -translate-y-2"
       leave-active-class="transition duration-150 ease-in"
