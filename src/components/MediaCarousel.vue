@@ -112,7 +112,14 @@ function handleTransitionEnd(e: TransitionEvent) {
 // volte annulla il gesto troppo presto), mentre gli eventi touch/mouse
 // classici sono maturi e coerenti su tutti i browser.
 let dragStartX = 0
+let dragStartY = 0
 let isDragging = false
+// Direzione del gesto, decisa il prima possibile (pochi pixel di
+// movimento): su iOS Safari, se non si chiama preventDefault() già nei
+// primissimi touchmove, il browser "decide" da solo che è uno scroll
+// verticale di pagina — dopo quel momento, un preventDefault() tardivo
+// (es. dopo una soglia di 10px) non ha più alcun effetto.
+let dragDirection: 'horizontal' | 'vertical' | null = null
 const DRAG_THRESHOLD = 40 // px minimi di trascinamento per cambiare elemento
 
 // Decide se, in base allo spostamento accumulato, cambiare elemento
@@ -135,7 +142,9 @@ function onTouchStart(e: TouchEvent) {
   const touch = e.touches[0]
   if (!touch) return
   isDragging = true
+  dragDirection = null
   dragStartX = touch.clientX
+  dragStartY = touch.clientY
   transitionEnabled.value = false
 }
 
@@ -143,10 +152,24 @@ function onTouchMove(e: TouchEvent) {
   if (!isDragging) return
   const touch = e.touches[0]
   if (!touch) return
-  dragOffset.value = touch.clientX - dragStartX
-  // Evita che la pagina scorra verticalmente mentre si trascina
-  // orizzontalmente il carosello.
-  if (Math.abs(dragOffset.value) > 10) e.preventDefault()
+  const deltaX = touch.clientX - dragStartX
+  const deltaY = touch.clientY - dragStartY
+
+  if (dragDirection === null) {
+    // Aspetta qualche pixel di movimento per capire l'intenzione del
+    // gesto, poi decide UNA VOLTA SOLA e il prima possibile.
+    if (Math.abs(deltaX) < 5 && Math.abs(deltaY) < 5) return
+    dragDirection = Math.abs(deltaX) > Math.abs(deltaY) ? 'horizontal' : 'vertical'
+    if (dragDirection === 'vertical') {
+      // Non è uno swipe del carosello: lasciamo scorrere la pagina
+      // normalmente, senza interferire.
+      isDragging = false
+      return
+    }
+  }
+
+  dragOffset.value = deltaX
+  e.preventDefault()
 }
 
 function onTouchEnd() {
