@@ -351,12 +351,12 @@ export const ritualServices: RitualService[] = [
     name: 'Rituale Origine',
     duration: '1 ora',
     price: 48,
-    desc: 'Il primo passo del percorso Iako Ritual: un trattamento di benessere per cute e capelli con oli e profumi naturali.',
+    desc: "Durante l'estate, sole, sudorazione, salsedine, cloro e lavaggi frequenti possono alterare il naturale equilibrio del cuoio capelluto, provocando prurito, pizzicore, arrossamenti e una fastidiosa sensazione di tensione. Il Rituale Origine nasce per ristabilire comfort e benessere attraverso un trattamento lenitivo agli oli essenziali. Risultato: cute riequilibrata, sensazione di freschezza immediata, riduzione di prurito e fastidi.",
   },
   {
     name: 'Rituale Rinascita',
     duration: '1 ora 15 min',
     price: 63,
-    desc: 'Un rituale più profondo e rigenerante, pensato per chi cerca un momento di cura più lungo e intenso.',
+    desc: "Durante l'estate, sole, sudorazione, salsedine, cloro e lavaggi frequenti possono alterare il naturale equilibrio del cuoio capelluto e impoverire la fibra capillare, provocando pizzicore, arrossamenti e una fastidiosa sensazione di tensione, oltre a capelli secchi, spenti e difficili da gestire. Attraverso oli nutrienti, attivi specifici e tecniche di massaggio rilassanti, il Rituale Rinascita lavora in profondità sia sulla cute che sulle lunghezze. Risultato: cute lenita e riequilibrata, sensazione di freschezza immediata, riduzione di prurito e fastidi, capelli nutriti in profondità, luminosità e vitalità dalla radice alle punte.",
   },
 ]
