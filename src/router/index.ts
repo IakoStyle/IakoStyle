@@ -15,6 +15,16 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'landing',
+      component: () => import('../views/LandingView.vue'),
+      meta: {
+        title: 'Iako — Parrucchiere & Head Spa Experience a Fondi (LT)',
+        description:
+          'Iako — parrucchiere e head spa experience a Fondi (LT). Scegli tra Iako Style, Iako Ritual ed Everywhere With You.',
+      },
+    },
+    {
+      path: '/style',
       name: 'home',
       component: HomeView,
       meta: {
@@ -145,11 +155,13 @@ router.afterEach((to) => {
   // una pagina di Ritual/With You si annuncerebbe come "Iako Style · ..."
   // sia nella scheda del browser sia nei risultati di ricerca.
   const fullTitle =
-    brandId === 'style'
-      ? pageTitle
-        ? `Iako Style · ${pageTitle}`
-        : 'Iako Style · Parrucchiere a Fondi (LT)'
-      : (pageTitle ?? (brandId === 'ritual' ? 'Iako Ritual · Head Spa Experience' : 'Everywhere With You · Iako Ritual'))
+    to.path === '/'
+      ? (pageTitle ?? 'Iako — Parrucchiere & Head Spa Experience a Fondi (LT)')
+      : brandId === 'style'
+        ? pageTitle
+          ? `Iako Style · ${pageTitle}`
+          : 'Iako Style · Parrucchiere a Fondi (LT)'
+        : (pageTitle ?? (brandId === 'ritual' ? 'Iako Ritual · Head Spa Experience' : 'Everywhere With You · Iako Ritual'))
 
   // La palette del marchio va applicata ad ogni cambio rotta, non solo
   // al primo caricamento (lo switch tra i marchi è una navigazione).

@@ -44,7 +44,7 @@ const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== 
       <div>
         <h3 class="font-display font-bold text-foreground">Naviga</h3>
         <ul class="mt-4 space-y-2 text-sm">
-          <li><RouterLink to="/" class="text-muted transition-colors hover:text-primary">Home</RouterLink></li>
+          <li><RouterLink :to="brand.basePath" class="text-muted transition-colors hover:text-primary">Home</RouterLink></li>
           <li><RouterLink to="/chi-siamo" class="text-muted transition-colors hover:text-primary">Chi Siamo</RouterLink></li>
           <li><RouterLink to="/listino" class="text-muted transition-colors hover:text-primary">Listino Prezzi</RouterLink></li>
           <li><RouterLink to="/prodotti" class="text-muted transition-colors hover:text-primary">Prodotti</RouterLink></li>

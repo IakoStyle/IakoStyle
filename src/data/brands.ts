@@ -26,7 +26,7 @@ export const brands: Record<BrandId, Brand> = {
     id: 'style',
     switchLabel: 'Style',
     name: 'Iako Style',
-    basePath: '/',
+    basePath: '/style',
     tagline: 'Parrucchiere uomo · donna · bambino a Fondi',
   },
   ritual: {

@@ -64,9 +64,14 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 - Pagina Listino per Ritual (Rituale Origine e Rituale Rinascita, spostati da
   Style dato che sono la collezione stagionale 'Summer Ritual 2026' di Ritual)
 - Logo ufficiale di Iako Ritual (immagine reale al posto del testo ricostruito)
-- Terzo marchio nello switch: 'Everywhere With You' (/with-you), la collezione
-  di prodotti Iako Ritual (es. la pochette) — stesso claim EVERYWHERE/with you
-  spostato qui dalla home di Ritual, più i dettagli materiali dall'etichetta
+- Terzo marchio: 'Everywhere With You' (/with-you), la collezione di prodotti
+  Iako Ritual (es. la pochette) — claim EVERYWHERE/with you + dettagli materiali
+- Nuova landing page su '/' (schermata di scelta tra i 3 marchi, senza barra di
+  navigazione), su indicazione di un bozzetto del cliente. La home di Style si
+  è spostata su /style. IMPORTANTE: questo significa che chi arriva dai motori
+  di ricerca o da Google Maps ora vede prima una schermata di scelta invece di
+  atterrare dritto sulle informazioni del salone — un compromesso consapevole,
+  segnalato e confermato esplicitamente dal cliente.
 - Carosello reso riutilizzabile (props items + driveFolderId) invece di
   legato solo alle foto di Style; home di Ritual ora ha il proprio carosello
   (segnaposto per ora, in attesa di una cartella Drive dedicata)
