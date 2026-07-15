@@ -29,7 +29,7 @@ function toggle(name: string) {
   </section>
 
   <section class="mx-auto max-w-4xl px-6 pb-16">
-    <div class="grid gap-6 sm:grid-cols-2">
+    <div class="grid items-start gap-6 sm:grid-cols-2">
       <div
         v-for="s in ritualServices"
         :key="s.name"
