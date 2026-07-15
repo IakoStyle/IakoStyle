@@ -4,12 +4,16 @@ import { RouterLink } from 'vue-router'
 import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/salon'
 import { useCookieConsent } from '@/composables/useCookieConsent'
 import { useBrand } from '@/composables/useBrand'
+import { brands } from '@/data/brands'
 import logoUrl from '@/assets/logo-iako.webp'
 
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
 const { reset } = useCookieConsent()
-const { brand, isRitual } = useBrand()
+const { brand, brandId } = useBrand()
+
+// I marchi diversi da quello attivo, per i link "Scopri anche..." in fondo.
+const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== brandId.value))
 </script>
 
 <template>
@@ -46,13 +50,13 @@ const { brand, isRitual } = useBrand()
           <li><RouterLink to="/prodotti" class="text-muted transition-colors hover:text-primary">Prodotti</RouterLink></li>
           <li><RouterLink to="/contatti" class="text-muted transition-colors hover:text-primary">Contatti</RouterLink></li>
           <li><RouterLink to="/privacy" class="text-muted transition-colors hover:text-primary">Privacy Policy</RouterLink></li>
-          <li class="pt-2">
+          <li v-for="b in otherBrands" :key="b.id" class="pt-2">
             <RouterLink
-              :to="isRitual ? '/' : '/ritual'"
+              :to="b.basePath"
               class="inline-flex items-center gap-1.5 font-bold text-gold transition-colors hover:underline"
             >
               <font-awesome-icon :icon="['fas', 'arrow-right']" class="text-xs" />
-              {{ isRitual ? 'Vai a Iako Style' : 'Scopri Iako Ritual' }}
+              Scopri {{ b.name }}
             </RouterLink>
           </li>
         </ul>

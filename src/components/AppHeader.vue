@@ -8,7 +8,7 @@ import BrandSwitch from '@/components/BrandSwitch.vue'
 import logoUrl from '@/assets/logo-iako.webp'
 
 const { isDark, toggle } = useTheme()
-const { brand, isRitual } = useBrand()
+const { brand, brandId } = useBrand()
 const menuOpen = ref(false)
 
 // Ogni marchio ha la propria navigazione. Le pagine condivise
@@ -28,7 +28,14 @@ const ritualLinks = [
   { to: '/ritual/contatti', label: 'Contatti' },
 ]
 
-const links = computed(() => (isRitual.value ? ritualLinks : styleLinks))
+// "With You" è una singola pagina di collezione: nessuna sotto-navigazione.
+const withYouLinks = [{ to: '/with-you', label: 'Home' }]
+
+const links = computed(() => {
+  if (brandId.value === 'ritual') return ritualLinks
+  if (brandId.value === 'withyou') return withYouLinks
+  return styleLinks
+})
 </script>
 
 <template>

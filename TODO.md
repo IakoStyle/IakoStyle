@@ -19,7 +19,7 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 
 - [ ] **Foto per il carosello di Iako Ritual**: valutare una SECONDA
       cartella Google Drive dedicata, così Style e Ritual hanno
-      caroselli separati (per ora Ritual non ha una galleria propria).
+      caroselli separati (per ora Ritual mostra solo segnaposto "in arrivo").
 
 - [ ] **Widget di prenotazione Treatwell incorporato nel sito** (invece del semplice link
       che porta fuori dal sito). Serve il codice del "Widget" dal pannello
@@ -64,6 +64,12 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 - Pagina Listino per Ritual (Rituale Origine e Rituale Rinascita, spostati da
   Style dato che sono la collezione stagionale 'Summer Ritual 2026' di Ritual)
 - Logo ufficiale di Iako Ritual (immagine reale al posto del testo ricostruito)
+- Terzo marchio nello switch: 'Everywhere With You' (/with-you), la collezione
+  di prodotti Iako Ritual (es. la pochette) — stesso claim EVERYWHERE/with you
+  spostato qui dalla home di Ritual, più i dettagli materiali dall'etichetta
+- Carosello reso riutilizzabile (props items + driveFolderId) invece di
+  legato solo alle foto di Style; home di Ritual ora ha il proprio carosello
+  (segnaposto per ora, in attesa di una cartella Drive dedicata)
 - Fix: lo switch Style/Ritual nell'header non restava centrato quando i due
   marchi avevano un numero diverso di voci di menu
 - Logo rigenerato dal PDF vettoriale (più nitido, trasparente, più leggero);

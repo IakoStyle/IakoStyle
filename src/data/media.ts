@@ -58,3 +58,12 @@ export const gallery: MediaItem[] = [
   { type: 'image', src: salonePostazioni, alt: 'Postazioni taglio con specchi', caption: 'Postazioni taglio' },
   { type: 'image', src: tricologia, alt: 'Consulenza tricologica gratuita', caption: 'Consulenza tricologica' },
 ]
+
+// Galleria di Iako Ritual: nessuna cartella Drive dedicata ancora
+// collegata (vedi TODO.md), quindi per ora solo segnaposto "in arrivo".
+export const ritualGallery: MediaItem[] = [
+  { type: 'image', placeholder: true, tint: 'gold', caption: 'Il rituale' },
+  { type: 'image', placeholder: true, tint: 'mint', caption: 'Cura e benessere' },
+  { type: 'image', placeholder: true, tint: 'gold', caption: 'L\'ambiente' },
+  { type: 'image', placeholder: true, tint: 'mint', caption: 'I dettagli' },
+]

@@ -32,22 +32,29 @@ function driveImageUrl(file: DriveFile): string {
 }
 
 /**
- * Recupera le immagini dalla cartella Google Drive pubblica del salone.
+ * Recupera le immagini da una cartella Google Drive pubblica.
  * Restituisce un array vuoto (mai un errore bloccante) se qualcosa va
  * storto — il chiamante può così ricadere sulla galleria statica.
+ * Senza un folderId non fa nulla (usata così per i marchi che non
+ * hanno ancora una cartella dedicata).
  */
-export function useDriveGallery() {
+export function useDriveGallery(folderId: string | null = DRIVE_FOLDER_ID) {
   const items = ref<MediaItem[]>([])
   const isLoading = ref(true)
   const hasError = ref(false)
 
   async function load() {
+    if (!folderId) {
+      isLoading.value = false
+      return
+    }
+
     isLoading.value = true
     hasError.value = false
 
     try {
       const params = new URLSearchParams({
-        q: `'${DRIVE_FOLDER_ID}' in parents and mimeType contains 'image/' and trashed = false`,
+        q: `'${folderId}' in parents and mimeType contains 'image/' and trashed = false`,
         key: DRIVE_API_KEY,
         fields: 'files(id,name,mimeType,createdTime,thumbnailLink)',
         orderBy: 'createdTime desc',

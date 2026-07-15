@@ -1,13 +1,29 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
-import { gallery as fallbackGallery } from '@/data/media'
+import type { MediaItem } from '@/data/media'
+import { gallery as styleGallery } from '@/data/media'
+import { DRIVE_FOLDER_ID } from '@/data/drive-config'
 import { useDriveGallery } from '@/composables/useDriveGallery'
 
+const props = withDefaults(
+  defineProps<{
+    /** Foto mostrate subito, prima che Drive (se presente) risponda. */
+    items?: MediaItem[]
+    /** ID della cartella Drive da cui leggere le foto vere. null = nessun tentativo. */
+    driveFolderId?: string | null
+  }>(),
+  {
+    items: () => styleGallery,
+    driveFolderId: DRIVE_FOLDER_ID,
+  },
+)
+
 // Si parte subito con le foto di riserva (niente attesa a vuoto per chi
-// visita il sito). In background carichiamo quelle vere da Google Drive:
-// se ce ne sono, sostituiscono automaticamente quelle di riserva.
-const activeGallery = ref(fallbackGallery)
-const drive = useDriveGallery()
+// visita il sito). In background, se è stata indicata una cartella Drive,
+// carichiamo quelle vere: se ce ne sono, sostituiscono automaticamente
+// quelle di riserva.
+const activeGallery = ref(props.items)
+const drive = useDriveGallery(props.driveFolderId)
 
 const N = computed(() => activeGallery.value.length)
 // Contenuto triplicato: copia prima, centrale (quella "vera", da cui si parte),

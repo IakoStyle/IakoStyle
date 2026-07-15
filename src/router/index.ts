@@ -104,6 +104,16 @@ const router = createRouter({
       },
     },
     {
+      path: '/with-you',
+      name: 'with-you',
+      component: () => import('../views/WithYouHomeView.vue'),
+      meta: {
+        title: 'Everywhere With You · Iako Ritual',
+        description:
+          "Everywhere With You: la collezione di prodotti firmata Iako Ritual. Collection N. 1, Summer 2026.",
+      },
+    },
+    {
       path: '/privacy',
       name: 'privacy',
       component: () => import('../views/PrivacyView.vue'),
@@ -129,20 +139,21 @@ function setMeta(attr: 'name' | 'property', key: string, content: string) {
 
 router.afterEach((to) => {
   const pageTitle = to.meta.title as string | undefined
-  const isRitual = currentBrandFromPath(to.path)  === 'ritual'
+  const brandId = currentBrandFromPath(to.path)
 
   // Il titolo deve riflettere il marchio della pagina: senza questo,
-  // una pagina di Ritual si annuncerebbe come "Iako Style · ..." sia
-  // nella scheda del browser sia nei risultati di ricerca.
-  const fullTitle = isRitual
-    ? (pageTitle ?? 'Iako Ritual · Head Spa Experience')
-    : pageTitle
-      ? `Iako Style · ${pageTitle}`
-      : 'Iako Style · Parrucchiere a Fondi (LT)'
+  // una pagina di Ritual/With You si annuncerebbe come "Iako Style · ..."
+  // sia nella scheda del browser sia nei risultati di ricerca.
+  const fullTitle =
+    brandId === 'style'
+      ? pageTitle
+        ? `Iako Style · ${pageTitle}`
+        : 'Iako Style · Parrucchiere a Fondi (LT)'
+      : (pageTitle ?? (brandId === 'ritual' ? 'Iako Ritual · Head Spa Experience' : 'Everywhere With You · Iako Ritual'))
 
   // La palette del marchio va applicata ad ogni cambio rotta, non solo
-  // al primo caricamento (lo switch Style/Ritual è una navigazione).
-  applyBrandToDom(isRitual ? 'ritual' : 'style')
+  // al primo caricamento (lo switch tra i marchi è una navigazione).
+  applyBrandToDom(brandId)
   const description = (to.meta.description as string | undefined) ?? DEFAULT_DESCRIPTION
   const canonicalUrl = `${SITE_URL}${to.path === '/' ? '/' : to.path}`
 
