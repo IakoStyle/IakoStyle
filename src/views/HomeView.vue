@@ -7,7 +7,6 @@ import ServiceCard from '@/components/ServiceCard.vue'
 import ReviewCard from '@/components/ReviewCard.vue'
 import StarRating from '@/components/StarRating.vue'
 import heroPhoto from '@/assets/gallery/salone-ingresso.webp'
-import logoUrl from '@/assets/logo-iako.webp'
 
 const featured = services.filter((s) => s.featured)
 
@@ -31,15 +30,6 @@ const status = computed(() => getOpenStatus())
     ></div>
     <!-- Gradiente dal basso, per far risaltare testo e bottoni -->
     <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
-
-    <!-- Logo come filigrana discreta: presenza del brand senza
-         competere con la foto o col titolo sopra. -->
-    <img
-      :src="logoUrl"
-      alt=""
-      aria-hidden="true"
-      class="pointer-events-none absolute -bottom-8 -right-8 h-56 w-56 object-contain opacity-[0.08] brightness-0 invert sm:h-72 sm:w-72"
-    />
 
     <div class="relative mx-auto flex h-full max-w-6xl flex-col justify-center px-6">
       <span class="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-bold text-white ring-1 ring-white/25 backdrop-blur-sm">
