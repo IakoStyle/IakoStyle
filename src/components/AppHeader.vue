@@ -4,16 +4,10 @@ import { RouterLink } from 'vue-router'
 import { useTheme } from '@/composables/useTheme'
 import { useBrand } from '@/composables/useBrand'
 import { salon } from '@/data/salon'
-import styleLogoUrl from '@/assets/logo-iako.webp'
-import ritualLogoUrl from '@/assets/ritual/logo-ritual.webp'
 
 const { isDark, toggle } = useTheme()
-const { brand, brandId } = useBrand()
+const { brandId } = useBrand()
 const menuOpen = ref(false)
-
-// Ritual e With You condividono l'identità di Ritual (stessa etichetta):
-// mostrano il suo logo invece di quello di Style.
-const logoUrl = computed(() => (brandId.value === 'style' ? styleLogoUrl : ritualLogoUrl))
 
 // Ogni marchio ha la propria navigazione. Chi Siamo e Contatti sono
 // condivisi e ora raggiungibili solo dalla landing page (/), non
@@ -44,16 +38,6 @@ const links = computed(() => {
   <header class="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-lg">
     <nav class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
       <div class="flex shrink-0 items-center gap-3">
-        <!-- Logo del marchio attivo, in un contenitore a LARGHEZZA FISSA:
-             il logo di Ritual è molto più "largo" di quello di Style (non è
-             quadrato), quindi senza una larghezza costante lo switch qui
-             accanto si sposterebbe a seconda del marchio attivo. -->
-        <RouterLink :to="brand.basePath" class="flex shrink-0 items-center" @click="menuOpen = false">
-          <span class="flex h-10 w-20 items-center justify-center rounded-2xl bg-white px-2 shadow-sm ring-1 ring-border">
-            <img :src="logoUrl" :alt="brand.name" class="h-7 w-auto max-w-full object-contain" />
-          </span>
-        </RouterLink>
-
         <!-- Torna alla schermata di scelta tra i marchi: da qualunque
              pagina, non solo cliccando "Home" su Style. -->
         <RouterLink
