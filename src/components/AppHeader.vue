@@ -4,7 +4,6 @@ import { RouterLink } from 'vue-router'
 import { useTheme } from '@/composables/useTheme'
 import { useBrand } from '@/composables/useBrand'
 import { salon } from '@/data/salon'
-import BrandSwitch from '@/components/BrandSwitch.vue'
 import styleLogoUrl from '@/assets/logo-iako.webp'
 import ritualLogoUrl from '@/assets/ritual/logo-ritual.webp'
 
@@ -55,21 +54,15 @@ const links = computed(() => {
           </span>
         </RouterLink>
 
-        <!-- Switch tra i due marchi: sempre subito a destra del logo,
-             nella stessa identica posizione in entrambe le pagine (a
-             differenza del vecchio posizionamento centrato sull'intera
-             larghezza, che spostava tutto il resto). -->
-        <BrandSwitch />
-
         <!-- Torna alla schermata di scelta tra i marchi: da qualunque
              pagina, non solo cliccando "Home" su Style. -->
         <RouterLink
           to="/"
-          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-primary hover:text-primary"
+          class="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-border px-3.5 text-xs font-bold text-muted transition-colors hover:border-primary hover:text-primary sm:text-sm"
           aria-label="Torna alla scelta tra i marchi Iako"
-          title="Tutti i marchi Iako"
         >
-          <font-awesome-icon :icon="['fas', 'table-cells-large']" class="text-xs" />
+          <font-awesome-icon :icon="['fas', 'arrow-left']" class="text-[0.7rem]" />
+          Torna indietro
         </RouterLink>
       </div>
 
