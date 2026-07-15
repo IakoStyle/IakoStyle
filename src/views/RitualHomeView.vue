@@ -4,6 +4,7 @@ import { RouterLink } from 'vue-router'
 import { salon, getOpenStatus } from '@/data/salon'
 import { ritualFruit } from '@/data/brands'
 import pochetteImg from '@/assets/ritual/pochette.webp'
+import ritualLogo from '@/assets/ritual/logo-ritual.webp'
 
 const status = computed(() => getOpenStatus())
 </script>
@@ -25,13 +26,8 @@ const status = computed(() => getOpenStatus())
             Head Spa Experience
           </p>
 
-          <div class="mt-6">
-            <span class="ritual-wordmark block text-5xl font-semibold text-foreground sm:text-6xl">
-              IAKO
-            </span>
-            <span class="ritual-subword mt-1 block text-sm font-medium text-gold sm:text-base">
-              RITUAL
-            </span>
+          <div class="mt-6 flex justify-center md:justify-start">
+            <img :src="ritualLogo" alt="Iako Ritual" class="h-16 w-auto object-contain sm:h-20" />
           </div>
 
           <!-- Il claim della pochette: EVERYWHERE / linea oro / with you.
