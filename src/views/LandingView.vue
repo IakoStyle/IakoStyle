@@ -63,6 +63,25 @@ import { RouterLink } from 'vue-router'
       </div>
 
       <p class="mt-8 text-sm text-muted">Scegli il mondo che vuoi scoprire.</p>
+
+      <!-- Pagine condivise: raggiungibili solo da qui, non duplicate
+           nel menu di ogni marchio. -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <RouterLink
+          to="/chi-siamo"
+          class="flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
+        >
+          <font-awesome-icon :icon="['fas', 'heart']" />
+          Chi Siamo
+        </RouterLink>
+        <RouterLink
+          to="/contatti"
+          class="flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
+        >
+          <font-awesome-icon :icon="['fas', 'location-dot']" />
+          Contatti
+        </RouterLink>
+      </div>
     </div>
   </section>
 </template>

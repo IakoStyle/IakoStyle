@@ -16,21 +16,19 @@ const menuOpen = ref(false)
 // mostrano il suo logo invece di quello di Style.
 const logoUrl = computed(() => (brandId.value === 'style' ? styleLogoUrl : ritualLogoUrl))
 
-// Ogni marchio ha la propria navigazione. Le pagine condivise
-// (contatti, privacy) restano uniche: stesso salone, stessa sede.
+// Ogni marchio ha la propria navigazione. Chi Siamo e Contatti sono
+// condivisi e ora raggiungibili solo dalla landing page (/), non
+// duplicati nel menu di ogni marchio.
 const styleLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/chi-siamo', label: 'Chi Siamo' },
+  { to: '/style', label: 'Home' },
   { to: '/listino', label: 'Listino' },
   { to: '/prodotti', label: 'Prodotti' },
-  { to: '/contatti', label: 'Contatti' },
 ]
 
 const ritualLinks = [
   { to: '/ritual', label: 'Home' },
   { to: '/ritual/listino', label: 'Listino' },
   { to: '/ritual/prodotti', label: 'Prodotti' },
-  { to: '/ritual/contatti', label: 'Contatti' },
 ]
 
 // "With You" è una singola pagina di collezione: nessuna sotto-navigazione.
