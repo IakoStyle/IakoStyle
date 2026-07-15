@@ -170,8 +170,6 @@ export interface Service {
 export const services: Service[] = [
   // Barba
   { name: 'Modellatura Barba', duration: '15 min', price: 10, category: 'Barba', featured: true },
-  { name: 'Rituale Rinascita', duration: '1 ora 15 min', price: 63, category: 'Barba' },
-  { name: 'Rituale Origine', duration: '1 ora', price: 48, category: 'Barba', featured: true },
 
   // Trattamenti Per Cute E Capello
   { name: 'Ricostruzione capello', duration: '1 ora 30 min', price: 85, category: 'Trattamenti Per Cute E Capello' },
@@ -331,3 +329,34 @@ export const ritualProducts: ProductShowcase = {
     },
   ],
 }
+
+// ============================================================
+//  SERVIZI — Iako Ritual
+//  ------------------------------------------------------------
+//  I "Rituali" (Origine, Rinascita) appartengono a Iako Ritual,
+//  non a Iako Style: sono la collezione stagionale del momento.
+// ============================================================
+
+export interface RitualService {
+  name: string
+  duration: string
+  price: number
+  desc: string
+}
+
+export const ritualSeason = 'Summer Ritual 2026'
+
+export const ritualServices: RitualService[] = [
+  {
+    name: 'Rituale Origine',
+    duration: '1 ora',
+    price: 48,
+    desc: 'Il primo passo del percorso Iako Ritual: un trattamento di benessere per cute e capelli con oli e profumi naturali.',
+  },
+  {
+    name: 'Rituale Rinascita',
+    duration: '1 ora 15 min',
+    price: 63,
+    desc: 'Un rituale più profondo e rigenerante, pensato per chi cerca un momento di cura più lungo e intenso.',
+  },
+]

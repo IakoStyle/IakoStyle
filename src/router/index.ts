@@ -73,6 +73,15 @@ const router = createRouter({
       },
     },
     {
+      path: '/ritual/listino',
+      name: 'ritual-listino',
+      component: () => import('../views/RitualListinoView.vue'),
+      meta: {
+        title: 'Listino · Iako Ritual',
+        description: 'I rituali stagionali di Iako Ritual: Rituale Origine e Rituale Rinascita, prezzi e durata.',
+      },
+    },
+    {
       path: '/ritual/prodotti',
       name: 'ritual-prodotti',
       component: () => import('../views/RitualProdottiView.vue'),

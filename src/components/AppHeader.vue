@@ -23,6 +23,7 @@ const styleLinks = [
 
 const ritualLinks = [
   { to: '/ritual', label: 'Home' },
+  { to: '/ritual/listino', label: 'Listino' },
   { to: '/ritual/prodotti', label: 'Prodotti' },
   { to: '/ritual/contatti', label: 'Contatti' },
 ]

@@ -17,11 +17,9 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
       che copra l'uso "webfont"; (2) comprare la licenza web (~15-30€);
       (3) tenere Allura.
 
-- [ ] **Contenuti di Iako Ritual**: logo, servizi + prezzi.
-      Il mondo Ritual è online (/ritual) con branding, palette, claim e
-      pagina Prodotti (Nubea Sursum) — manca ancora il listino servizi/prezzi.
-      Per le foto in carosello: valutare una SECONDA cartella Google Drive
-      dedicata, così Style e Ritual hanno caroselli separati.
+- [ ] **Foto per il carosello di Iako Ritual**: valutare una SECONDA
+      cartella Google Drive dedicata, così Style e Ritual hanno
+      caroselli separati (per ora Ritual non ha una galleria propria).
 
 - [ ] **Widget di prenotazione Treatwell incorporato nel sito** (invece del semplice link
       che porta fuori dal sito). Serve il codice del "Widget" dal pannello
@@ -63,6 +61,9 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
   rotta /ritual con il claim "Everywhere with you" nei font e colori ufficiali
 - Pagina Prodotti separata per marchio: Style mostra solo Medavita Beta Refibre,
   Ritual mostra solo Nubea Sursum (rimossi Insight/Proraso/ghd/Goldwell/Redken)
+- Pagina Listino per Ritual (Rituale Origine e Rituale Rinascita, spostati da
+  Style dato che sono la collezione stagionale 'Summer Ritual 2026' di Ritual)
+- Logo ufficiale di Iako Ritual (immagine reale al posto del testo ricostruito)
 - Fix: lo switch Style/Ritual nell'header non restava centrato quando i due
   marchi avevano un numero diverso di voci di menu
 - Logo rigenerato dal PDF vettoriale (più nitido, trasparente, più leggero);
