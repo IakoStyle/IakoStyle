@@ -85,7 +85,7 @@ const status = computed(() => getOpenStatus())
 
   <!-- MACRO SERVIZI -->
   <section class="mx-auto max-w-6xl px-6 py-12">
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-4 sm:grid-cols-3">
       <div
         v-for="m in macroServices"
         :key="m.label"

@@ -39,7 +39,7 @@ const router = createRouter({
       meta: {
         title: 'Chi Siamo',
         description:
-          "Scopri Iako Style: il salone di Matteo Iacovello a Fondi (LT), l'esperienza del team e i punti di forza del nostro servizio di parrucchieria.",
+          "Scopri Iako Style: il salone di Matteo Iacovello a Fondi (LT) e i punti di forza del nostro servizio di parrucchieria.",
       },
     },
     {

@@ -37,17 +37,19 @@ import styleLogoUrl from '@/assets/logo-iako.webp'
 
         <RouterLink
           to="/with-you"
-          class="group block border-t border-border px-6 py-8 transition-colors hover:bg-gold-soft/30"
+          class="group block border-t border-border px-6 py-8 transition-colors hover:opacity-90"
+          style="background-color: #f9f7f3"
         >
-          <span class="ritual-claim inline-block text-xl font-medium uppercase text-foreground transition-transform group-hover:scale-105 sm:text-2xl">
+          <span class="ritual-claim inline-block text-xl font-medium uppercase transition-transform group-hover:scale-105 sm:text-2xl" style="color: #4a3428">
             Everywhere
           </span>
           <svg
-            class="mx-auto mt-0.5 w-40 text-gold sm:w-48"
+            class="mx-auto mt-0.5 w-40 sm:w-48"
             viewBox="0 0 300 10"
             fill="none"
             preserveAspectRatio="none"
             aria-hidden="true"
+            style="color: #966706"
           >
             <path
               d="M0,5 C 40,1.5 100,0.5 150,0.5 C 200,0.5 260,3 300,10"
@@ -56,7 +58,7 @@ import styleLogoUrl from '@/assets/logo-iako.webp'
               stroke-linecap="round"
             />
           </svg>
-          <span class="ritual-script -mt-1 block text-2xl text-foreground sm:text-3xl">with you</span>
+          <span class="ritual-script -mt-1 block text-2xl sm:text-3xl" style="color: #4a3428">with you</span>
         </RouterLink>
       </div>
 

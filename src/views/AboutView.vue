@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { salon, team } from '@/data/salon'
+import { salon } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
-import StarRating from '@/components/StarRating.vue'
 import MediaCarousel from '@/components/MediaCarousel.vue'
 import matteoPhoto from '@/assets/team/matteo.webp'
 
@@ -46,7 +45,7 @@ const strengths = [
         </p>
         <p class="mt-4 rounded-2xl bg-surface-2 p-4 text-sm text-muted">
           <font-awesome-icon :icon="['fas', 'circle-check']" class="mr-2 text-primary" />
-          Presto qui: la storia completa del salone, l'esperienza e il percorso del team.
+          Presto qui: la storia completa del salone e la sua esperienza.
           <em>(sezione da completare con i tuoi testi)</em>
         </p>
       </div>
@@ -56,7 +55,6 @@ const strengths = [
             :src="matteoPhoto"
             alt="Matteo Iacovello, titolare di Iako Style"
             class="h-full w-full rounded-xl object-cover"
-            style="object-position: 38% 20%"
           />
         </div>
       </div>
@@ -80,47 +78,6 @@ const strengths = [
         </span>
         <h3 class="mt-4 font-display text-lg font-bold text-foreground">{{ s.title }}</h3>
         <p class="mt-2 text-sm text-muted">{{ s.desc }}</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEAM -->
-  <section class="mx-auto max-w-6xl px-6 py-12">
-    <div class="mb-8 text-center">
-      <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Le persone</p>
-      <h2 class="mt-1 font-display text-3xl font-bold text-foreground">Scopri il team</h2>
-    </div>
-    <div class="mx-auto grid max-w-2xl gap-4 sm:grid-cols-2">
-      <div
-        v-for="(m, i) in team"
-        :key="i"
-        class="flex items-center gap-4 rounded-xl border border-border bg-surface p-6"
-      >
-        <span
-          v-if="m.photo"
-          class="h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-surface-2"
-        >
-          <img
-            :src="m.photo"
-            :alt="m.name"
-            class="h-full w-full object-cover"
-            style="object-position: 38% 20%"
-          />
-        </span>
-        <span
-          v-else
-          class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-soft to-accent-soft text-2xl text-primary"
-        >
-          <font-awesome-icon :icon="m.icon" />
-        </span>
-        <div>
-          <h3 class="font-display text-lg font-bold text-foreground">{{ m.name }}</h3>
-          <p class="text-sm text-muted">{{ m.role }}</p>
-          <div class="mt-1 flex items-center gap-2">
-            <StarRating class="text-xs" />
-            <span class="text-xs text-muted">{{ m.rating.toFixed(1) }} · {{ m.reviews }} recensioni</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>

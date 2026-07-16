@@ -283,22 +283,6 @@ export const macroServices: Macro[] = [
   { label: 'Counselling & Olistico', icon: ['fas', 'spa'], desc: 'Consulenze e percorsi personalizzati, corpo e mente.' },
 ]
 
-import matteoPhoto from '@/assets/team/matteo.webp'
-
-export interface TeamMember {
-  name: string
-  role: string
-  rating: number
-  reviews: number
-  icon: string[]
-  photo?: string
-}
-
-export const team: TeamMember[] = [
-  { name: 'Matteo', role: 'Phonista', rating: 5.0, reviews: 100, icon: ['fas', 'wind'], photo: matteoPhoto },
-  { name: 'Matteo', role: 'Colorista', rating: 5.0, reviews: 8, icon: ['fas', 'palette'], photo: matteoPhoto },
-]
-
 export interface Review {
   author: string
   when: string
