@@ -9,7 +9,7 @@ import matteoPhoto from '@/assets/team/matteo.webp'
 const strengths = [
   { icon: ['fas', 'spa'], title: 'Ambiente', desc: 'Professionale e curato, pensato per farti sentire a tuo agio.' },
   { icon: ['fas', 'scissors'], title: 'Specializzazione', desc: 'Servizi di parrucchieri e barberia per uomo, donna e bambino.' },
-  { icon: ['fas', 'leaf'], title: 'Prodotti selezionati', desc: 'Insight e Proraso per lui; ghd, Goldwell, Insight e Redken per lei.' },
+  { icon: ['fas', 'leaf'], title: 'Prodotti selezionati', desc: 'Linea professionale Medavita Beta Refibre, ricostruttiva e clinicamente testata.' },
 ]
 </script>
 

@@ -76,28 +76,18 @@ const status = computed(() => getOpenStatus())
     <MediaCarousel :items="ritualGallery" :drive-folder-id="null" />
   </section>
 
-  <!-- Rimandi a Listino e Prodotti -->
+  <!-- Rimando al Listino -->
   <section class="mx-auto max-w-6xl px-6 pb-20">
-    <div class="grid gap-4 sm:grid-cols-2">
+    <div class="mx-auto max-w-sm">
       <RouterLink
         to="/ritual/listino"
-        class="group rounded-xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg hover:shadow-gold/10"
+        class="group block rounded-xl border border-border bg-surface p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg hover:shadow-gold/10"
       >
-        <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-soft text-gold transition-transform duration-300 group-hover:rotate-6">
+        <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-soft text-gold transition-transform duration-300 group-hover:rotate-6">
           <font-awesome-icon :icon="['fas', 'spa']" />
         </span>
         <h3 class="mt-4 ritual-wordmark text-lg font-semibold text-foreground">I Rituali</h3>
         <p class="mt-1 text-sm text-muted">Scopri Rituale Origine e Rituale Rinascita, prezzi e durata.</p>
-      </RouterLink>
-      <RouterLink
-        to="/ritual/prodotti"
-        class="group rounded-xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg hover:shadow-gold/10"
-      >
-        <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-soft text-gold transition-transform duration-300 group-hover:rotate-6">
-          <font-awesome-icon :icon="['fas', 'leaf']" />
-        </span>
-        <h3 class="mt-4 ritual-wordmark text-lg font-semibold text-foreground">Prodotti usati</h3>
-        <p class="mt-1 text-sm text-muted">Nubea Sursum, il trattamento coadiuvante anticaduta.</p>
       </RouterLink>
     </div>
   </section>

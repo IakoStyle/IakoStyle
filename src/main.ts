@@ -22,13 +22,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { FontAwesomeIcon } from './plugins/fontawesome'
-import { useTheme } from './composables/useTheme'
+import { initTheme } from './composables/useTheme'
 import { applyBrandToDom, currentBrandFromPath } from './composables/useBrand'
 
-// Applica il tema salvato PRIMA del mount, in modo esplicito e sincrono:
-// evita sia il flash del tema sbagliato sia il disallineamento tra icona
-// e colore effettivo del toggle (bug legato all'ordine di import dei moduli).
-useTheme().initTheme()
+// Il sito usa sempre il tema scuro: applicato prima del mount, così
+// non c'è alcun flash del tema chiaro al primo caricamento.
+initTheme()
 
 // Stessa logica per il marchio: la palette giusta (Style o Ritual) deve
 // essere già applicata al primo pixel disegnato, altrimenti si vedrebbe

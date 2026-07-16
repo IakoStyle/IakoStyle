@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { useTheme } from '@/composables/useTheme'
 import { useBrand } from '@/composables/useBrand'
 import { salon } from '@/data/salon'
 
 const route = useRoute()
-const { isDark, toggle } = useTheme()
 const { brandId } = useBrand()
 const menuOpen = ref(false)
 
@@ -22,13 +20,11 @@ const isStandalone = computed(() => route.path === '/chi-siamo' || route.path ==
 const styleLinks = [
   { to: '/style', label: 'Home' },
   { to: '/listino', label: 'Listino' },
-  { to: '/prodotti', label: 'Prodotti' },
 ]
 
 const ritualLinks = [
   { to: '/ritual', label: 'Home' },
   { to: '/ritual/listino', label: 'Listino' },
-  { to: '/ritual/prodotti', label: 'Prodotti' },
 ]
 
 // "With You" è una singola pagina di collezione: nessuna sotto-navigazione.
@@ -72,15 +68,6 @@ const links = computed(() => {
 
       <!-- Azioni -->
       <div class="flex shrink-0 items-center gap-2">
-        <button
-          class="flex h-10 items-center justify-center gap-1.5 rounded-full border border-border px-3.5 text-xs font-bold text-foreground transition-colors hover:bg-surface-2 sm:text-sm"
-          :aria-label="isDark ? 'Passa al tema chiaro' : 'Passa al tema scuro'"
-          @click="toggle"
-        >
-          <font-awesome-icon :icon="['fas', isDark ? 'sun' : 'moon']" class="text-[0.7rem]" />
-          {{ isDark ? 'Giorno' : 'Notte' }}
-        </button>
-
         <a
           :href="salon.bookingUrl"
           target="_blank"

@@ -85,3 +85,13 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 - Logo rigenerato dal PDF vettoriale (più nitido, trasparente, più leggero);
   favicon ricostruite dal logo vero
 - Link diretto "scrivi una recensione" su Google Maps (Place ID corretto)
+
+## 📝 Modifiche recenti (log)
+
+- Tema chiaro/scuro rimosso: il sito usa sempre e solo la modalità scura,
+  nessuna scelta per chi visita
+- Pagina Prodotti rimossa ovunque (Style e Ritual) — file, rotte, link di
+  navigazione e dati (Medavita, Nubea) eliminati
+- Rimossa la voce "Medicina Estetica" dai macro-servizi di Iako Style
+- Landing page: "Style" -> "Studio" nel riquadro di scelta, il testo "IAKO"
+  in alto sostituito col vero logo di Iako Style, rimosso "Fondi (LT)"

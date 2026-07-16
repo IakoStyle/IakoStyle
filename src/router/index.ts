@@ -53,16 +53,6 @@ const router = createRouter({
       },
     },
     {
-      path: '/prodotti',
-      name: 'prodotti',
-      component: () => import('../views/ProdottiView.vue'),
-      meta: {
-        title: 'Prodotti',
-        description:
-          'Le marche professionali usate da Iako Style: Insight, Proraso, ghd, Goldwell, Redken e Nubea per la cura di capelli e cute.',
-      },
-    },
-    {
       path: '/contatti',
       name: 'contatti',
       component: () => import('../views/ContattiView.vue'),
@@ -89,15 +79,6 @@ const router = createRouter({
       meta: {
         title: 'Listino · Iako Ritual',
         description: 'I rituali stagionali di Iako Ritual: Rituale Origine e Rituale Rinascita, prezzi e durata.',
-      },
-    },
-    {
-      path: '/ritual/prodotti',
-      name: 'ritual-prodotti',
-      component: () => import('../views/RitualProdottiView.vue'),
-      meta: {
-        title: 'Prodotti · Iako Ritual',
-        description: 'Nubea Sursum: il trattamento coadiuvante anticaduta usato da Iako Ritual.',
       },
     },
     {

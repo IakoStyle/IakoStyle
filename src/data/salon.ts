@@ -280,7 +280,6 @@ export interface Macro {
 export const macroServices: Macro[] = [
   { label: 'Capelli', icon: ['fas', 'scissors'], desc: 'Taglio, colore e styling su misura per lui e per lei.' },
   { label: 'Barba', icon: ['fas', 'wand-magic-sparkles'], desc: 'Modellatura e cura della barba con prodotti dedicati.' },
-  { label: 'Medicina Estetica', icon: ['fas', 'hand-sparkles'], desc: 'Trattamenti mirati per il benessere di cute e capello.' },
   { label: 'Counselling & Olistico', icon: ['fas', 'spa'], desc: 'Consulenze e percorsi personalizzati, corpo e mente.' },
 ]
 
@@ -317,64 +316,6 @@ export const reviews: Review[] = [
 ]
 
 export const reviewStats = { ambiente: 5.0, pulizia: 5.0, staff: 5.0, fiveStar: 107 }
-
-import medavitaLinea from '@/assets/medavita/medavita-linea.webp'
-import medavitaSalone from '@/assets/medavita/medavita-salone.webp'
-import medavitaLavoro from '@/assets/medavita/medavita-lavoro.webp'
-import nubeaLinea from '@/assets/nubea/nubea-linea.webp'
-import nubeaShampoo from '@/assets/nubea/nubea-shampoo.webp'
-import nubeaPatch from '@/assets/nubea/nubea-patch.webp'
-
-export interface ProductImage {
-  src: string
-  alt: string
-  caption?: string
-}
-
-export interface ProductShowcase {
-  brand: string
-  line: string
-  tagline: string
-  desc: string
-  highlights: string[]
-  images: ProductImage[]
-}
-
-// Iako Style usa in salone la linea ricostruttiva Medavita Beta Refibre.
-export const styleProducts: ProductShowcase = {
-  brand: 'Medavita',
-  line: 'Beta Refibre',
-  tagline: "La soluzione d'urto che dona forza ai tuoi capelli",
-  desc: 'Linea ricostruttiva professionale al beta-carotene per capelli sfibrati e provati: shampoo, maschera, fluido e fiala concentrata, clinicamente testati e senza parabeni.',
-  highlights: ['Clinicamente testato', 'Senza parabeni', 'Amino Concentré'],
-  images: [
-    { src: medavitaSalone, alt: 'Prodotti Medavita Beta Refibre in salone', caption: 'Beta Refibre in salone' },
-    { src: medavitaLinea, alt: 'Linea completa Medavita Beta Refibre', caption: 'Shampoo, maschera e fluido ricostruttore' },
-    { src: medavitaLavoro, alt: 'Matteo al lavoro in salone, con Beta Refibre sul set', caption: 'Beta Refibre sul set di lavoro' },
-  ],
-}
-
-// Iako Ritual usa la linea anticaduta Nubea Sursum.
-export const ritualProducts: ProductShowcase = {
-  brand: 'Nubea',
-  line: 'Sursum',
-  tagline: 'Essential Oil Therapy — trattamento coadiuvante anticaduta',
-  desc: 'Con oli essenziali di limone e bergamotto ed estratto di Serenoa Repens: nutre, rinforza e prolunga il ciclo vitale del capello.',
-  highlights: ['100% Made in Italy', 'Oli essenziali naturali', 'Nickel tested'],
-  images: [
-    { src: nubeaLinea, alt: 'Linea completa Nubea Sursum', caption: 'La linea Sursum' },
-    {
-      src: nubeaShampoo,
-      alt: 'Shampoo coadiuvante anticaduta Nubea Sursum',
-      caption: 'Shampoo coadiuvante anticaduta',
-    },
-    {
-      src: nubeaPatch,
-      alt: 'Patch coadiuvante anticaduta Nubea Sursum',
-      caption: 'Patch a rilascio prolungato (10-12 ore)',
-    },
-  ],
-}
 
 // ============================================================
 //  SERVIZI — Iako Ritual

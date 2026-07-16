@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import styleLogoUrl from '@/assets/logo-iako.webp'
 </script>
 
 <template>
@@ -11,10 +12,7 @@ import { RouterLink } from 'vue-router'
 
     <div class="mx-auto flex min-h-[80vh] max-w-3xl flex-col items-center justify-center px-6 py-16 text-center">
       <!-- Logo -->
-      <span class="font-display text-4xl font-semibold tracking-wide text-foreground sm:text-5xl">
-        IAKO
-      </span>
-      <p class="mt-2 text-sm text-muted">Fondi (LT)</p>
+      <img :src="styleLogoUrl" alt="Iako Style" class="h-24 w-auto object-contain sm:h-28" />
 
       <!-- Riquadro di scelta, come da bozzetto -->
       <div class="mt-12 w-full overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
@@ -24,7 +22,7 @@ import { RouterLink } from 'vue-router'
             class="group flex flex-col items-center justify-center gap-2 border-r border-border px-6 py-14 transition-colors hover:bg-primary-soft/40"
           >
             <font-awesome-icon :icon="['fas', 'scissors']" class="text-2xl text-primary transition-transform group-hover:scale-110" />
-            <span class="font-display text-2xl font-semibold text-foreground">Style</span>
+            <span class="font-display text-2xl font-semibold text-foreground">Studio</span>
             <span class="text-xs text-muted">Parrucchiere</span>
           </RouterLink>
           <RouterLink
