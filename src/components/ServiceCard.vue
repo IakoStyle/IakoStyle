@@ -51,7 +51,7 @@ function toggle() {
         <button
           v-if="!hasVariants"
           class="rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent transition-colors hover:bg-accent hover:text-white"
-          @click.stop="openBooking(service.name)"
+          @click.stop="openBooking(service.name, service.treatwellMenuItemId, service.treatwellOptionId)"
         >
           Seleziona
         </button>
@@ -93,7 +93,7 @@ function toggle() {
             <span class="font-display text-lg font-bold text-primary">€ {{ variant.price }}</span>
             <button
               class="rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent transition-colors hover:bg-accent hover:text-white"
-              @click.stop="openBooking(`${service.name} — ${variant.label}`)"
+              @click.stop="openBooking(`${service.name} — ${variant.label}`, variant.treatwellMenuItemId, variant.treatwellOptionId)"
             >
               Seleziona
             </button>

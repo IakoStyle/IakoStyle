@@ -3,7 +3,7 @@ import { watch } from 'vue'
 import { salon } from '@/data/salon'
 import { useBookingModal } from '@/composables/useBookingModal'
 
-const { isOpen, serviceLabel, close } = useBookingModal()
+const { isOpen, serviceLabel, widgetUrl, close } = useBookingModal()
 
 // Blocca lo scroll della pagina sotto mentre il modale è aperto.
 watch(isOpen, (open) => {
@@ -53,7 +53,7 @@ watch(isOpen, (open) => {
           </p>
 
           <iframe
-            :src="salon.bookingWidgetUrl"
+            :src="widgetUrl"
             title="Calendario di prenotazione Treatwell"
             class="h-full w-full flex-1 border-0"
             loading="lazy"

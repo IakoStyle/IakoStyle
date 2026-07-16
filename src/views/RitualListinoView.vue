@@ -77,7 +77,7 @@ const { open: openBooking } = useBookingModal()
           <span class="font-display text-2xl font-bold text-gold">€ {{ s.price }}</span>
           <button
             class="rounded-full bg-primary px-5 py-2 text-sm font-bold text-white transition-transform hover:scale-105"
-            @click="openBooking(s.name)"
+            @click="openBooking(s.name, s.treatwellMenuItemId, s.treatwellOptionId)"
           >
             Prenota
           </button>

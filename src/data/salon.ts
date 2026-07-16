@@ -15,6 +15,7 @@ export const salon = {
   // Widget incorporabile: apre il calendario di prenotazione dentro il
   // sito stesso (in un riquadro), invece di rimandare a una scheda esterna.
   bookingWidgetUrl: 'https://widget.treatwell.it/salone/100038957/menu/',
+  treatwellVenueId: '100038957',
   reviewsUrl: 'https://www.treatwell.it/salone/iako-style/reviews/pagina-2/',
   googleMapsReviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJ23eMeNAxJRMRcyEm8Hzuy3c',
   whatsappNumber: '3200155148',
@@ -22,6 +23,31 @@ export const salon = {
   owner: 'Matteo Iacovello',
   vatNumber: '03209300593',
   seasonLabel: 'Orario estivo 2026',
+}
+
+// Costruisce il link diretto al calendario di disponibilità Treatwell
+// per un servizio specifico (data odierna, servizio già selezionato).
+// Senza menuItemId, ripiega sul link generale del listino — così un
+// servizio senza ancora il proprio codice continua a funzionare
+// normalmente, solo senza il salto automatico.
+export function buildBookingUrl(menuItemId?: string, optionId?: string): string {
+  if (!menuItemId) return salon.bookingWidgetUrl
+
+  const proposedServices = [
+    {
+      menuItemId,
+      ...(optionId ? { optionIds: [optionId] } : {}),
+    },
+  ]
+
+  const today = new Date().toISOString().slice(0, 10)
+  const params = new URLSearchParams({
+    venueId: salon.treatwellVenueId,
+    proposedServices: JSON.stringify(proposedServices),
+    date: today,
+  })
+
+  return `https://widget.treatwell.it/availability?${params.toString()}`
 }
 
 export const socials = [
@@ -158,6 +184,10 @@ export interface ServiceVariant {
   label: string
   duration: string
   price: number
+  // Codici Treatwell per il link diretto al calendario (opzionali: se
+  // mancano, il pulsante "Seleziona" apre il calendario generale).
+  treatwellMenuItemId?: string
+  treatwellOptionId?: string
 }
 
 export interface Service {
@@ -167,6 +197,11 @@ export interface Service {
   category: string
   featured?: boolean
   variants?: ServiceVariant[]
+  // Codici Treatwell per il link diretto al calendario (solo per i
+  // servizi SENZA varianti — quelli con varianti li hanno per opzione,
+  // vedi sopra).
+  treatwellMenuItemId?: string
+  treatwellOptionId?: string
 }
 
 // Listino completo, per categoria (fonte: Treatwell).
@@ -345,6 +380,8 @@ export interface RitualService {
   duration: string
   price: number
   desc: string
+  treatwellMenuItemId?: string
+  treatwellOptionId?: string
 }
 
 export const ritualSeason = 'Summer Ritual 2026'
