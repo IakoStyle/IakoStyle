@@ -12,6 +12,9 @@ export const salon = {
   rating: 5.0,
   reviewsCount: 116,
   bookingUrl: 'https://www.treatwell.it/salone/iako-style/',
+  // Widget incorporabile: apre il calendario di prenotazione dentro il
+  // sito stesso (in un riquadro), invece di rimandare a una scheda esterna.
+  bookingWidgetUrl: 'https://widget.treatwell.it/salone/100038957/menu/',
   reviewsUrl: 'https://www.treatwell.it/salone/iako-style/reviews/pagina-2/',
   googleMapsReviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJ23eMeNAxJRMRcyEm8Hzuy3c',
   whatsappNumber: '3200155148',

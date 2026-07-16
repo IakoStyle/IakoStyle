@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { salon, ritualServices, ritualSeason } from '@/data/salon'
+import { ritualServices, ritualSeason } from '@/data/salon'
+import { useBookingModal } from '@/composables/useBookingModal'
 
 const openItems = ref<Record<string, boolean>>({})
 function toggle(name: string) {
   openItems.value[name] = !openItems.value[name]
 }
+const { open: openBooking } = useBookingModal()
 </script>
 
 <template>
@@ -73,14 +75,12 @@ function toggle(name: string) {
 
         <div class="flex items-center justify-between border-t border-border pt-4">
           <span class="font-display text-2xl font-bold text-gold">€ {{ s.price }}</span>
-          <a
-            :href="salon.bookingUrl"
-            target="_blank"
-            rel="noopener"
+          <button
             class="rounded-full bg-primary px-5 py-2 text-sm font-bold text-white transition-transform hover:scale-105"
+            @click="openBooking(s.name)"
           >
             Prenota
-          </a>
+          </button>
         </div>
       </div>
     </div>

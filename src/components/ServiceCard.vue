@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { Service } from '@/data/salon'
-import { salon } from '@/data/salon'
+import { useBookingModal } from '@/composables/useBookingModal'
 
 const props = defineProps<{ service: Service }>()
 
 const hasVariants = computed(() => (props.service.variants?.length ?? 0) > 0)
 const isOpen = ref(false)
+const { open: openBooking } = useBookingModal()
 
 function toggle() {
   if (hasVariants.value) isOpen.value = !isOpen.value
@@ -46,17 +47,14 @@ function toggle() {
           <template v-if="hasVariants">da </template>€ {{ service.price }}
         </span>
 
-        <!-- Servizio semplice: bottone diretto -->
-        <a
+        <!-- Servizio semplice: apre il calendario di prenotazione -->
+        <button
           v-if="!hasVariants"
-          :href="salon.bookingUrl"
-          target="_blank"
-          rel="noopener"
           class="rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent transition-colors hover:bg-accent hover:text-white"
-          @click.stop
+          @click.stop="openBooking(service.name)"
         >
           Seleziona
-        </a>
+        </button>
         <!-- Servizio con varianti: freccia per aprire/chiudere -->
         <span
           v-else
@@ -93,15 +91,12 @@ function toggle() {
           </div>
           <div class="flex shrink-0 items-center gap-3">
             <span class="font-display text-lg font-bold text-primary">€ {{ variant.price }}</span>
-            <a
-              :href="salon.bookingUrl"
-              target="_blank"
-              rel="noopener"
+            <button
               class="rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent transition-colors hover:bg-accent hover:text-white"
-              @click.stop
+              @click.stop="openBooking(`${service.name} — ${variant.label}`)"
             >
               Seleziona
-            </a>
+            </button>
           </div>
         </div>
       </div>
