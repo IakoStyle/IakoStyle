@@ -207,7 +207,15 @@ export interface Service {
 // Listino completo, per categoria (fonte: Treatwell).
 export const services: Service[] = [
   // Barba
-  { name: 'Modellatura Barba', duration: '15 min', price: 10, category: 'Barba', featured: true },
+  {
+    name: 'Modellatura Barba',
+    duration: '15 min',
+    price: 10,
+    category: 'Barba',
+    featured: true,
+    treatwellMenuItemId: 'TR1359192096',
+    treatwellOptionId: '100851193',
+  },
 
   // Trattamenti Per Cute E Capello
   { name: 'Ricostruzione capello', duration: '1 ora 30 min', price: 85, category: 'Trattamenti Per Cute E Capello' },
