@@ -292,11 +292,27 @@ export interface Review {
 }
 
 export const reviews: Review[] = [
-  { author: 'Elena P.', when: '3 mesi fa', service: 'Gloss', text: 'Top, esperienza impeccabile dall\'inizio alla fine.', by: 'Matteo' },
-  { author: 'Floriana D.', when: '6 mesi fa', service: 'Piega', text: 'Top, sempre curata nei minimi dettagli.', by: 'Matteo' },
-  { author: 'Melissa I.', when: '6 mesi fa', service: 'Taglio donna', text: 'Taglio capelli lunghi top 🔝 Sempre una garanzia!', by: 'Matteo' },
-  { author: 'Lorella C.', when: '6 mesi fa', service: 'Piega', text: 'Prodotti ottimi e servizio perfetto.', by: 'Matteo' },
-  { author: 'Valentina D\'A.', when: '7 mesi fa', service: 'Piega', text: 'Sempre una garanzia!!!', by: 'Matteo' },
+  {
+    author: 'Camilla Lo Stocco',
+    when: '1 mese fa',
+    service: 'Taglio & Permanente',
+    text: "Ho scoperto questo salone grazie a mia sorella, promosso a pieni voti. Ci sono andata prima per il taglio e poi per la permanente, e sono rimasta super soddisfatta entrambe le volte. Matteo oltre ad essere un parrucchiere estremamente competente, attento alle esigenze del cliente e capace di consigliare il look più adatto, riesce a creare un ambiente sereno e divertente. Ogni appuntamento si trasforma in un momento di relax e di allegria, grazie alla sua simpatia e alla capacità di mettere tutti a proprio agio. Taglio preciso, permanente riuscita benissimo.",
+    by: 'Matteo',
+  },
+  {
+    author: 'Serena Lo Stocco',
+    when: '2 mesi fa',
+    service: 'Trattamento Ondulante',
+    text: "Ho conosciuto Matteo quasi per caso e da subito ho avuto l'impressione di essere di fronte ad un professionista competente ed innamorato del suo lavoro. Mi sono rivolta a lui per un trattamento ondulante e devo dire, ad un mese di distanza, che il risultato è fantastico. Non mi ha solo consigliato l'onda perfetta, ha cercato di replicarla e mi ha spiegato con chiarezza tutti i passi da fare a casa per ricrearla. È attento alle esigenze di ognuno e di sicuro il tempo trascorso in salone è sempre piacevole. Lo consiglio a tutti coloro che cercano un parrucchiere che prima di fare, ascolta il cliente.",
+    by: 'Matteo',
+  },
+  {
+    author: 'Alessia Vardè',
+    when: '2 mesi fa',
+    service: 'Consulenza & Ricostruzione',
+    text: "Mi sono rivolta a Iako Style per una consulenza dato che vedevo i miei capelli sempre più spenti. Tra i suoi vari consigli, tra cui un percorso di varie sedute di ricostruzione del capello di cui non ero a conoscenza, ma sapendo della sua professionalità mi sono fidata e infatti, il risultato si è rivelato ottimo, fin dalle prime sedute, l'effetto è stato immediato; ora, i miei capelli sono morbidi, setosi e lucenti come mai prima. Inoltre, l'ambiente è giovane e pulito e l'accoglienza sempre delle migliori. Consiglio sicuramente!",
+    by: 'Matteo',
+  },
 ]
 
 export const reviewStats = { ambiente: 5.0, pulizia: 5.0, staff: 5.0, fiveStar: 107 }
