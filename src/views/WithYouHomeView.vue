@@ -55,9 +55,10 @@ import pochetteImg from '@/assets/ritual/pochette.webp'
           </p>
           <p class="ritual-wordmark text-lg text-muted">{{ withYouCollection.season }}</p>
 
-          <p class="mx-auto mt-6 max-w-md text-base font-semibold leading-relaxed text-foreground md:mx-0">
-            Le cose più belle non si usano. Si portano con sé!
-          </p>
+          <h2 class="mx-auto mt-6 max-w-md font-display text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-5xl md:mx-0">
+            Le cose più belle non si usano.<br />
+            <span class="text-gold">Si portano con sé!</span>
+          </h2>
 
           <div class="mx-auto mt-6 max-w-md space-y-4 text-left text-sm leading-relaxed text-muted md:mx-0">
             <p>
