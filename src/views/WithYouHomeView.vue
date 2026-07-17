@@ -29,18 +29,19 @@ import pochetteImg from '@/assets/ritual/pochette.webp'
                è quella del testo più largo (di norma "EVERYWHERE"), e
                "with you" viene centrato sotto di esso automaticamente. -->
           <div class="mx-auto mt-6 inline-flex flex-col items-center md:mx-0">
-            <div class="w-fit">
+            <div class="relative">
               <p class="ritual-claim text-3xl font-medium uppercase text-foreground sm:text-4xl">
                 Everywhere
               </p>
-              <!-- Riga dorata sotto "EVERYWHERE": "w-fit" sul contenitore
-                   fa sì che questa riga (larga il 100% del contenitore) si
-                   agganci alla larghezza esatta del testo, invece di
-                   allungarsi oltre di esso. Non è simmetrica: sale
-                   dolcemente fino a un plateau alto verso il centro-sinistra,
-                   poi scende decisamente verso il basso a destra. -->
+              <!-- Riga dorata sotto "EVERYWHERE": posizionata in assoluto
+                   rispetto al testo, così resta sempre della sua stessa
+                   larghezza esatta su ogni browser (anche mobile), invece
+                   di rischiare di allungarsi oltre il testo. Non è
+                   simmetrica: sale dolcemente fino a un plateau alto verso
+                   il centro-sinistra, poi scende decisamente verso il
+                   basso a destra. -->
               <svg
-                class="mt-0.5 w-full text-gold"
+                class="absolute inset-x-0 top-full mt-0.5 text-gold"
                 viewBox="0 0 300 10"
                 fill="none"
                 preserveAspectRatio="none"
@@ -54,7 +55,7 @@ import pochetteImg from '@/assets/ritual/pochette.webp'
                 />
               </svg>
             </div>
-            <p class="ritual-script -mt-1 text-4xl text-foreground sm:text-5xl">with you</p>
+            <p class="ritual-script mt-2 text-4xl text-foreground sm:text-5xl">with you</p>
           </div>
 
           <p class="mt-6 font-display text-xl font-bold text-gold">

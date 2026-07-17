@@ -6,16 +6,12 @@ import { useCookieConsent } from '@/composables/useCookieConsent'
 import { useBrand } from '@/composables/useBrand'
 import { brands } from '@/data/brands'
 import styleLogoUrl from '@/assets/logo-iako.webp'
-import ritualLogoUrl from '@/assets/ritual/logo-ritual.webp'
+import lemonIcon from '@/assets/ritual/lemon-icon.webp'
 
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
 const { reset } = useCookieConsent()
-const { brand, brandId, isWithYou } = useBrand()
-
-// Ritual e With You condividono l'identità di Ritual (stessa etichetta):
-// mostrano il suo logo invece di quello di Style.
-const logoUrl = computed(() => (brandId.value === 'style' ? styleLogoUrl : ritualLogoUrl))
+const { brand, brandId, isRitual, isWithYou } = useBrand()
 
 // I marchi diversi da quello attivo, per i link "Scopri anche..." in fondo.
 const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== brandId.value))
@@ -27,15 +23,19 @@ const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== 
       <!-- Brand -->
       <div>
         <!-- Everywhere With You: il "logo" è il wordmark testuale
-             (EVERYWHERE / riga oro / with you), senza sfondo. Il
-             contenitore "w-fit" fa sì che la riga (larga il 100% del
-             contenitore) si agganci alla larghezza esatta del testo
-             "EVERYWHERE", invece di allungarsi oltre di esso. -->
+             (EVERYWHERE / riga oro / with you), senza sfondo. La riga è
+             posizionata in assoluto rispetto al testo (invece di una
+             larghezza percentuale in un contenitore "w-fit"): alcuni
+             browser mobili calcolano comunque la dimensione intrinseca
+             dell'SVG anche dentro "w-fit", allungando la riga oltre il
+             testo. Con l'assoluto l'SVG è fuori dal flusso e non
+             influenza la larghezza del contenitore, che resta quella
+             esatta di "EVERYWHERE". -->
         <div v-if="isWithYou" class="inline-flex flex-col items-center">
-          <div class="w-fit">
+          <div class="relative">
             <p class="ritual-claim text-2xl font-medium uppercase text-foreground">Everywhere</p>
             <svg
-              class="mt-0.5 w-full text-gold"
+              class="absolute inset-x-0 top-full mt-0.5 text-gold"
               viewBox="0 0 300 10"
               fill="none"
               preserveAspectRatio="none"
@@ -49,10 +49,20 @@ const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== 
               />
             </svg>
           </div>
-          <p class="ritual-script -mt-1 text-3xl text-foreground">with you</p>
+          <p class="ritual-script mt-1 text-3xl text-foreground">with you</p>
         </div>
-        <!-- Studio e Ritual: logo immagine, senza riquadro di sfondo. -->
-        <img v-else :src="logoUrl" :alt="brand.name" class="h-12 w-auto max-w-full object-contain" />
+        <!-- Studio: logo immagine, senza riquadro di sfondo. -->
+        <img v-if="brandId === 'style'" :src="styleLogoUrl" :alt="brand.name" class="h-12 w-auto max-w-full object-contain" />
+        <!-- Ritual: come nell'header della sua home, testo reale bianco
+             (leggibile sullo sfondo scuro del footer) accanto al limone,
+             che resta a colori. -->
+        <div v-else-if="isRitual" class="flex items-center gap-3">
+          <div>
+            <p class="ritual-wordmark text-2xl font-semibold text-white">IAKO</p>
+            <p class="ritual-subword mt-1 text-[0.55rem] font-medium text-white/90">RITUAL</p>
+          </div>
+          <img :src="lemonIcon" alt="" class="h-10 w-auto object-contain" />
+        </div>
         <p class="mt-4 text-sm text-muted">{{ brand.tagline }}.</p>
         <div class="mt-4 flex gap-2">
           <a

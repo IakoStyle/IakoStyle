@@ -43,12 +43,12 @@ import StarRating from '@/components/StarRating.vue'
           class="group flex flex-col items-center border-t border-border px-6 py-8 transition-colors hover:opacity-90"
           style="background-color: #f9f7f3"
         >
-          <div class="w-fit transition-transform group-hover:scale-105">
+          <div class="relative transition-transform group-hover:scale-105">
             <span class="ritual-claim block text-xl font-medium uppercase sm:text-2xl" style="color: #4a3428">
               Everywhere
             </span>
             <svg
-              class="mt-0.5 w-full"
+              class="absolute inset-x-0 top-full mt-0.5"
               viewBox="0 0 300 10"
               fill="none"
               preserveAspectRatio="none"
@@ -63,7 +63,7 @@ import StarRating from '@/components/StarRating.vue'
               />
             </svg>
           </div>
-          <span class="ritual-script -mt-1 block text-2xl sm:text-3xl" style="color: #4a3428">with you</span>
+          <span class="ritual-script mt-2 block text-2xl sm:text-3xl" style="color: #4a3428">with you</span>
         </RouterLink>
       </div>
 
