@@ -16,7 +16,7 @@ export const salon = {
   // periodicamente controllando la scheda Google del salone, dato che
   // cresce nel tempo e non è recuperabile via API senza una chiave a
   // pagamento.
-  googleReviewsCount: 28,
+  googleReviewsCount: 29,
   bookingUrl: 'https://www.treatwell.it/salone/iako-style/',
   // Widget incorporabile: apre il calendario di prenotazione dentro il
   // sito stesso (in un riquadro), invece di rimandare a una scheda esterna.

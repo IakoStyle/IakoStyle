@@ -92,12 +92,12 @@ import StarRating from '@/components/StarRating.vue'
        valgono per l'intera attività e non solo per lo Studio. -->
   <section class="mx-auto max-w-6xl px-6 py-12">
     <div class="mb-8 flex flex-col items-center gap-3 text-center">
-      <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Dicono di noi</p>
+      <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Cosa dicono di noi</p>
       <h2 class="font-display text-3xl font-bold text-foreground">Recensioni verificate</h2>
       <span class="flex items-center gap-2">
         <StarRating class="text-lg" />
         <span class="font-display font-bold text-foreground">{{ salon.rating.toFixed(1) }}</span>
-        <span class="text-sm text-muted">· {{ totalReviewsCount() }} recensioni (Treatwell + Google)</span>
+        <span class="text-sm text-muted">· {{ totalReviewsCount() }}+ recensioni</span>
       </span>
     </div>
     <div class="grid gap-4 md:grid-cols-3">
