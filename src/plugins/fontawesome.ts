@@ -38,6 +38,8 @@ import {
   faBroom,
   faUsers,
   faMugHot,
+  faVolumeHigh,
+  faVolumeXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faInstagram,
@@ -84,6 +86,8 @@ library.add(
   faBroom,
   faUsers,
   faMugHot,
+  faVolumeHigh,
+  faVolumeXmark,
   faInstagram,
   faFacebook,
   faWhatsapp,

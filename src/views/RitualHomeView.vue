@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { salon, getOpenStatus } from '@/data/salon'
+import { getOpenStatus } from '@/data/salon'
 import { ritualFruit } from '@/data/brands'
 import { ritualGallery } from '@/data/media'
 import ritualLogo from '@/assets/ritual/logo-ritual.webp'
@@ -9,19 +9,47 @@ import heroPoster from '@/assets/ritual/hero-ritual-poster.webp'
 import MediaCarousel from '@/components/MediaCarousel.vue'
 
 const status = computed(() => getOpenStatus())
+
+// Audio del video hero: i browser bloccano l'autoplay con audio, quindi
+// proviamo a partire con il suono e ripieghiamo su "muto" solo se il
+// browser lo impedisce. Il pulsante in basso a destra permette di
+// attivare/disattivare il suono in ogni momento.
+const heroVideo = ref<HTMLVideoElement | null>(null)
+const audioOn = ref(true)
+
+function toggleAudio() {
+  const video = heroVideo.value
+  if (!video) return
+  audioOn.value = !audioOn.value
+  video.muted = !audioOn.value
+}
+
+onMounted(async () => {
+  const video = heroVideo.value
+  if (!video) return
+  try {
+    video.muted = false
+    await video.play()
+    audioOn.value = true
+  } catch {
+    // Autoplay con audio bloccato dal browser: riparte muto.
+    video.muted = true
+    audioOn.value = false
+    video.play().catch(() => {})
+  }
+})
 </script>
 
 <template>
   <!-- HERO: banner video in loop con vignetta -->
-  <section class="relative h-[26rem] w-full overflow-hidden sm:h-[24rem]">
+  <section class="relative min-h-[30rem] w-full overflow-hidden py-16 sm:min-h-[26rem] sm:py-0">
     <video
+      ref="heroVideo"
       class="absolute inset-0 h-full w-full object-cover"
       :poster="heroPoster"
-      autoplay
-      muted
       loop
       playsinline
-      preload="metadata"
+      preload="auto"
       aria-hidden="true"
     >
       <source src="/ritual/hero-ritual-loop.webm" type="video/webm" />
@@ -32,18 +60,18 @@ const status = computed(() => getOpenStatus())
     <!-- Vignetta: bordi più scuri, centro più leggibile -->
     <div
       class="absolute inset-0"
-      style="background: radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.55) 100%)"
+      style="background: radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.6) 100%)"
     ></div>
-    <!-- Gradiente dal basso, per far risaltare testo e bottoni -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+    <!-- Gradiente dal basso, per far risaltare testo -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent"></div>
 
     <div class="relative mx-auto flex h-full max-w-3xl flex-col items-center justify-center px-6 text-center">
       <p class="ritual-eyebrow text-[0.7rem] font-normal uppercase text-gold sm:text-xs">
         Head Spa Experience
       </p>
 
-      <div class="mt-6 flex justify-center">
-        <img :src="ritualLogo" alt="Iako Ritual" class="h-24 w-auto object-contain brightness-0 invert sm:h-32" />
+      <div class="mt-6 flex justify-center rounded-3xl bg-white/95 px-6 py-4 shadow-lg">
+        <img :src="ritualLogo" alt="Iako Ritual" class="h-20 w-auto object-contain sm:h-28" />
       </div>
 
       <p class="mx-auto mt-8 max-w-md text-base leading-relaxed text-white/85">
@@ -53,32 +81,23 @@ const status = computed(() => getOpenStatus())
         {{ ritualFruit.emoji }}
       </p>
 
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <a
-          :href="salon.bookingUrl"
-          target="_blank"
-          rel="noopener"
-          class="flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 font-bold text-white shadow-lg shadow-primary/25 transition-transform hover:scale-105"
-        >
-          <font-awesome-icon :icon="['fas', 'calendar-check']" />
-          Prenota il tuo rituale
-        </a>
-        <RouterLink
-          to="/ritual/contatti"
-          class="flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 font-bold text-white backdrop-blur-sm transition-colors hover:border-white hover:bg-white/20"
-        >
-          <font-awesome-icon :icon="['fas', 'location-dot']" />
-          Dove siamo
-        </RouterLink>
-      </div>
-
       <p class="mt-6 flex items-center justify-center gap-2 text-sm">
-        <span class="h-1.5 w-1.5 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
+        <span class="h-1.5 w-1.5 shrink-0 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
         <span class="font-bold text-white/90">
           {{ status.isOpen ? `${status.label} · ${status.detail}` : status.nextOpenLabel }}
         </span>
       </p>
     </div>
+
+    <!-- Toggle audio -->
+    <button
+      type="button"
+      class="absolute bottom-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/40 text-white ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-black/60"
+      :aria-label="audioOn ? 'Disattiva audio' : 'Attiva audio'"
+      @click="toggleAudio"
+    >
+      <font-awesome-icon :icon="['fas', audioOn ? 'volume-high' : 'volume-xmark']" />
+    </button>
   </section>
 
   <!-- GALLERIA -->
