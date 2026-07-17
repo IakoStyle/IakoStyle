@@ -107,11 +107,8 @@ onMounted(async () => {
   <!-- GALLERIA -->
   <section class="mx-auto max-w-6xl px-6 pb-12">
     <div class="mb-8 text-center">
-      <p class="ritual-eyebrow text-[0.65rem] font-normal uppercase text-gold sm:text-xs">
-        Il rituale
-      </p>
-      <h2 class="ritual-wordmark mt-2 text-2xl font-semibold text-foreground sm:text-3xl">
-        Foto
+      <h2 class="ritual-wordmark text-2xl font-semibold text-gold sm:text-3xl">
+        I rituali
       </h2>
     </div>
     <MediaCarousel :items="ritualGallery" :drive-folder-id="null" />
