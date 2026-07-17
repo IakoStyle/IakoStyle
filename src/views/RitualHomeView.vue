@@ -42,7 +42,7 @@ onMounted(async () => {
 
 <template>
   <!-- HERO: banner video in loop con vignetta -->
-  <section class="relative min-h-[30rem] w-full overflow-hidden py-16 sm:min-h-[26rem] sm:py-0">
+  <section class="relative flex min-h-[24rem] w-full items-center justify-center overflow-hidden py-14 sm:min-h-[22rem] sm:py-16">
     <video
       ref="heroVideo"
       class="absolute inset-0 h-full w-full object-cover"
@@ -65,7 +65,7 @@ onMounted(async () => {
     <!-- Gradiente dal basso, per far risaltare testo -->
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent"></div>
 
-    <div class="relative mx-auto flex h-full max-w-3xl flex-col items-center justify-center px-6 text-center">
+    <div class="relative mx-auto flex max-w-3xl flex-col items-center px-6 text-center">
       <p class="ritual-eyebrow text-[0.7rem] font-normal uppercase text-gold sm:text-xs">
         Head Spa Experience
       </p>
