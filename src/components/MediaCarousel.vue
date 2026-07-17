@@ -30,14 +30,19 @@ const N = computed(() => activeGallery.value.length)
 // copia dopo. Serve per poter scorrere all'infinito in entrambe le direzioni.
 const tripleGallery = computed(() => [...activeGallery.value, ...activeGallery.value, ...activeGallery.value])
 
-const trackEl = ref<HTMLElement | null>(null)
-const currentIndex = ref(0) // impostato correttamente al montaggio, prima di mostrare qualsiasi cosa
-const transitionEnabled = ref(false) // niente animazione sul posizionamento iniziale
+// Il carosello NON simula più il trascinamento via JS (era fragile su
+// mobile: bastava che il browser decidesse, anche solo per un istante,
+// che il gesto fosse uno scroll verticale della pagina, e lo swipe
+// smetteva di rispondere). Usiamo invece lo scroll orizzontale nativo
+// con scroll-snap: è il browser stesso a gestire il tocco — lo stesso
+// meccanismo di qualunque carosello nativo — quindi funziona sempre,
+// in modo fluido, su ogni dispositivo.
+const scrollerEl = ref<HTMLElement | null>(null)
 
 let itemStep = 0 // larghezza di un elemento + gap, in pixel
 
 function measureStep() {
-  const el = trackEl.value
+  const el = scrollerEl.value
   if (!el) return
   const first = el.children[0] as HTMLElement | undefined
   if (!first) return
@@ -46,158 +51,54 @@ function measureStep() {
   itemStep = first.getBoundingClientRect().width + gap
 }
 
-// Ricentra la carrellata sulla copia centrale, senza animazione. Usata sia
-// al primo montaggio sia ogni volta che la sorgente delle foto cambia
+// Ricentra la carrellata sulla copia centrale, senza animazione (si
+// imposta scrollLeft direttamente, quindi è istantaneo). Usata sia al
+// primo montaggio sia ogni volta che la sorgente delle foto cambia
 // (es. quando arrivano quelle vere da Drive al posto di quelle di riserva).
 async function recenter() {
-  transitionEnabled.value = false
   await nextTick()
   measureStep()
-  currentIndex.value = N.value
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      transitionEnabled.value = true
-    })
-  })
+  const el = scrollerEl.value
+  if (el) el.scrollLeft = N.value * itemStep
 }
-
-// Offset di trascinamento manuale (drag/swipe), sommato alla posizione
-// durante il gesto, per far seguire il dito/il cursore in tempo reale.
-const dragOffset = ref(0)
-
-const trackStyle = computed(() => ({
-  transform: `translateX(calc(-${currentIndex.value * itemStep}px + ${dragOffset.value}px))`,
-  transition: transitionEnabled.value ? 'transform 450ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
-}))
 
 function next() {
-  currentIndex.value += 1
+  scrollerEl.value?.scrollBy({ left: itemStep, behavior: 'smooth' })
 }
 function prev() {
-  currentIndex.value -= 1
+  scrollerEl.value?.scrollBy({ left: -itemStep, behavior: 'smooth' })
 }
 
-// Al termine di ogni animazione, se siamo entrati in una delle due copie
-// duplicate, ci "teletrasportiamo" alla posizione equivalente nella copia
-// centrale — con la transizione disattivata, quindi in modo istantaneo e
-// invisibile (il contenuto è identico). Usiamo l'evento nativo
-// 'transitionend': scatta una sola volta per ogni animazione completata,
-// quindi nessun rischio che più correzioni si sommino.
-function handleTransitionEnd(e: TransitionEvent) {
-  if (e.propertyName !== 'transform') return
+// Quando lo scroll si ferma, se siamo entrati in una delle due copie
+// duplicate ci "teletrasportiamo" alla posizione equivalente nella copia
+// centrale, impostando scrollLeft direttamente: istantaneo e invisibile
+// (il contenuto è identico). Usiamo l'evento nativo 'scrollend' dove
+// disponibile, con un fallback a debounce sull'evento 'scroll' per i
+// browser che non lo supportano ancora.
+let scrollEndTimer: ReturnType<typeof setTimeout> | null = null
 
-  if (currentIndex.value >= N.value * 2) {
-    transitionEnabled.value = false
-    currentIndex.value -= N.value
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        transitionEnabled.value = true
-      })
-    })
-  } else if (currentIndex.value < N.value) {
-    transitionEnabled.value = false
-    currentIndex.value += N.value
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        transitionEnabled.value = true
-      })
-    })
+function checkLoop() {
+  const el = scrollerEl.value
+  if (!el || !itemStep) return
+  const index = Math.round(el.scrollLeft / itemStep)
+  if (index >= N.value * 2) {
+    el.scrollLeft -= N.value * itemStep
+  } else if (index < N.value) {
+    el.scrollLeft += N.value * itemStep
   }
 }
 
-// --- Trascinamento manuale (swipe su mobile, drag col mouse) ---
-// Usiamo eventi touch/mouse nativi e separati invece dei Pointer Events
-// unificati: Safari su iOS ha un supporto storicamente meno affidabile
-// dei Pointer Events per i gesti di trascinamento personalizzati (a
-// volte annulla il gesto troppo presto), mentre gli eventi touch/mouse
-// classici sono maturi e coerenti su tutti i browser.
-let dragStartX = 0
-let dragStartY = 0
-let isDragging = false
-// Direzione del gesto, decisa il prima possibile (pochi pixel di
-// movimento): su iOS Safari, se non si chiama preventDefault() già nei
-// primissimi touchmove, il browser "decide" da solo che è uno scroll
-// verticale di pagina — dopo quel momento, un preventDefault() tardivo
-// (es. dopo una soglia di 10px) non ha più alcun effetto.
-let dragDirection: 'horizontal' | 'vertical' | null = null
-const DRAG_THRESHOLD = 40 // px minimi di trascinamento per cambiare elemento
+function handleScroll() {
+  if (scrollEndTimer) clearTimeout(scrollEndTimer)
+  scrollEndTimer = setTimeout(checkLoop, 120)
+}
 
-// Decide se, in base allo spostamento accumulato, cambiare elemento
-// oppure tornare semplicemente alla posizione attuale.
-function finalizeDrag() {
-  const delta = dragOffset.value
-  dragOffset.value = 0
-  transitionEnabled.value = true
-
-  if (delta <= -DRAG_THRESHOLD) {
-    next()
-  } else if (delta >= DRAG_THRESHOLD) {
-    prev()
+function handleScrollEnd() {
+  if (scrollEndTimer) {
+    clearTimeout(scrollEndTimer)
+    scrollEndTimer = null
   }
-  // altrimenti (spostamento troppo piccolo) si riassesta sull'elemento corrente
-}
-
-// Touch (smartphone/tablet)
-function onTouchStart(e: TouchEvent) {
-  const touch = e.touches[0]
-  if (!touch) return
-  isDragging = true
-  dragDirection = null
-  dragStartX = touch.clientX
-  dragStartY = touch.clientY
-  transitionEnabled.value = false
-}
-
-function onTouchMove(e: TouchEvent) {
-  if (!isDragging) return
-  const touch = e.touches[0]
-  if (!touch) return
-  const deltaX = touch.clientX - dragStartX
-  const deltaY = touch.clientY - dragStartY
-
-  if (dragDirection === null) {
-    // Aspetta qualche pixel di movimento per capire l'intenzione del
-    // gesto, poi decide UNA VOLTA SOLA e il prima possibile.
-    if (Math.abs(deltaX) < 5 && Math.abs(deltaY) < 5) return
-    dragDirection = Math.abs(deltaX) > Math.abs(deltaY) ? 'horizontal' : 'vertical'
-    if (dragDirection === 'vertical') {
-      // Non è uno swipe del carosello: lasciamo scorrere la pagina
-      // normalmente, senza interferire.
-      isDragging = false
-      return
-    }
-  }
-
-  dragOffset.value = deltaX
-  e.preventDefault()
-}
-
-function onTouchEnd() {
-  if (!isDragging) return
-  isDragging = false
-  finalizeDrag()
-}
-
-// Mouse (drag da desktop)
-function onMouseDown(e: MouseEvent) {
-  isDragging = true
-  dragStartX = e.clientX
-  transitionEnabled.value = false
-  window.addEventListener('mousemove', onMouseMove)
-  window.addEventListener('mouseup', onMouseUp)
-}
-
-function onMouseMove(e: MouseEvent) {
-  if (!isDragging) return
-  dragOffset.value = e.clientX - dragStartX
-}
-
-function onMouseUp() {
-  if (!isDragging) return
-  isDragging = false
-  finalizeDrag()
-  window.removeEventListener('mousemove', onMouseMove)
-  window.removeEventListener('mouseup', onMouseUp)
+  checkLoop()
 }
 
 let resizeObserver: ResizeObserver | null = null
@@ -206,7 +107,7 @@ onMounted(async () => {
   await recenter()
 
   resizeObserver = new ResizeObserver(() => measureStep())
-  if (trackEl.value) resizeObserver.observe(trackEl.value)
+  if (scrollerEl.value) resizeObserver.observe(scrollerEl.value)
 
   // Carica le foto vere da Google Drive in background. Se la cartella
   // contiene almeno un'immagine, sostituiscono quelle di riserva mostrate
@@ -225,8 +126,7 @@ watch(activeGallery, recenter)
 
 onUnmounted(() => {
   resizeObserver?.disconnect()
-  window.removeEventListener('mousemove', onMouseMove)
-  window.removeEventListener('mouseup', onMouseUp)
+  if (scrollEndTimer) clearTimeout(scrollEndTimer)
 })
 
 const tintMap: Record<string, string> = {
@@ -254,23 +154,18 @@ const tintMap: Record<string, string> = {
       <font-awesome-icon :icon="['fas', 'arrow-right']" />
     </button>
 
-    <!-- Finestra visibile: il track scorre tramite transform, non scroll nativo -->
-    <div class="overflow-hidden">
-      <div
-        ref="trackEl"
-        class="flex gap-4 pb-2 will-change-transform touch-pan-y select-none"
-        :style="trackStyle"
-        @transitionend="handleTransitionEnd"
-        @touchstart="onTouchStart"
-        @touchmove="onTouchMove"
-        @touchend="onTouchEnd"
-        @touchcancel="onTouchEnd"
-        @mousedown="onMouseDown"
-      >
+    <!-- Finestra visibile: scroll orizzontale nativo con snap, il browser
+         gestisce il tocco direttamente (niente drag simulato via JS). -->
+    <div
+      ref="scrollerEl"
+      class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 no-scrollbar select-none"
+      @scroll="handleScroll"
+      @scrollend="handleScrollEnd"
+    >
         <div
           v-for="(item, i) in tripleGallery"
           :key="i"
-          class="relative aspect-[4/5] w-[78%] shrink-0 select-none overflow-hidden rounded-xl border border-border sm:w-[46%] lg:w-[31%]"
+          class="relative aspect-[4/5] w-[78%] shrink-0 snap-start snap-always select-none overflow-hidden rounded-xl border border-border sm:w-[46%] lg:w-[31%]"
           :aria-hidden="i < N || i >= N * 2"
         >
           <!-- MEDIA REALE -->
@@ -320,7 +215,6 @@ const tintMap: Record<string, string> = {
           </div>
         </div>
       </div>
-    </div>
 
     <p class="mt-3 flex items-center justify-center gap-2 text-xs text-muted md:hidden">
       <font-awesome-icon :icon="['fas', 'arrow-right']" />
