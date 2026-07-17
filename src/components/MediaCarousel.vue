@@ -158,14 +158,14 @@ const tintMap: Record<string, string> = {
          gestisce il tocco direttamente (niente drag simulato via JS). -->
     <div
       ref="scrollerEl"
-      class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 no-scrollbar select-none"
+      class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 no-scrollbar"
       @scroll="handleScroll"
       @scrollend="handleScrollEnd"
     >
         <div
           v-for="(item, i) in tripleGallery"
           :key="i"
-          class="relative aspect-[4/5] w-[78%] shrink-0 snap-start snap-always select-none overflow-hidden rounded-xl border border-border sm:w-[46%] lg:w-[31%]"
+          class="relative aspect-[4/5] w-[78%] shrink-0 snap-start snap-always overflow-hidden rounded-xl border border-border sm:w-[46%] lg:w-[31%]"
           :aria-hidden="i < N || i >= N * 2"
         >
           <!-- MEDIA REALE -->
