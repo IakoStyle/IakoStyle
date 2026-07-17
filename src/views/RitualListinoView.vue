@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ritualServices, ritualSeason } from '@/data/salon'
+import { ritualServices, ritualSeason, salon } from '@/data/salon'
 import { useBookingModal } from '@/composables/useBookingModal'
 
 const openItems = ref<Record<string, boolean>>({})
@@ -8,6 +8,11 @@ function toggle(name: string) {
   openItems.value[name] = !openItems.value[name]
 }
 const { open: openBooking } = useBookingModal()
+
+function infoUrl(name: string) {
+  const msg = `Ciao! Vorrei avere informazioni sul ${name} di Iako Ritual.`
+  return `https://wa.me/39${salon.whatsappNumber}?text=${encodeURIComponent(msg)}`
+}
 </script>
 
 <template>
@@ -25,7 +30,7 @@ const { open: openBooking } = useBookingModal()
         I <span class="text-gold">Rituali</span>
       </h1>
       <p class="mx-auto mt-5 max-w-xl text-lg text-muted">
-        La collezione stagionale di Iako Ritual: due percorsi di benessere per cute e capelli.
+        La collezione stagionale di Iako Ritual: percorsi di benessere per cute e capelli.
       </p>
     </div>
   </section>
@@ -76,11 +81,22 @@ const { open: openBooking } = useBookingModal()
         <div class="flex items-center justify-between border-t border-border pt-4">
           <span class="font-display text-2xl font-bold text-gold">€ {{ s.price }}</span>
           <button
+            v-if="s.bookable !== false"
             class="rounded-full bg-primary px-5 py-2 text-sm font-bold text-white transition-transform hover:scale-105"
             @click="openBooking(s.name, s.treatwellMenuItemId, s.treatwellOptionId)"
           >
             Prenota
           </button>
+          <a
+            v-else
+            :href="infoUrl(s.name)"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center gap-1.5 rounded-full bg-primary px-5 py-2 text-sm font-bold text-white transition-transform hover:scale-105"
+          >
+            <font-awesome-icon :icon="['fab', 'whatsapp']" />
+            Chiedi info
+          </a>
         </div>
       </div>
     </div>

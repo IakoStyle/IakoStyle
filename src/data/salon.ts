@@ -331,6 +331,8 @@ export interface RitualService {
   desc: string
   treatwellMenuItemId?: string
   treatwellOptionId?: string
+  /** Se false, il rituale non è prenotabile online: si mostra un tasto "Chiedi info" al posto di "Prenota". */
+  bookable?: boolean
 }
 
 export const ritualSeason = 'Summer Ritual 2026'
@@ -347,5 +349,40 @@ export const ritualServices: RitualService[] = [
     duration: '1 ora 15 min',
     price: 63,
     desc: "Durante l'estate, sole, sudorazione, salsedine, cloro e lavaggi frequenti possono alterare il naturale equilibrio del cuoio capelluto e impoverire la fibra capillare, provocando pizzicore, arrossamenti e una fastidiosa sensazione di tensione, oltre a capelli secchi, spenti e difficili da gestire. Attraverso oli nutrienti, attivi specifici e tecniche di massaggio rilassanti, il Rituale Rinascita lavora in profondità sia sulla cute che sulle lunghezze. Risultato: cute lenita e riequilibrata, sensazione di freschezza immediata, riduzione di prurito e fastidi, capelli nutriti in profondità, luminosità e vitalità dalla radice alle punte.",
+  },
+  {
+    name: 'Rituale Fonte Purificante',
+    duration: '6 trattamenti in salone · circa 25 min a seduta',
+    price: 210,
+    bookable: false,
+    desc: "Dedicato a chi desidera contrastare la formazione della forfora e calmare il prurito. Un trattamento capace di detergere in profondità il cuoio capelluto grazie alla sinergia degli Oli Essenziali di Melaleuca (antimicotico), Salvia Officinalis (antinfiammatorio) e Rosmarinus Officinalis (disinfettante). Il percorso include: applicazione dell'estratto purificante, emulsione e fiala pre shampoo, massaggio distensivo/rilassante Nubeà, lavaggio sensoriale con shampoo specifico, posa in maschera idratante, applicazione fiala post shampoo. Frequenza consigliata: 2 volte alla settimana per 2 settimane, 1 volta a settimana per la 3ª e 4ª settimana. Prezzo per il percorso completo di 6 trattamenti in salone (escluso brushing/piega).",
+  },
+  {
+    name: 'Rituale Fonte Equilibrante',
+    duration: '6 trattamenti in salone · circa 25 min a seduta',
+    price: 175,
+    bookable: false,
+    desc: "Dedicato a chi desidera normalizzare la secrezione sebacea, per diminuire la frequenza dei lavaggi abbandonando la fastidiosa sensazione di avere sempre capelli pesanti e concedersi il lusso di capelli leggeri e voluminosi. Un trattamento efficace a base di Oli Essenziali di Eugenia Caryophillus (stimolante) e Salvia Officinalis (che favorisce la ricrescita dei capelli sani). Il percorso include: applicazione dell'estratto e della fiala pre shampoo, massaggio distensivo/rilassante Nubeà, lavaggio sensoriale con shampoo specifico, posa in maschera idratante, applicazione fiala post shampoo. Frequenza consigliata: 2 volte alla settimana per 2 settimane, 1 volta a settimana per la 3ª e 4ª settimana. Prezzo per il percorso completo di 6 trattamenti in salone (escluso brushing/piega).",
+  },
+  {
+    name: 'Rituale Fonte Rilassante',
+    duration: '6 trattamenti in salone · circa 20 min a seduta',
+    price: 175,
+    bookable: false,
+    desc: "Dedicato a chi desidera ripristinare la funzionalità del cuoio capelluto estremamente sensibile ed irritato. Un trattamento dolce e delicato che aiuta a ritrovare una piacevole sensazione di benessere grazie agli Oli Essenziali di Mentha Arvensis (risanante), Lavandula Angustifolia (calmante e addolcente) ed Aloe Vera (rigenerante). Il percorso include: massaggio distensivo/rilassante Nubeà durante il lavaggio sensoriale con shampoo specifico, lavaggio sensoriale con shampoo specifico, posa in maschera idratante, applicazione fiala post shampoo. Frequenza consigliata: 1 volta alla settimana per almeno 6 settimane. Prezzo per il percorso completo di 6 trattamenti in salone (escluso brushing/piega).",
+  },
+  {
+    name: 'Rituale Fonte Detossinante',
+    duration: '5 trattamenti in salone · circa 25 min a seduta',
+    price: 150,
+    bookable: false,
+    desc: "Dedicato a chi desidera un cuoio capelluto sano, requisito essenziale per avere capelli forti e belli. Un trattamento detossinante di bellezza che non si esaurisce con una piega, ma dura nel tempo, a base di Oli Essenziali di Pinus Sylvestris e di Rosmarinus Officinalis, che favorisce la ricrescita dei capelli. Il percorso include: applicazione estratto e della fiala pre shampoo, massaggio distensivo/rilassante Nubeà, lavaggio sensoriale con shampoo specifico, posa in maschera idratante, applicazione fiala post shampoo. Frequenza consigliata: 2 volte durante la prima settimana, 1 volta in ognuna delle 3 settimane successive. Prezzo per il percorso completo di 5 trattamenti in salone (escluso brushing/piega).",
+  },
+  {
+    name: 'Rituale Fonte Energizzante',
+    duration: '6 trattamenti in salone · circa 25 min a seduta',
+    price: 180,
+    bookable: false,
+    desc: "Dedicato a chi desidera contrastare la caduta sia progressiva che reattiva, favorendo la crescita di capelli più forti e vigorosi. Un trattamento all'insegna della rinascita, all'estratto di Serena Repens e agli Oli Essenziali di Citrus Limonum e Citrus Aurantium Bergamia, dalle conclamate proprietà stimolanti. Il percorso include: applicazione dell'estratto e della fiala pre shampoo, massaggio distensivo/rilassante Nubeà, lavaggio sensoriale con shampoo specifico, posa in maschera idratante, applicazione fiala post shampoo. Frequenza consigliata: 1 volta alla settimana per almeno 6 settimane. Prezzo per il percorso completo di 6 trattamenti in salone (escluso brushing/piega).",
   },
 ]
