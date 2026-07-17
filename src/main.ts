@@ -25,8 +25,9 @@ import { FontAwesomeIcon } from './plugins/fontawesome'
 import { initTheme } from './composables/useTheme'
 import { applyBrandToDom, currentBrandFromPath } from './composables/useBrand'
 
-// Il sito usa sempre il tema scuro: applicato prima del mount, così
-// non c'è alcun flash del tema chiaro al primo caricamento.
+// Tema scuro ovunque, tranne nella home di scelta del mondo ("/"): si
+// applica in base al percorso corrente prima del mount, così non c'è
+// alcun flash del tema sbagliato al primo caricamento.
 initTheme()
 
 // Stessa logica per il marchio: la palette giusta (Style o Ritual) deve

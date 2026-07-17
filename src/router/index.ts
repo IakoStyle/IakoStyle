@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { trackPageView } from '@/composables/useAnalytics'
 import { applyBrandToDom, currentBrandFromPath } from '@/composables/useBrand'
+import { applyThemeForPath } from '@/composables/useTheme'
 
 const SITE_URL = 'https://iakostyle.it'
 const DEFAULT_DESCRIPTION =
@@ -147,6 +148,11 @@ router.afterEach((to) => {
   // La palette del marchio va applicata ad ogni cambio rotta, non solo
   // al primo caricamento (lo switch tra i marchi è una navigazione).
   applyBrandToDom(brandId)
+
+  // La home di scelta del mondo ("/") resta in tema chiaro; tutte le
+  // altre pagine restano nel tema scuro "Notte".
+  applyThemeForPath(to.path)
+
   const description = (to.meta.description as string | undefined) ?? DEFAULT_DESCRIPTION
   const canonicalUrl = `${SITE_URL}${to.path === '/' ? '/' : to.path}`
 
