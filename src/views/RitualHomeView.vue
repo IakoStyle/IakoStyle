@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 import { getOpenStatus } from '@/data/salon'
 import { ritualFruit } from '@/data/brands'
 import { ritualGallery } from '@/data/media'
-import ritualLogo from '@/assets/ritual/logo-ritual.webp'
+import lemonIcon from '@/assets/ritual/lemon-icon.webp'
 import heroPoster from '@/assets/ritual/hero-ritual-poster.webp'
 import MediaCarousel from '@/components/MediaCarousel.vue'
 
@@ -70,8 +70,12 @@ onMounted(async () => {
         Head Spa Experience
       </p>
 
-      <div class="mt-6 flex justify-center rounded-3xl bg-white/95 px-6 py-4 shadow-lg">
-        <img :src="ritualLogo" alt="Iako Ritual" class="h-20 w-auto object-contain sm:h-28" />
+      <div class="mt-6 flex items-center justify-center gap-3">
+        <div class="text-left leading-none">
+          <p class="ritual-wordmark text-4xl font-semibold text-white drop-shadow-sm sm:text-5xl">IAKO</p>
+          <p class="ritual-subword mt-2 text-xs font-medium text-white/90 sm:text-sm">RITUAL</p>
+        </div>
+        <img :src="lemonIcon" alt="" class="h-16 w-auto object-contain drop-shadow-md sm:h-20" />
       </div>
 
       <p class="mx-auto mt-8 max-w-md text-base leading-relaxed text-white/85">
