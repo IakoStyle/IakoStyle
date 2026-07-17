@@ -26,8 +26,8 @@ function infoUrl(name: string) {
       <p class="ritual-eyebrow text-[0.7rem] font-normal uppercase text-gold sm:text-xs">
         {{ ritualSeason }}
       </p>
-      <h1 class="ritual-wordmark mt-5 text-4xl font-semibold text-foreground sm:text-5xl">
-        I <span class="text-gold">Rituali</span>
+      <h1 class="ritual-wordmark mt-5 text-4xl font-semibold text-gold sm:text-5xl">
+        I Rituali
       </h1>
       <p class="mx-auto mt-5 max-w-xl text-lg text-muted">
         La collezione stagionale di Iako Ritual: percorsi di benessere per cute e capelli.
