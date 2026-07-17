@@ -5,17 +5,11 @@ import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/
 import { useCookieConsent } from '@/composables/useCookieConsent'
 import { useBrand } from '@/composables/useBrand'
 import { brands } from '@/data/brands'
-import styleLogoUrl from '@/assets/logo-iako.webp'
-import ritualLogoUrl from '@/assets/ritual/logo-ritual.webp'
 
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
 const { reset } = useCookieConsent()
-const { brand, brandId } = useBrand()
-
-// Ritual e With You condividono l'identità di Ritual (stessa etichetta):
-// mostrano il suo logo invece di quello di Style.
-const logoUrl = computed(() => (brandId.value === 'style' ? styleLogoUrl : ritualLogoUrl))
+const { brand, brandId, isWithYou } = useBrand()
 
 // I marchi diversi da quello attivo, per i link "Scopri anche..." in fondo.
 const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== brandId.value))
@@ -26,8 +20,28 @@ const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== 
     <div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
       <!-- Brand -->
       <div>
-        <div class="inline-flex h-16 w-32 items-center justify-center rounded-2xl bg-white px-3 shadow-sm ring-1 ring-border">
-          <img :src="logoUrl" :alt="brand.name" class="h-12 w-auto max-w-full object-contain" />
+        <!-- Solo su Everywhere With You: il "logo" è il wordmark testuale
+             (EVERYWHERE / riga oro / with you), senza riquadro di sfondo.
+             Su Studio e Ritual non si mostra alcun logo qui. -->
+        <div v-if="isWithYou" class="inline-flex flex-col items-center">
+          <div>
+            <p class="ritual-claim text-2xl font-medium uppercase text-foreground">Everywhere</p>
+            <svg
+              class="mt-0.5 w-full text-gold"
+              viewBox="0 0 300 10"
+              fill="none"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M0,5 C 40,1.5 100,0.5 150,0.5 C 200,0.5 260,3 300,10"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <p class="ritual-script -mt-1 text-3xl text-foreground">with you</p>
         </div>
         <p class="mt-4 text-sm text-muted">{{ brand.tagline }}.</p>
         <div class="mt-4 flex gap-2">
