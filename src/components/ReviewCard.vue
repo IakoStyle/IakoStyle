@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Review } from '@/data/salon'
+import { censorSurname } from '@/data/salon'
 import StarRating from './StarRating.vue'
 
 defineProps<{ review: Review }>()
@@ -15,7 +16,7 @@ defineProps<{ review: Review }>()
 
     <div class="flex items-center justify-between border-t border-border pt-4">
       <div>
-        <figcaption class="font-display font-semibold text-foreground">{{ review.author }}</figcaption>
+        <figcaption class="font-display font-semibold text-foreground">{{ censorSurname(review.author) }}</figcaption>
         <p class="text-xs text-muted">{{ review.service }} · {{ review.when }}</p>
       </div>
       <StarRating class="text-sm" />

@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import { salon, services, macroServices, reviews, getOpenStatus } from '@/data/salon'
+import { salon, services, macroServices, getOpenStatus } from '@/data/salon'
 import MediaCarousel from '@/components/MediaCarousel.vue'
 import ServiceCard from '@/components/ServiceCard.vue'
-import ReviewCard from '@/components/ReviewCard.vue'
-import StarRating from '@/components/StarRating.vue'
 import heroPhoto from '@/assets/gallery/salone-ingresso.webp'
 
 const featured = services.filter((s) => s.featured)
@@ -43,11 +41,6 @@ const status = computed(() => getOpenStatus())
       </h1>
 
       <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
-        <span class="flex items-center gap-2">
-          <StarRating class="text-lg" />
-          <span class="font-display font-bold text-white">{{ salon.rating.toFixed(1) }}</span>
-          <span class="text-sm text-white/75">· {{ salon.reviewsCount }} recensioni</span>
-        </span>
         <span class="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white ring-1 ring-white/25 backdrop-blur-sm">
           <span class="h-1.5 w-1.5 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
           {{ status.isOpen ? `${status.label} · ${status.detail}` : status.nextOpenLabel }}
@@ -126,43 +119,6 @@ const status = computed(() => getOpenStatus())
     </div>
     <div class="grid gap-4 md:grid-cols-2">
       <ServiceCard v-for="s in featured" :key="s.name" :service="s" />
-    </div>
-  </section>
-
-  <!-- RECENSIONI -->
-  <section class="mx-auto max-w-6xl px-6 py-12">
-    <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Dicono di noi</p>
-        <h2 class="mt-1 font-display text-3xl font-bold text-foreground">Recensioni verificate</h2>
-      </div>
-      <a :href="salon.reviewsUrl" target="_blank" rel="noopener" class="flex items-center gap-2 font-bold text-primary hover:underline">
-        Tutte le recensioni
-        <font-awesome-icon :icon="['fas', 'arrow-right']" />
-      </a>
-    </div>
-    <div class="grid gap-4 md:grid-cols-3">
-      <ReviewCard v-for="r in reviews.slice(0, 3)" :key="r.author" :review="r" />
-    </div>
-    <div class="mt-8 flex flex-wrap justify-center gap-3 text-center">
-      <a
-        :href="salon.googleMapsReviewUrl"
-        target="_blank"
-        rel="noopener"
-        class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-white shadow-lg shadow-primary/30 transition-transform hover:scale-105"
-      >
-        <font-awesome-icon :icon="['fas', 'star']" class="text-gold" />
-        Lascia una recensione su Google
-      </a>
-      <a
-        :href="salon.reviewsUrl"
-        target="_blank"
-        rel="noopener"
-        class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
-      >
-        <font-awesome-icon :icon="['fas', 'star']" class="text-gold" />
-        Lascia una recensione su Treatwell
-      </a>
     </div>
   </section>
 

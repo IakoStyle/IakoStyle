@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import styleLogoUrl from '@/assets/logo-iako.webp'
+import { salon, reviews, totalReviewsCount } from '@/data/salon'
+import ReviewCard from '@/components/ReviewCard.vue'
+import StarRating from '@/components/StarRating.vue'
 </script>
 
 <template>
@@ -82,6 +85,43 @@ import styleLogoUrl from '@/assets/logo-iako.webp'
           Contatti
         </RouterLink>
       </div>
+    </div>
+  </section>
+
+  <!-- RECENSIONI — trasferite qui dalla home di Iako Style, dato che
+       valgono per l'intera attività e non solo per lo Studio. -->
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="mb-8 flex flex-col items-center gap-3 text-center">
+      <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Dicono di noi</p>
+      <h2 class="font-display text-3xl font-bold text-foreground">Recensioni verificate</h2>
+      <span class="flex items-center gap-2">
+        <StarRating class="text-lg" />
+        <span class="font-display font-bold text-foreground">{{ salon.rating.toFixed(1) }}</span>
+        <span class="text-sm text-muted">· {{ totalReviewsCount() }} recensioni (Treatwell + Google)</span>
+      </span>
+    </div>
+    <div class="grid gap-4 md:grid-cols-3">
+      <ReviewCard v-for="r in reviews.slice(0, 3)" :key="r.author" :review="r" />
+    </div>
+    <div class="mt-8 flex flex-wrap justify-center gap-3 text-center">
+      <a
+        :href="salon.googleMapsReviewUrl"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-white shadow-lg shadow-primary/30 transition-transform hover:scale-105"
+      >
+        <font-awesome-icon :icon="['fas', 'star']" class="text-gold" />
+        Lascia una recensione su Google
+      </a>
+      <a
+        :href="salon.reviewsUrl"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
+      >
+        <font-awesome-icon :icon="['fas', 'star']" class="text-gold" />
+        Lascia una recensione su Treatwell
+      </a>
     </div>
   </section>
 </template>

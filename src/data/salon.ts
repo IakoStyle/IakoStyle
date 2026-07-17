@@ -11,6 +11,12 @@ export const salon = {
   mapsQuery: 'Iako Style, Via Vincenzo Gioberti 60, Fondi LT',
   rating: 5.0,
   reviewsCount: 116,
+  // Recensioni raccolte su Google Maps (da sommare a quelle di Treatwell
+  // per il totale mostrato nella home di scelta). Valore da riconfermare
+  // periodicamente controllando la scheda Google del salone, dato che
+  // cresce nel tempo e non è recuperabile via API senza una chiave a
+  // pagamento.
+  googleReviewsCount: 28,
   bookingUrl: 'https://www.treatwell.it/salone/iako-style/',
   // Widget incorporabile: apre il calendario di prenotazione dentro il
   // sito stesso (in un riquadro), invece di rimandare a una scheda esterna.
@@ -48,6 +54,22 @@ export function buildBookingUrl(menuItemId?: string, optionId?: string): string 
   })
 
   return `https://widget.treatwell.it/availability?${params.toString()}`
+}
+
+// Somma le recensioni raccolte su Treatwell e su Google Maps, per mostrare
+// un unico numero complessivo nella home di scelta.
+export function totalReviewsCount(): number {
+  return salon.reviewsCount + salon.googleReviewsCount
+}
+
+// Censura il cognome di una recensione verificata, mostrando solo
+// l'iniziale puntata (es. "Camilla Lo Stocco" -> "Camilla L."), per
+// tutela della privacy di chi ha lasciato la recensione.
+export function censorSurname(fullName: string): string {
+  const parts = fullName.trim().split(/\s+/)
+  const [first, surname] = parts
+  if (!first || !surname) return fullName
+  return `${first} ${surname.charAt(0)}.`
 }
 
 export const socials = [
