@@ -72,7 +72,7 @@ function infoUrl(name: string) {
             leave-from-class="max-h-96 opacity-100"
             leave-to-class="max-h-0 opacity-0"
           >
-            <p v-if="openItems[s.name]" class="mt-3 overflow-hidden text-sm leading-relaxed text-muted" v-html="s.desc"></p>
+            <div v-if="openItems[s.name]" class="mt-3 overflow-hidden text-sm leading-relaxed text-muted [&_p]:mb-3 [&_p:last-child]:mb-0" v-html="s.desc"></div>
           </Transition>
         </div>
 
