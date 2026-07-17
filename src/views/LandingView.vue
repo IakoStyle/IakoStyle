@@ -40,27 +40,29 @@ import StarRating from '@/components/StarRating.vue'
 
         <RouterLink
           to="/with-you"
-          class="group block border-t border-border px-6 py-8 transition-colors hover:opacity-90"
+          class="group flex flex-col items-center border-t border-border px-6 py-8 transition-colors hover:opacity-90"
           style="background-color: #f9f7f3"
         >
-          <span class="ritual-claim inline-block text-xl font-medium uppercase transition-transform group-hover:scale-105 sm:text-2xl" style="color: #4a3428">
-            Everywhere
-          </span>
-          <svg
-            class="mx-auto mt-0.5 w-40 sm:w-48"
-            viewBox="0 0 300 10"
-            fill="none"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-            style="color: #966706"
-          >
-            <path
-              d="M0,5 C 40,1.5 100,0.5 150,0.5 C 200,0.5 260,3 300,10"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-            />
-          </svg>
+          <div class="w-fit transition-transform group-hover:scale-105">
+            <span class="ritual-claim block text-xl font-medium uppercase sm:text-2xl" style="color: #4a3428">
+              Everywhere
+            </span>
+            <svg
+              class="mt-0.5 w-full"
+              viewBox="0 0 300 10"
+              fill="none"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+              style="color: #966706"
+            >
+              <path
+                d="M0,5 C 40,1.5 100,0.5 150,0.5 C 200,0.5 260,3 300,10"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
           <span class="ritual-script -mt-1 block text-2xl sm:text-3xl" style="color: #4a3428">with you</span>
         </RouterLink>
       </div>

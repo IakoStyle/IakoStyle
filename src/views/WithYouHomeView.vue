@@ -29,12 +29,14 @@ import pochetteImg from '@/assets/ritual/pochette.webp'
                è quella del testo più largo (di norma "EVERYWHERE"), e
                "with you" viene centrato sotto di esso automaticamente. -->
           <div class="mx-auto mt-6 inline-flex flex-col items-center md:mx-0">
-            <div>
+            <div class="w-fit">
               <p class="ritual-claim text-3xl font-medium uppercase text-foreground sm:text-4xl">
                 Everywhere
               </p>
-              <!-- Riga dorata sotto "EVERYWHERE": tracciata pixel per pixel
-                   dall'etichetta di riferimento. Non è simmetrica: sale
+              <!-- Riga dorata sotto "EVERYWHERE": "w-fit" sul contenitore
+                   fa sì che questa riga (larga il 100% del contenitore) si
+                   agganci alla larghezza esatta del testo, invece di
+                   allungarsi oltre di esso. Non è simmetrica: sale
                    dolcemente fino a un plateau alto verso il centro-sinistra,
                    poi scende decisamente verso il basso a destra. -->
               <svg

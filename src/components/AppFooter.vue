@@ -5,11 +5,17 @@ import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/
 import { useCookieConsent } from '@/composables/useCookieConsent'
 import { useBrand } from '@/composables/useBrand'
 import { brands } from '@/data/brands'
+import styleLogoUrl from '@/assets/logo-iako.webp'
+import ritualLogoUrl from '@/assets/ritual/logo-ritual.webp'
 
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
 const { reset } = useCookieConsent()
 const { brand, brandId, isWithYou } = useBrand()
+
+// Ritual e With You condividono l'identità di Ritual (stessa etichetta):
+// mostrano il suo logo invece di quello di Style.
+const logoUrl = computed(() => (brandId.value === 'style' ? styleLogoUrl : ritualLogoUrl))
 
 // I marchi diversi da quello attivo, per i link "Scopri anche..." in fondo.
 const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== brandId.value))
@@ -20,11 +26,13 @@ const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== 
     <div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
       <!-- Brand -->
       <div>
-        <!-- Solo su Everywhere With You: il "logo" è il wordmark testuale
-             (EVERYWHERE / riga oro / with you), senza riquadro di sfondo.
-             Su Studio e Ritual non si mostra alcun logo qui. -->
+        <!-- Everywhere With You: il "logo" è il wordmark testuale
+             (EVERYWHERE / riga oro / with you), senza sfondo. Il
+             contenitore "w-fit" fa sì che la riga (larga il 100% del
+             contenitore) si agganci alla larghezza esatta del testo
+             "EVERYWHERE", invece di allungarsi oltre di esso. -->
         <div v-if="isWithYou" class="inline-flex flex-col items-center">
-          <div>
+          <div class="w-fit">
             <p class="ritual-claim text-2xl font-medium uppercase text-foreground">Everywhere</p>
             <svg
               class="mt-0.5 w-full text-gold"
@@ -43,6 +51,8 @@ const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== 
           </div>
           <p class="ritual-script -mt-1 text-3xl text-foreground">with you</p>
         </div>
+        <!-- Studio e Ritual: logo immagine, senza riquadro di sfondo. -->
+        <img v-else :src="logoUrl" :alt="brand.name" class="h-12 w-auto max-w-full object-contain" />
         <p class="mt-4 text-sm text-muted">{{ brand.tagline }}.</p>
         <div class="mt-4 flex gap-2">
           <a
