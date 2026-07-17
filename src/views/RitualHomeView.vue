@@ -107,7 +107,7 @@ onMounted(async () => {
   <!-- GALLERIA -->
   <section class="mx-auto max-w-6xl px-6 pb-12">
     <div class="mb-8 text-center">
-      <h2 class="ritual-wordmark text-2xl font-semibold text-gold sm:text-3xl">
+      <h2 class="ritual-wordmark mt-4 text-2xl font-semibold text-gold sm:text-3xl">
         I rituali
       </h2>
     </div>
