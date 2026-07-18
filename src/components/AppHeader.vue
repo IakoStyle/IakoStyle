@@ -27,8 +27,10 @@ const ritualLinks = [
   { to: '/ritual/listino', label: 'Listino' },
 ]
 
-// "With You" è una singola pagina di collezione: nessuna sotto-navigazione.
-const withYouLinks = [{ to: '/with-you', label: 'Home' }]
+const withYouLinks = [
+  { to: '/with-you', label: 'Home' },
+  { to: '/with-you/storia', label: 'La nostra storia' },
+]
 
 const links = computed(() => {
   if (brandId.value === 'ritual') return ritualLinks

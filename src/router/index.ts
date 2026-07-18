@@ -106,6 +106,16 @@ const router = createRouter({
       },
     },
     {
+      path: '/with-you/storia',
+      name: 'with-you-storia',
+      component: () => import('../views/WithYouStoryView.vue'),
+      meta: {
+        title: 'La nostra storia · Everywhere With You',
+        description:
+          'La storia dietro Everywhere With You: come una parola diventata una promessa ha dato vita a un nuovo progetto firmato Iako Ritual.',
+      },
+    },
+    {
       path: '/privacy',
       name: 'privacy',
       component: () => import('../views/PrivacyView.vue'),
