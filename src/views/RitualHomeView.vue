@@ -65,31 +65,13 @@ onMounted(async () => {
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent"></div>
 
     <div class="relative mx-auto flex max-w-3xl flex-col items-center px-6 text-center">
-      <p class="ritual-eyebrow text-[0.7rem] font-normal uppercase text-gold sm:text-xs">
-        Head Spa Experience
-      </p>
-
-      <div class="mt-6 flex items-center justify-center gap-3">
+      <div class="flex items-center justify-center gap-3">
         <div class="text-left leading-none">
           <p class="ritual-wordmark text-4xl font-semibold text-white drop-shadow-sm sm:text-5xl">IAKO</p>
           <p class="ritual-subword mt-2 text-xs font-medium text-white/90 sm:text-sm">RITUAL</p>
         </div>
         <img :src="lemonIcon" alt="" class="h-16 w-auto object-contain drop-shadow-md sm:h-20" />
       </div>
-
-      <p class="mx-auto mt-8 max-w-md text-base leading-relaxed text-white/85">
-        Un rituale di benessere per cute e capelli: massaggio, trattamenti e
-        profumi naturali. Ogni anno un frutto diverso guida l'esperienza —
-        per il {{ ritualFruit.year }} è il <strong class="text-white">{{ ritualFruit.name }}</strong>
-        {{ ritualFruit.emoji }}
-      </p>
-
-      <p class="mt-6 flex items-center justify-center gap-2 text-sm">
-        <span class="h-1.5 w-1.5 shrink-0 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
-        <span class="font-bold text-white/90">
-          {{ status.isOpen ? `${status.label} · ${status.detail}` : status.nextOpenLabel }}
-        </span>
-      </p>
     </div>
 
     <!-- Toggle audio -->
@@ -101,6 +83,26 @@ onMounted(async () => {
     >
       <font-awesome-icon :icon="['fas', audioOn ? 'volume-high' : 'volume-xmark']" />
     </button>
+  </section>
+
+  <!-- Descrizione ed esperienza: sotto l'hero, per lasciare il video del
+       mare libero da testo -->
+  <section class="mx-auto max-w-2xl px-6 pt-12 text-center">
+    <p class="ritual-eyebrow text-[0.7rem] font-normal uppercase text-gold sm:text-xs">
+      Head Spa Experience
+    </p>
+    <p class="mx-auto mt-4 max-w-md text-base leading-relaxed text-muted">
+      Un rituale di benessere per cute e capelli: massaggio, trattamenti e
+      profumi naturali. Ogni anno un frutto diverso guida l'esperienza —
+      per il {{ ritualFruit.year }} è il <strong class="text-foreground">{{ ritualFruit.name }}</strong>
+      {{ ritualFruit.emoji }}
+    </p>
+    <p class="mt-6 flex items-center justify-center gap-2 text-sm">
+      <span class="h-1.5 w-1.5 shrink-0 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
+      <span class="font-bold text-foreground">
+        {{ status.isOpen ? `${status.label} · ${status.detail}` : status.nextOpenLabel }}
+      </span>
+    </p>
   </section>
 
   <!-- GALLERIA -->
