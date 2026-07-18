@@ -103,6 +103,49 @@ import pochetteImg from '@/assets/ritual/pochette.webp'
     </div>
   </section>
 
+  <!-- La storia del progetto -->
+  <section class="mx-auto max-w-2xl px-6 pb-16 sm:pb-20">
+    <div class="space-y-5 text-center font-display text-lg leading-relaxed text-foreground sm:text-xl">
+      <p>Ogni progetto ha una storia.</p>
+      <p>Questa inizia da una semplice parola.</p>
+      <p class="text-2xl font-semibold text-gold sm:text-3xl">Everywhere.</p>
+      <p>
+        Per anni ha accompagnato uno dei capitoli più importanti della mia
+        vita e, quando quel percorso si è concluso, ero convinto che anche
+        quella parola dovesse rimanere lì.
+      </p>
+      <p class="italic text-muted">Intoccabile.</p>
+      <p>Poi, con il tempo, ho capito una cosa.</p>
+      <p>Le parole non appartengono ai luoghi.</p>
+      <p>Non appartengono alle aziende.</p>
+      <p>Appartengono alle persone che danno loro un significato.</p>
+      <p>
+        È stato in quel momento che Everywhere ha smesso di essere soltanto
+        un ricordo.
+      </p>
+      <p class="font-semibold text-gold">È diventata una promessa.</p>
+      <p>Perché il coraggio non è dimenticare ciò che siamo stati.</p>
+      <p>
+        È prendere il meglio del nostro passato e trasformarlo in qualcosa di
+        nuovo.
+      </p>
+      <p class="pt-4 text-2xl font-semibold sm:text-3xl">
+        Da qui nasce <span class="text-gold">Everywhere with you</span>.
+      </p>
+      <p>Non come uno slogan.</p>
+      <p>Ma come una filosofia.</p>
+      <p>
+        Una filosofia che nasce in salone, ma continua a vivere ovunque venga
+        portata.
+      </p>
+      <p class="pt-4 italic text-muted">Perché, in fondo…</p>
+      <p>le cose più belle non si usano.</p>
+      <p class="text-xl font-semibold text-gold sm:text-2xl">
+        Si portano con sé.
+      </p>
+    </div>
+  </section>
+
   <!-- Dettagli materiali, come sull'etichetta -->
   <section class="mx-auto max-w-3xl px-6 pb-20">
     <div class="rounded-xl border border-border bg-surface p-8 text-center">
