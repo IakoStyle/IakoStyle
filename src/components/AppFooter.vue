@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/salon'
 import { useCookieConsent } from '@/composables/useCookieConsent'
 import { useBrand } from '@/composables/useBrand'
@@ -8,13 +8,21 @@ import { brands } from '@/data/brands'
 import styleLogoUrl from '@/assets/logo-iako.webp'
 import lemonIcon from '@/assets/ritual/lemon-icon.webp'
 
+const route = useRoute()
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
 const { reset } = useCookieConsent()
 const { brand, brandId, isRitual, isWithYou } = useBrand()
 
+// Sulla pagina di scelta (la landing) la scelta tra i marchi È già la
+// navigazione: niente link "Scopri Ritual / Everywhere" ripetuti anche
+// nel footer.
+const isLanding = computed(() => route.path === '/')
+
 // I marchi diversi da quello attivo, per i link "Scopri anche..." in fondo.
-const otherBrands = computed(() => Object.values(brands).filter((b) => b.id !== brandId.value))
+const otherBrands = computed(() =>
+  isLanding.value ? [] : Object.values(brands).filter((b) => b.id !== brandId.value),
+)
 </script>
 
 <template>
