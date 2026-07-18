@@ -52,8 +52,7 @@ onMounted(async () => {
       preload="auto"
       aria-hidden="true"
     >
-      <source src="/ritual/hero-ritual-loop.webm" type="video/webm" />
-      <source src="/ritual/hero-ritual-loop.mp4" type="video/mp4" />
+      <source src="/ritual/mare.mp4" type="video/mp4" />
     </video>
     <!-- Scurimento uniforme -->
     <div class="absolute inset-0 bg-black/50"></div>
