@@ -3,17 +3,28 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <section class="relative overflow-hidden">
-    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <div class="absolute -left-16 top-0 h-72 w-72 rounded-full bg-gold-soft opacity-50 blur-3xl"></div>
-      <div class="absolute -right-10 top-1/3 h-64 w-64 rounded-full bg-primary-soft opacity-40 blur-3xl"></div>
-    </div>
+  <!-- HERO: banner fotografico con vignetta -->
+  <section class="relative h-[26rem] w-full overflow-hidden sm:h-[24rem]">
+    <img
+      src="/everywhere/pochette1.png"
+      alt="Pochette Everywhere With You — La nostra storia"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <!-- Scurimento uniforme -->
+    <div class="absolute inset-0 bg-black/50"></div>
+    <!-- Vignetta: bordi più scuri, centro più leggibile -->
+    <div
+      class="absolute inset-0"
+      style="background: radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.55) 100%)"
+    ></div>
+    <!-- Gradiente dal basso, per far risaltare il testo -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
 
-    <div class="mx-auto max-w-2xl px-6 pt-16 text-center sm:pt-20">
+    <div class="relative mx-auto flex h-full max-w-2xl flex-col items-center justify-center px-6 text-center">
       <p class="ritual-eyebrow text-[0.7rem] font-normal uppercase text-gold sm:text-xs">
         Everywhere With You
       </p>
-      <h1 class="mt-3 font-display text-4xl font-bold text-foreground sm:text-5xl">
+      <h1 class="mt-3 font-display text-4xl font-bold text-white sm:text-5xl">
         La nostra storia
       </h1>
     </div>
