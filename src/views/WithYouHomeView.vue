@@ -2,7 +2,6 @@
 import { RouterLink } from 'vue-router'
 import { salon } from '@/data/salon'
 import { withYouCollection } from '@/data/brands'
-import pochetteImg from '@/assets/ritual/pochette.webp'
 </script>
 
 <template>
@@ -90,13 +89,23 @@ import pochetteImg from '@/assets/ritual/pochette.webp'
           </div>
         </div>
 
-        <!-- Immagine -->
-        <div class="relative">
+        <!-- Immagini: le due pochette (Everywhere With You + Iako Ritual)
+             fotografate insieme in spiaggia -->
+        <div class="grid grid-cols-2 gap-3 sm:gap-4">
           <div class="overflow-hidden rounded-2xl border border-border bg-surface-2 shadow-xl">
             <img
-              :src="pochetteImg"
-              alt="Pochette Everywhere With You — Collection N. 1, Summer 2026"
-              class="h-full w-full object-cover"
+              src="/ritual/pochette1.jpeg"
+              alt="Le pochette Everywhere With You e Iako Ritual in riva al mare"
+              class="aspect-square h-full w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="overflow-hidden rounded-2xl border border-border bg-surface-2 shadow-xl">
+            <img
+              src="/ritual/pochette2.jpeg"
+              alt="Le pochette Everywhere With You e Iako Ritual sulla sabbia, tra conchiglie"
+              class="aspect-square h-full w-full object-cover"
+              loading="lazy"
             />
           </div>
         </div>

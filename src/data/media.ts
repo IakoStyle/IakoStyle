@@ -60,9 +60,10 @@ export const gallery: MediaItem[] = [
 ]
 
 // Galleria di Iako Ritual: nessuna cartella Drive dedicata ancora
-// collegata (vedi TODO.md), quindi per ora solo segnaposto "in arrivo".
+// collegata (vedi TODO.md), quindi per ora solo segnaposto "in arrivo" più
+// qualche foto reale caricata a mano.
 export const ritualGallery: MediaItem[] = [
-  { type: 'image', placeholder: true, tint: 'gold', caption: 'Il rituale' },
+  { type: 'image', src: '/ritual/trattamentoRitual.jpeg', alt: 'Trattamento Iako Ritual, risultati prima e dopo' },
   { type: 'image', placeholder: true, tint: 'mint', caption: 'Cura e benessere' },
   { type: 'image', placeholder: true, tint: 'gold', caption: 'L\'ambiente' },
   { type: 'image', placeholder: true, tint: 'mint', caption: 'I dettagli' },
