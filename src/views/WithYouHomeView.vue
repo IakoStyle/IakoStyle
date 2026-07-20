@@ -5,21 +5,28 @@ import { withYouCollection } from '@/data/brands'
 </script>
 
 <template>
-  <!-- Banner in cima alla home: solo la frase, poi la foto a piena larghezza -->
-  <section class="relative overflow-hidden">
-    <div class="mx-auto max-w-3xl px-6 pt-12 text-center sm:pt-16">
-      <h2 class="font-display text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-5xl">
+  <!-- HERO: banner fotografico con vignetta -->
+  <section class="relative h-[26rem] w-full overflow-hidden sm:h-[24rem]">
+    <img
+      src="/everywhere/pochette1.png"
+      alt="Pochette Everywhere With You — Collection N. 1, Summer 2026"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <!-- Scurimento uniforme -->
+    <div class="absolute inset-0 bg-black/50"></div>
+    <!-- Vignetta: bordi più scuri, centro più leggibile -->
+    <div
+      class="absolute inset-0"
+      style="background: radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.55) 100%)"
+    ></div>
+    <!-- Gradiente dal basso, per far risaltare il testo -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+
+    <div class="relative mx-auto flex h-full max-w-3xl flex-col items-center justify-center px-6 text-center">
+      <h2 class="font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
         Le cose più belle non si usano.<br />
         <span class="text-gold">Si portano con sé!</span>
       </h2>
-    </div>
-
-    <div class="mt-8 w-full sm:mt-10">
-      <img
-        src="/everywhere/pochette1.png"
-        alt="Pochette Everywhere With You — Collection N. 1, Summer 2026"
-        class="h-auto w-full object-cover"
-      />
     </div>
   </section>
 
