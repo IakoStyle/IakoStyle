@@ -302,9 +302,18 @@ export const services: Service[] = [
     desc: "<p>Un trattamento esclusivo che esalta la bellezza dei capelli, donando una luminosità intensa e sofisticata. Ravviva i riflessi, perfeziona la fibra capillare e lascia la chioma incredibilmente setosa, levigata e visibilmente più sana.</p>",
   },
 
-  // Taglio (donna) — servizi separati, uno per ogni opzione di piega finale
-  { name: 'Taglio Donna | Benessere Cute (Shampoo SPA / Taglio dei capelli / Piega Liscia)', duration: '1 ora 15 min', price: 55, category: 'Taglio' },
-  { name: 'Taglio Donna | Benessere Cute (Shampoo SPA / Taglio dei capelli / Piega Mossa/Onde)', duration: '1 ora 30 min', price: 60, category: 'Taglio' },
+  // Taglio (donna, prezzo variabile in base alla piega finale)
+  {
+    name: 'Taglio Donna | Benessere Cute',
+    duration: '1 ora 15 min - 1 ora 30 min',
+    price: 55,
+    category: 'Taglio',
+    variants: [
+      { label: 'Shampoo SPA / Taglio dei capelli / Piega Liscia', duration: '1 ora 15 min', price: 55 },
+      { label: 'Shampoo SPA / Taglio dei capelli / Piega Mossa/Onde', duration: '1 ora 30 min', price: 60 },
+    ],
+    desc: "<p>Formazione e aggiornamento sono le parole chiave per offrire le migliori proposte al passo con i tempi alle nostre clienti.</p><p>Da noi però, non può mancare il benessere, il relax e la cura della cute.</p><p>Dedicato a chi, oltre al taglio dei capelli desiderato, vuole mantenere il giusto eqilibrio del cuoio capelluto e conferire morbidezza, leggerezza e splendore ai capelli.</p><p>Un trattamento agli olii essenziali calmanti, lenitivi e rilassanti rendono la permanenza nel nostro salone un vero e proprio percorso sensoriale.</p><p>Il percorso include il massaggio distensivo e rilassante della cute per 15 minuti (durante la detersione dei capelli), shampoo specifico, posa della maschera idratante, taglio e messa in piega dei capelli.</p>",
+  },
 
   // Taglio Uomo
   { name: 'Taglio Uomo | Benessere Cute', duration: '45 min', price: 37, category: 'Taglio Uomo' },
