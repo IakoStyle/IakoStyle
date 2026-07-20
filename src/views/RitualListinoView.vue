@@ -36,11 +36,11 @@ function infoUrl(name: string) {
   </section>
 
   <section class="mx-auto max-w-4xl px-6 pb-16">
-    <div class="grid items-start gap-6 sm:grid-cols-2">
+    <div class="columns-1 gap-6 sm:columns-2">
       <div
         v-for="s in ritualServices"
         :key="s.name"
-        class="flex flex-col gap-4 rounded-xl border border-border bg-surface p-6"
+        class="mb-6 flex flex-col gap-4 break-inside-avoid-column rounded-xl border border-border bg-surface p-6"
       >
         <div>
           <h2 class="ritual-wordmark text-2xl font-semibold text-foreground">{{ s.name }}</h2>
