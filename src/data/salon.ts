@@ -316,12 +316,27 @@ export const services: Service[] = [
   },
 
   // Taglio Uomo
-  { name: 'Taglio Uomo | Benessere Cute', duration: '45 min', price: 37, category: 'Taglio Uomo' },
+  {
+    name: 'Taglio Uomo | Benessere Cute',
+    duration: '45 min',
+    price: 37,
+    category: 'Taglio Uomo',
+    desc: "<p>Dedicato e a chi desidera mantenere il giusto eqilibrio del cuoio capelluto e conferire morbidezza, leggerezza e splendore ai capelli.</p><p>Un trattamento agli olii essenziali calmanti, lenitivi e rilassanti rendono il taglio uomo nel nostro salone un vero e proprio percorso sensoriale.</p><p>Oltre al taglio dei capelli, andremo ad effettuare un massaggio distensivo e rilassante (di 10 minuti) del cuoio capelluto, detersione sensoriale con shampoo specifico e applicazione in posa della maschera idratante.</p>",
+  },
 
-  // Colore — servizi separati, uno per ogni tipo di colore
-  { name: 'Colore (Tonalizzante) - Piega', duration: '1 ora 45 min', price: 45, category: 'Colore' },
-  { name: 'Colore (Ricrescita) - Piega', duration: '2 ore', price: 55, category: 'Colore' },
-  { name: 'Colore (Completo: Ricrescita e Lunghezze) - Piega', duration: '2 ore 15 min', price: 70, category: 'Colore' },
+  // Colore (prezzo variabile in base al tipo di colore)
+  {
+    name: 'Colore',
+    duration: '1 ora 45 min - 2 ore 15 min',
+    price: 45,
+    category: 'Colore',
+    variants: [
+      { label: 'Tonalizzante - Piega', duration: '1 ora 45 min', price: 45 },
+      { label: 'Ricrescita - Piega', duration: '2 ore', price: 55 },
+      { label: 'Completo: Ricrescita e Lunghezze - Piega', duration: '2 ore 15 min', price: 70 },
+    ],
+    desc: "<p>Un’esperienza colore su misura che esalta la tua unicità. Formule professionali e tecniche personalizzate si fondono per creare nuance profonde, luminose e perfettamente armoniose con il tuo incarnato. Il risultato è un colore elegante, brillante e duraturo, con capelli dall’aspetto sano e sofisticato.</p>",
+  },
 ]
 
 export const serviceCategories = [
