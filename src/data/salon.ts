@@ -422,6 +422,8 @@ export const ritualServices: RitualService[] = [
     duration: '1 ora',
     price: 48,
     desc: "Durante l'estate, sole, sudorazione, salsedine, cloro e lavaggi frequenti possono alterare il naturale equilibrio del cuoio capelluto, provocando prurito, pizzicore, arrossamenti e una fastidiosa sensazione di tensione. Il Rituale Origine nasce per ristabilire comfort e benessere attraverso un trattamento lenitivo agli oli essenziali. Risultato: cute riequilibrata, sensazione di freschezza immediata, riduzione di prurito e fastidi.",
+    treatwellMenuItemId: 'TR1361674735',
+    treatwellOptionId: '1264116726',
   },
   {
     name: 'Rituale Rinascita',
