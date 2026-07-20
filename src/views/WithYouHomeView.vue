@@ -8,7 +8,7 @@ import { withYouCollection } from '@/data/brands'
   <!-- HERO: banner fotografico con vignetta -->
   <section class="relative h-[26rem] w-full overflow-hidden sm:h-[24rem]">
     <img
-      src="/everywhere/pochette1.png"
+      src="/everywhere/pochette2.png"
       alt="Pochette Everywhere With You — Collection N. 1, Summer 2026"
       class="absolute inset-0 h-full w-full object-cover"
     />
