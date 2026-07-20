@@ -253,9 +253,30 @@ export const services: Service[] = [
   },
 
   // Consulenza
-  { name: 'Consulenza Tecnica/Stilistica', duration: '15 min', price: 20, category: 'Consulenza', featured: true },
-  { name: 'Consulenza Tricologica', duration: '15 min', price: 20, category: 'Consulenza', featured: true },
-  { name: 'Biondo Perfetto | Solo Consulenza', duration: '15 min', price: 20, category: 'Consulenza', featured: true },
+  {
+    name: 'Consulenza Tecnica/Stilistica',
+    duration: '15 min',
+    price: 20,
+    category: 'Consulenza',
+    featured: true,
+    desc: "<p>La consulenza tecnica/stilistica è un momento dedicato all'ascolto e alla valutazione personalizzata delle tue esigenze.</p><p>Durante l'incontro analizzeremo il tuo colore di partenza, la struttura e la salute del capello, lo storico dei trattamenti, il taglio di capelli attuale e il risultato che desideri ottenere.</p><p>La consulenza permette di definire la soluzione più adatta a te, stabilire tempi realistici e formulare un preventivo chiaro e trasparente, soprattutto per servizi tecnici complessi come schiariture, balayage, colpi di sole e permanente.</p><p>Il costo del servizio verrà scalato dal servizio finale in caso di conferma del lavoro.</p><p>Un passaggio fondamentale per garantirti un risultato su misura, consapevole e senza sorprese.</p>",
+  },
+  {
+    name: 'Consulenza Tricologica',
+    duration: '15 min',
+    price: 20,
+    category: 'Consulenza',
+    featured: true,
+    desc: "<p>La consulenza tricologica è un servizio dedicato al benessere del capello e del cuoio capelluto.</p><p>Attraverso l'utilizzo della tricocamera, analizzeremo in modo approfondito lo stato del cuoio capelluto e della fibra capillare, individuando eventuali anomalie, sensibilità o squilibri.</p><p>L'analisi strumentale viene affiancata da domande mirate e fondamentali per comprendere le abitudini quotidiane, lo stile di vita, i trattamenti effettuati e le esigenze specifiche del cliente.</p><p>Questo ci permette di avere una visione completa e proporre un percorso personalizzato, mirato ed efficace.</p><p>Al termine della consulenza verranno consigliati i trattamenti e i prodotti più adatti per migliorare e mantenere la salute di cute e capelli.</p><p>Un momento di ascolto e analisi approfondita, pensato per prendersi cura dei tuoi capelli partendo dalla radice.</p>",
+  },
+  {
+    name: 'Biondo Perfetto | Solo Consulenza',
+    duration: '15 min',
+    price: 20,
+    category: 'Consulenza',
+    featured: true,
+    desc: "<p>Ogni schiaritura racconta una storia diversa.</p><p>Balayage, colpi di sole e tecniche avanzate non sono servizi standard, ma lavori sartoriali che nascono dall'ascolto, dall'analisi e dalla personalizzazione.</p><p>Per offrirti un risultato davvero su misura, abbiamo scelto di iniziare sempre con una consulenza tecnica personalizzata di 15 minuti con lo stilista.</p><p>Durante l'incontro valuteremo insieme il tuo colore di partenza, il risultato che desideri ottenere, la tecnica più adatta e la salute dei tuoi capelli, definendo tempi realistici e un preventivo chiaro e trasparente.</p><p>Il costo della consulenza verrà interamente scalato dal prezzo del servizio finale qualora decidessi di procedere.</p><p>Questo momento è fondamentale per prenderci cura dei tuoi capelli nel modo giusto, evitare sorprese e garantirti un risultato che ti rappresenti davvero.</p>",
+  },
 
   // Piega (prezzo variabile in base alla piega)
   {
