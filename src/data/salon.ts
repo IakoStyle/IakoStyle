@@ -288,6 +288,7 @@ export const services: Service[] = [
       { label: 'Liscia', duration: '1 ora', price: 35 },
       { label: 'Mossa/Onde', duration: '1 ora 15 min', price: 42 },
     ],
+    desc: "<p>Dedicata a chi desidera mantenere il giusto equilibrio del cuoio capelluto e conferire morbidezza, leggerezza e splendore ai capelli. Un trattamento agli olii essenziali calmanti, lenitivi e rilassanti rendono la piega nel nostro salone un vero e proprio percorso sensoriale.</p><p>Il percorso include il massaggio distensivo e rilassante della cute per 15 minuti (durante la detersione dei capelli), shampoo specifico, posa della maschera idratante e asciugatura desiderata dei capelli.</p>",
   },
   {
     name: 'Piega Illuminante',
@@ -298,6 +299,7 @@ export const services: Service[] = [
       { label: 'Liscia', duration: '1 ora', price: 40 },
       { label: 'Mossa/Onde', duration: '1 ora 15 min', price: 47 },
     ],
+    desc: "<p>Un trattamento esclusivo che esalta la bellezza dei capelli, donando una luminosità intensa e sofisticata. Ravviva i riflessi, perfeziona la fibra capillare e lascia la chioma incredibilmente setosa, levigata e visibilmente più sana.</p>",
   },
 
   // Taglio (donna) — servizi separati, uno per ogni opzione di piega finale
