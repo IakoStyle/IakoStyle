@@ -81,7 +81,7 @@ import { withYouCollection } from '@/data/brands'
         </p>
         <p class="ritual-wordmark text-lg text-muted">{{ withYouCollection.season }}</p>
 
-        <div class="mx-auto mt-6 max-w-md space-y-4 text-left text-sm leading-relaxed text-muted">
+        <div class="mx-auto mt-6 max-w-md space-y-4 text-center text-sm leading-relaxed text-muted">
           <p>
             Questa non è solo una pochette. È il simbolo del primo capitolo di
             <strong class="text-foreground">Everywhere with you</strong>.
