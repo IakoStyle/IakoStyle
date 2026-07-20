@@ -259,6 +259,8 @@ export const services: Service[] = [
     price: 20,
     category: 'Consulenza',
     featured: true,
+    treatwellMenuItemId: 'TR1361146556',
+    treatwellOptionId: '1263692465',
     desc: "<p>La consulenza tecnica/stilistica è un momento dedicato all'ascolto e alla valutazione personalizzata delle tue esigenze.</p><p>Durante l'incontro analizzeremo il tuo colore di partenza, la struttura e la salute del capello, lo storico dei trattamenti, il taglio di capelli attuale e il risultato che desideri ottenere.</p><p>La consulenza permette di definire la soluzione più adatta a te, stabilire tempi realistici e formulare un preventivo chiaro e trasparente, soprattutto per servizi tecnici complessi come schiariture, balayage, colpi di sole e permanente.</p><p>Il costo del servizio verrà scalato dal servizio finale in caso di conferma del lavoro.</p><p>Un passaggio fondamentale per garantirti un risultato su misura, consapevole e senza sorprese.</p>",
   },
   {
@@ -275,6 +277,8 @@ export const services: Service[] = [
     price: 20,
     category: 'Consulenza',
     featured: true,
+    treatwellMenuItemId: 'TR1361564798',
+    treatwellOptionId: '1264026090',
     desc: "<p>Ogni schiaritura racconta una storia diversa.</p><p>Balayage, colpi di sole e tecniche avanzate non sono servizi standard, ma lavori sartoriali che nascono dall'ascolto, dall'analisi e dalla personalizzazione.</p><p>Per offrirti un risultato davvero su misura, abbiamo scelto di iniziare sempre con una consulenza tecnica personalizzata di 15 minuti con lo stilista.</p><p>Durante l'incontro valuteremo insieme il tuo colore di partenza, il risultato che desideri ottenere, la tecnica più adatta e la salute dei tuoi capelli, definendo tempi realistici e un preventivo chiaro e trasparente.</p><p>Il costo della consulenza verrà interamente scalato dal prezzo del servizio finale qualora decidessi di procedere.</p><p>Questo momento è fondamentale per prenderci cura dei tuoi capelli nel modo giusto, evitare sorprese e garantirti un risultato che ti rappresenti davvero.</p>",
   },
 
@@ -430,6 +434,8 @@ export const ritualServices: RitualService[] = [
     duration: '1 ora 15 min',
     price: 63,
     desc: "Durante l'estate, sole, sudorazione, salsedine, cloro e lavaggi frequenti possono alterare il naturale equilibrio del cuoio capelluto e impoverire la fibra capillare, provocando pizzicore, arrossamenti e una fastidiosa sensazione di tensione, oltre a capelli secchi, spenti e difficili da gestire. Attraverso oli nutrienti, attivi specifici e tecniche di massaggio rilassanti, il Rituale Rinascita lavora in profondità sia sulla cute che sulle lunghezze. Risultato: cute lenita e riequilibrata, sensazione di freschezza immediata, riduzione di prurito e fastidi, capelli nutriti in profondità, luminosità e vitalità dalla radice alle punte.",
+    treatwellMenuItemId: 'TR1361674734',
+    treatwellOptionId: '1264116725',
   },
   {
     name: 'Rituale Purificante',
