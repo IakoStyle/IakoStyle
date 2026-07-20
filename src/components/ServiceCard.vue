@@ -6,11 +6,17 @@ import { useBookingModal } from '@/composables/useBookingModal'
 const props = defineProps<{ service: Service }>()
 
 const hasVariants = computed(() => (props.service.variants?.length ?? 0) > 0)
+const hasDesc = computed(() => !!props.service.desc)
 const isOpen = ref(false)
+const descOpen = ref(false)
 const { open: openBooking } = useBookingModal()
 
 function toggle() {
   if (hasVariants.value) isOpen.value = !isOpen.value
+}
+
+function toggleDesc() {
+  descOpen.value = !descOpen.value
 }
 </script>
 
@@ -39,6 +45,19 @@ function toggle() {
             <font-awesome-icon :icon="['fas', 'clock']" class="text-xs" />
             {{ service.duration }}
           </p>
+          <button
+            v-if="hasDesc"
+            class="mt-1 flex items-center gap-1.5 text-xs font-bold text-primary"
+            :aria-expanded="descOpen"
+            @click.stop="toggleDesc"
+          >
+            {{ descOpen ? 'Nascondi dettagli' : 'Scopri di più' }}
+            <font-awesome-icon
+              :icon="['fas', 'chevron-down']"
+              class="text-[0.65rem] transition-transform duration-300"
+              :class="descOpen ? 'rotate-180' : ''"
+            />
+          </button>
         </div>
       </div>
 
@@ -65,6 +84,22 @@ function toggle() {
         </span>
       </div>
     </div>
+
+    <!-- Descrizione: si apre a tendina sotto "Scopri di più" -->
+    <Transition
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="max-h-0 opacity-0"
+      enter-to-class="max-h-[32rem] opacity-100"
+      leave-active-class="transition-all duration-200 ease-in"
+      leave-from-class="max-h-[32rem] opacity-100"
+      leave-to-class="max-h-0 opacity-0"
+    >
+      <div
+        v-if="hasDesc && descOpen"
+        class="overflow-hidden border-t border-border bg-surface-2 px-5 py-4 text-sm leading-relaxed text-muted [&_p]:mb-3 [&_p:last-child]:mb-0"
+        v-html="service.desc"
+      ></div>
+    </Transition>
 
     <!-- Varianti: si aprono a tendina, ciascuna con il proprio prezzo -->
     <Transition

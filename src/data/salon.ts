@@ -219,6 +219,9 @@ export interface Service {
   category: string
   featured?: boolean
   variants?: ServiceVariant[]
+  // Descrizione estesa del servizio, mostrata a tendina ("Scopri di più").
+  // Stringa HTML (paragrafi <p>, eventuale <strong>), come per i Rituali.
+  desc?: string
   // Codici Treatwell per il link diretto al calendario (solo per i
   // servizi SENZA varianti — quelli con varianti li hanno per opzione,
   // vedi sopra).
@@ -237,10 +240,17 @@ export const services: Service[] = [
     featured: true,
     treatwellMenuItemId: 'TR1359192096',
     treatwellOptionId: '100851193',
+    desc: "<p>La modellatura barba è molto più di una semplice rifinitura: è un rituale di cura pensato per valorizzare il viso e il tuo stile.</p><p>Attraverso una consulenza mirata, definiamo la forma più adatta in base ai lineamenti, alla crescita del pelo e al risultato che desideri ottenere.</p><p>Il servizio comprende la rifinitura precisa, l'equilibrio delle proporzioni e la cura della pelle, per una barba ordinata, armoniosa e dall'aspetto sano.</p><p>Ogni gesto è studiato per offrirti comfort, relax e un risultato pulito e duraturo.</p><p><strong class=\"font-semibold text-foreground\">Consiglio:</strong> Abbinala al Taglio Uomo Benessere… Non te ne pentirai!</p>",
   },
 
   // Trattamenti Per Cute E Capello
-  { name: 'Ricostruzione capello', duration: '1 ora 30 min', price: 85, category: 'Trattamenti Per Cute E Capello' },
+  {
+    name: 'Ricostruzione capello',
+    duration: '1 ora 30 min',
+    price: 85,
+    category: 'Trattamenti Per Cute E Capello',
+    desc: "<p>La ricostruzione capelli è un trattamento profondo pensato per restituire forza, elasticità e vitalità ai capelli stressati, trattati o indeboliti.</p><p>È un vero momento di rigenerazione, in cui il capello viene nutrito e rinforzato dall'interno, migliorandone visibilmente struttura e luminosità.</p><p>Il servizio viene personalizzato in base alle reali esigenze del capello, valutandone lo stato, il livello di sensibilizzazione e i trattamenti precedenti.</p><p>Ogni fase è studiata per ripristinare l'equilibrio della fibra capillare, rendendo i capelli più sani, morbidi e resistenti nel tempo.</p><p>Ideale come trattamento singolo o come supporto fondamentale prima e dopo servizi tecnici, per proteggere il capello e valorizzare ogni risultato.</p><p>Un gesto di cura profonda, per capelli che tornano a sentirsi forti, belli e pieni di vita.</p><p class=\"text-xs\">Il servizio include la messa in piega dei capelli.</p>",
+  },
 
   // Consulenza
   { name: 'Consulenza Tecnica/Stilistica', duration: '15 min', price: 20, category: 'Consulenza', featured: true },
