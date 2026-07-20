@@ -249,6 +249,8 @@ export const services: Service[] = [
     duration: '1 ora 30 min',
     price: 85,
     category: 'Trattamenti Per Cute E Capello',
+    treatwellMenuItemId: 'TR1359192103',
+    treatwellOptionId: '1263692990',
     desc: "<p>La ricostruzione capelli è un trattamento profondo pensato per restituire forza, elasticità e vitalità ai capelli stressati, trattati o indeboliti.</p><p>È un vero momento di rigenerazione, in cui il capello viene nutrito e rinforzato dall'interno, migliorandone visibilmente struttura e luminosità.</p><p>Il servizio viene personalizzato in base alle reali esigenze del capello, valutandone lo stato, il livello di sensibilizzazione e i trattamenti precedenti.</p><p>Ogni fase è studiata per ripristinare l'equilibrio della fibra capillare, rendendo i capelli più sani, morbidi e resistenti nel tempo.</p><p>Ideale come trattamento singolo o come supporto fondamentale prima e dopo servizi tecnici, per proteggere il capello e valorizzare ogni risultato.</p><p>Un gesto di cura profonda, per capelli che tornano a sentirsi forti, belli e pieni di vita.</p><p class=\"text-xs\">Il servizio include la messa in piega dei capelli.</p>",
   },
 
@@ -269,6 +271,8 @@ export const services: Service[] = [
     price: 20,
     category: 'Consulenza',
     featured: true,
+    treatwellMenuItemId: 'TR1361146558',
+    treatwellOptionId: '1263692493',
     desc: "<p>La consulenza tricologica è un servizio dedicato al benessere del capello e del cuoio capelluto.</p><p>Attraverso l'utilizzo della tricocamera, analizzeremo in modo approfondito lo stato del cuoio capelluto e della fibra capillare, individuando eventuali anomalie, sensibilità o squilibri.</p><p>L'analisi strumentale viene affiancata da domande mirate e fondamentali per comprendere le abitudini quotidiane, lo stile di vita, i trattamenti effettuati e le esigenze specifiche del cliente.</p><p>Questo ci permette di avere una visione completa e proporre un percorso personalizzato, mirato ed efficace.</p><p>Al termine della consulenza verranno consigliati i trattamenti e i prodotti più adatti per migliorare e mantenere la salute di cute e capelli.</p><p>Un momento di ascolto e analisi approfondita, pensato per prendersi cura dei tuoi capelli partendo dalla radice.</p>",
   },
   {
@@ -289,8 +293,8 @@ export const services: Service[] = [
     price: 35,
     category: 'Piega',
     variants: [
-      { label: 'Liscia', duration: '1 ora', price: 35 },
-      { label: 'Mossa/Onde', duration: '1 ora 15 min', price: 42 },
+      { label: 'Liscia', duration: '1 ora', price: 35, treatwellMenuItemId: 'TR1361559783', treatwellOptionId: '1264021784' },
+      { label: 'Mossa/Onde', duration: '1 ora 15 min', price: 42, treatwellMenuItemId: 'TR1361559783', treatwellOptionId: '1264021785' },
     ],
     desc: "<p>Dedicata a chi desidera mantenere il giusto equilibrio del cuoio capelluto e conferire morbidezza, leggerezza e splendore ai capelli. Un trattamento agli olii essenziali calmanti, lenitivi e rilassanti rendono la piega nel nostro salone un vero e proprio percorso sensoriale.</p><p>Il percorso include il massaggio distensivo e rilassante della cute per 15 minuti (durante la detersione dei capelli), shampoo specifico, posa della maschera idratante e asciugatura desiderata dei capelli.</p>",
   },
@@ -300,8 +304,8 @@ export const services: Service[] = [
     price: 40,
     category: 'Piega',
     variants: [
-      { label: 'Liscia', duration: '1 ora', price: 40 },
-      { label: 'Mossa/Onde', duration: '1 ora 15 min', price: 47 },
+      { label: 'Liscia', duration: '1 ora', price: 40, treatwellMenuItemId: 'TR1361564796', treatwellOptionId: '1264026070' },
+      { label: 'Mossa/Onde', duration: '1 ora 15 min', price: 47, treatwellMenuItemId: 'TR1361564796', treatwellOptionId: '1264026071' },
     ],
     desc: "<p>Un trattamento esclusivo che esalta la bellezza dei capelli, donando una luminosità intensa e sofisticata. Ravviva i riflessi, perfeziona la fibra capillare e lascia la chioma incredibilmente setosa, levigata e visibilmente più sana.</p>",
   },
@@ -313,8 +317,8 @@ export const services: Service[] = [
     price: 55,
     category: 'Taglio',
     variants: [
-      { label: 'Shampoo SPA / Taglio dei capelli / Piega Liscia', duration: '1 ora 15 min', price: 55 },
-      { label: 'Shampoo SPA / Taglio dei capelli / Piega Mossa/Onde', duration: '1 ora 30 min', price: 60 },
+      { label: 'Shampoo SPA / Taglio dei capelli / Piega Liscia', duration: '1 ora 15 min', price: 55, treatwellMenuItemId: 'TR1361564802', treatwellOptionId: '1264026126' },
+      { label: 'Shampoo SPA / Taglio dei capelli / Piega Mossa/Onde', duration: '1 ora 30 min', price: 60, treatwellMenuItemId: 'TR1361564802', treatwellOptionId: '1264026125' },
     ],
     desc: "<p>Formazione e aggiornamento sono le parole chiave per offrire le migliori proposte al passo con i tempi alle nostre clienti.</p><p>Da noi però, non può mancare il benessere, il relax e la cura della cute.</p><p>Dedicato a chi, oltre al taglio dei capelli desiderato, vuole mantenere il giusto eqilibrio del cuoio capelluto e conferire morbidezza, leggerezza e splendore ai capelli.</p><p>Un trattamento agli olii essenziali calmanti, lenitivi e rilassanti rendono la permanenza nel nostro salone un vero e proprio percorso sensoriale.</p><p>Il percorso include il massaggio distensivo e rilassante della cute per 15 minuti (durante la detersione dei capelli), shampoo specifico, posa della maschera idratante, taglio e messa in piega dei capelli.</p>",
   },
@@ -325,6 +329,8 @@ export const services: Service[] = [
     duration: '45 min',
     price: 37,
     category: 'Taglio Uomo',
+    treatwellMenuItemId: 'TR1361564803',
+    treatwellOptionId: '1264026127',
     desc: "<p>Dedicato e a chi desidera mantenere il giusto eqilibrio del cuoio capelluto e conferire morbidezza, leggerezza e splendore ai capelli.</p><p>Un trattamento agli olii essenziali calmanti, lenitivi e rilassanti rendono il taglio uomo nel nostro salone un vero e proprio percorso sensoriale.</p><p>Oltre al taglio dei capelli, andremo ad effettuare un massaggio distensivo e rilassante (di 10 minuti) del cuoio capelluto, detersione sensoriale con shampoo specifico e applicazione in posa della maschera idratante.</p>",
   },
 
@@ -335,9 +341,9 @@ export const services: Service[] = [
     price: 45,
     category: 'Colore',
     variants: [
-      { label: 'Tonalizzante - Piega', duration: '1 ora 45 min', price: 45 },
-      { label: 'Ricrescita - Piega', duration: '2 ore', price: 55 },
-      { label: 'Completo: Ricrescita e Lunghezze - Piega', duration: '2 ore 15 min', price: 70 },
+      { label: 'Tonalizzante - Piega', duration: '1 ora 45 min', price: 45, treatwellMenuItemId: 'TR1361560777', treatwellOptionId: '1264021974' },
+      { label: 'Ricrescita - Piega', duration: '2 ore', price: 55, treatwellMenuItemId: 'TR1361560777', treatwellOptionId: '1264021975' },
+      { label: 'Completo: Ricrescita e Lunghezze - Piega', duration: '2 ore 15 min', price: 70, treatwellMenuItemId: 'TR1361560777', treatwellOptionId: '1264021976' },
     ],
     desc: "<p>Un’esperienza colore su misura che esalta la tua unicità. Formule professionali e tecniche personalizzate si fondono per creare nuance profonde, luminose e perfettamente armoniose con il tuo incarnato. Il risultato è un colore elegante, brillante e duraturo, con capelli dall’aspetto sano e sofisticato.</p>",
   },
