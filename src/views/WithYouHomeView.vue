@@ -27,6 +27,10 @@ import { withYouCollection } from '@/data/brands'
         Le cose più belle non si usano.<br />
         <span class="text-gold">Si portano con sé!</span>
       </h2>
+
+      <p class="ritual-eyebrow mt-4 text-[0.7rem] font-normal uppercase text-gold sm:text-xs">
+        Una collezione firmata Iako Ritual
+      </p>
     </div>
   </section>
 
@@ -38,10 +42,6 @@ import { withYouCollection } from '@/data/brands'
 
     <div class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
       <div class="text-center">
-        <p class="ritual-eyebrow mt-6 text-[0.7rem] font-normal uppercase text-gold sm:text-xs">
-          Una collezione firmata Iako Ritual
-        </p>
-
         <!-- Il claim della pochette: EVERYWHERE / linea oro / with you.
              "inline-flex flex-col items-center": la larghezza del blocco
              è quella del testo più largo (di norma "EVERYWHERE"), e
