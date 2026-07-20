@@ -117,8 +117,10 @@ const status = computed(() => getOpenStatus())
         <font-awesome-icon :icon="['fas', 'arrow-right']" />
       </RouterLink>
     </div>
-    <div class="grid gap-4 md:grid-cols-2">
-      <ServiceCard v-for="s in featured" :key="s.name" :service="s" />
+    <div class="columns-1 gap-4 md:columns-2">
+      <div v-for="s in featured" :key="s.name" class="mb-4 break-inside-avoid-column">
+        <ServiceCard :service="s" />
+      </div>
     </div>
   </section>
 

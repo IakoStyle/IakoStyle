@@ -56,11 +56,13 @@ function count(cat: string) {
 
     <TransitionGroup
       tag="div"
-      class="grid items-start gap-4 md:grid-cols-2"
+      class="columns-1 gap-4 md:columns-2"
       enter-active-class="transition duration-300 ease-out"
       enter-from-class="opacity-0 scale-95"
     >
-      <ServiceCard v-for="s in filtered" :key="s.name + s.category" :service="s" />
+      <div v-for="s in filtered" :key="s.name + s.category" class="mb-4 break-inside-avoid-column">
+        <ServiceCard :service="s" />
+      </div>
     </TransitionGroup>
 
     <p class="mt-8 text-center text-sm text-muted">
