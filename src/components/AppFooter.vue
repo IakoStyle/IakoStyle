@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/salon'
-import { useCookieConsent } from '@/composables/useCookieConsent'
 import { useBrand } from '@/composables/useBrand'
 import { brands } from '@/data/brands'
 import styleLogoUrl from '@/assets/logo-iako.webp'
@@ -11,7 +10,6 @@ import lemonIcon from '@/assets/ritual/lemon-icon.webp'
 const route = useRoute()
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
-const { reset } = useCookieConsent()
 const { brand, brandId, isRitual, isWithYou } = useBrand()
 
 // Sulla pagina di scelta (la landing) la scelta tra i marchi È già la
@@ -164,10 +162,6 @@ const otherBrands = computed(() =>
     <div class="border-t border-border">
       <p class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-6 py-5 text-center text-xs text-muted">
         <span>© {{ new Date().getFullYear() }} {{ brand.name }} · {{ salon.city }} · P.IVA {{ salon.vatNumber }} · Tutti i diritti riservati</span>
-        <span aria-hidden="true">·</span>
-        <button class="font-bold text-muted underline-offset-2 hover:text-primary hover:underline" @click="reset">
-          Preferenze cookie
-        </button>
       </p>
     </div>
   </footer>

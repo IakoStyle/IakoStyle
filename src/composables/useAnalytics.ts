@@ -11,8 +11,8 @@ let isLoaded = false
 
 /**
  * Inserisce lo script di Google Analytics nella pagina e lo inizializza.
- * Da chiamare SOLO dopo che l'utente ha accettato i cookie opzionali —
- * mai in automatico al caricamento del sito.
+ * Il consenso è gestito da Iubenda (vedi index.html), che blocca lo
+ * script finché chi visita non accetta: qui lo si carica sempre.
  */
 export function loadAnalytics() {
   if (isLoaded || !GA_MEASUREMENT_ID) return

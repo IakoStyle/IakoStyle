@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/salon'
-import { useCookieConsent } from '@/composables/useCookieConsent'
 import BlobDecor from '@/components/BlobDecor.vue'
 
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
-const { optional, acceptAll } = useCookieConsent()
 
 const mapsEmbed = computed(
   () => `https://www.google.com/maps?q=${encodeURIComponent(salon.mapsQuery)}&output=embed`,
@@ -46,25 +44,12 @@ const mapsLink = computed(
         </div>
       </div>
       <iframe
-        v-if="optional === 'accepted'"
         :src="mapsEmbed"
         class="h-72 w-full border-0"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         title="Mappa del salone"
       ></iframe>
-      <div v-else class="flex h-72 w-full flex-col items-center justify-center gap-3 bg-surface-2 px-6 text-center">
-        <font-awesome-icon :icon="['fas', 'map-location-dot']" class="text-3xl text-muted" />
-        <p class="max-w-xs text-sm text-muted">
-          La mappa è fornita da Google e richiede il tuo consenso ai cookie non necessari per essere caricata.
-        </p>
-        <button
-          class="rounded-full bg-primary px-5 py-2 text-sm font-bold text-white transition-transform hover:scale-105"
-          @click="acceptAll"
-        >
-          Accetta e carica la mappa
-        </button>
-      </div>
       <div class="p-4">
         <a
           :href="mapsLink"

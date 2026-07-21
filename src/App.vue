@@ -2,7 +2,6 @@
 import { RouterView, useRoute } from 'vue-router'
 import AppHeader from '@/components/AppHeader.vue'
 import AppFooter from '@/components/AppFooter.vue'
-import CookieBanner from '@/components/CookieBanner.vue'
 import BookingModal from '@/components/BookingModal.vue'
 
 const route = useRoute()
@@ -17,7 +16,6 @@ const route = useRoute()
       <RouterView />
     </main>
     <AppFooter />
-    <CookieBanner />
     <BookingModal />
   </div>
 </template>

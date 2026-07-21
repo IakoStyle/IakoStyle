@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { salon } from '@/data/salon'
-import { useCookieConsent } from '@/composables/useCookieConsent'
 import BlobDecor from '@/components/BlobDecor.vue'
-
-const { reset } = useCookieConsent()
 </script>
 
 <template>
@@ -44,13 +41,11 @@ const { reset } = useCookieConsent()
     </div>
 
     <div class="rounded-xl border border-border bg-surface p-6">
-      <h2 class="font-display text-xl font-bold text-foreground">Cookie tecnici (sempre attivi)</h2>
+      <h2 class="font-display text-xl font-bold text-foreground">Cookie e consenso</h2>
       <p class="mt-3 text-muted">
-        Usiamo la memoria locale del browser (localStorage), non cookie in senso
-        stretto, per ricordare due sole informazioni: se preferisci il tema chiaro
-        o scuro del sito, e la scelta che farai riguardo ai cookie opzionali
-        descritti sotto. Sono strettamente necessari al funzionamento del sito e
-        non richiedono consenso.
+        Il consenso all'uso dei cookie viene richiesto e gestito tramite il banner
+        che appare alla prima visita del sito. Puoi rivedere o modificare la tua
+        scelta in qualsiasi momento tramite l'icona dedicata visibile sul sito.
       </p>
     </div>
 
@@ -75,12 +70,6 @@ const { reset } = useCookieConsent()
           </span>
         </li>
       </ul>
-      <button
-        class="mt-5 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
-        @click="reset"
-      >
-        Cambia le tue preferenze sui cookie
-      </button>
     </div>
 
     <div class="rounded-xl border border-border bg-surface p-6">

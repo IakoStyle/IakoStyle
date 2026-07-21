@@ -50,8 +50,8 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 - Deploy su Vercel, repo su GitHub (org IakoStyle), dominio provvisorio iako-style.vercel.app
 - Galleria foto automatica da Google Drive (il cliente carica, il sito si aggiorna da solo)
 - Listino prezzi completo e reale da Treatwell, con accordion per prezzi variabili
-- Conformità privacy: banner cookie, Privacy Policy, font auto-ospitati, mappa dietro consenso
-- Google Analytics attivo dietro consenso
+- Conformità privacy: Privacy Policy, font auto-ospitati, cookie/consenso gestiti da Iubenda
+- Google Analytics attivo (bloccato/consentito da Iubenda)
 - SEO: meta dinamici per pagina, dati strutturati, sitemap, robots.txt, favicon completa
 - Ottimizzazione immagini: tutte convertite in WebP, compressione automatica in build
 - Carosello: loop infinito fluido, swipe touch (iOS e Android) e drag da mouse
@@ -88,6 +88,9 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 
 ## 📝 Modifiche recenti (log)
 
+- Rimosso il sistema di cookie banner/consenso fatto in casa (componente,
+  composable, gate su mappa e Google Analytics): la gestione del consenso
+  è ora affidata interamente a Iubenda (snippet in index.html)
 - Tema chiaro/scuro rimosso: il sito usa sempre e solo la modalità scura,
   nessuna scelta per chi visita
 - Pagina Prodotti rimossa ovunque (Style e Ritual) — file, rotte, link di
