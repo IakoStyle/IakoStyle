@@ -4,11 +4,11 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <!-- HERO: banner fotografico con vignetta -->
-  <section class="relative h-[26rem] w-full overflow-hidden sm:h-[32rem] xl:h-[36rem]">
+  <section class="relative h-[26rem] w-full overflow-hidden sm:h-[24rem]">
     <img
       src="/everywhere/pochette1.png"
       alt="Pochette Everywhere With You — La nostra storia"
-      class="absolute inset-0 h-full w-full object-cover object-[center_65%]"
+      class="absolute inset-0 h-full w-full object-cover"
     />
     <!-- Scurimento uniforme -->
     <div class="absolute inset-0 bg-black/50"></div>
