@@ -61,14 +61,6 @@ import BlobDecor from '@/components/BlobDecor.vue'
             <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="font-bold text-primary hover:underline">privacy policy di Google</a>.
           </span>
         </li>
-        <li class="flex gap-2">
-          <font-awesome-icon :icon="['fas', 'circle-check']" class="mt-1 shrink-0 text-primary" />
-          <span>
-            <strong class="text-foreground">Statistiche anonime</strong> (Google Analytics), se attive:
-            servono solo a capire in aggregato quante persone visitano il sito e quali
-            pagine guardano di più — mai per identificare singoli visitatori.
-          </span>
-        </li>
       </ul>
     </div>
 

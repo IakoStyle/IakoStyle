@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import { trackPageView } from '@/composables/useAnalytics'
 import { applyBrandToDom, currentBrandFromPath } from '@/composables/useBrand'
 import { applyThemeForPath } from '@/composables/useTheme'
 
@@ -182,8 +181,6 @@ router.afterEach((to) => {
     document.head.appendChild(canonical)
   }
   canonical.setAttribute('href', canonicalUrl)
-
-  trackPageView(to.path, fullTitle)
 })
 
 export default router

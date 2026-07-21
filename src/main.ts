@@ -24,7 +24,6 @@ import router from './router'
 import { FontAwesomeIcon } from './plugins/fontawesome'
 import { initTheme } from './composables/useTheme'
 import { applyBrandToDom, currentBrandFromPath } from './composables/useBrand'
-import { loadAnalytics } from './composables/useAnalytics'
 
 // Tema scuro ovunque, tranne nella home di scelta del mondo ("/"): si
 // applica in base al percorso corrente prima del mount, così non c'è
@@ -35,10 +34,6 @@ initTheme()
 // essere già applicata al primo pixel disegnato, altrimenti si vedrebbe
 // un lampeggio di colori sbagliati aprendo direttamente una pagina /ritual.
 applyBrandToDom(currentBrandFromPath(window.location.pathname))
-
-// Il blocco/consenso è gestito da Iubenda (vedi index.html): qui lo
-// script viene sempre inserito nella pagina.
-loadAnalytics()
 
 const app = createApp(App)
 
