@@ -36,7 +36,7 @@ import StarRating from '@/components/StarRating.vue'
             ></div>
             <font-awesome-icon :icon="['fas', 'scissors']" class="relative text-2xl text-primary transition-transform group-hover:scale-110" />
             <span class="relative font-display text-2xl font-semibold text-foreground">Studio</span>
-            <span class="relative text-xs text-muted">Parrucchiere</span>
+            <span class="relative text-xs font-medium text-foreground/80">Parrucchiere</span>
           </RouterLink>
           <RouterLink
             to="/ritual"
@@ -54,7 +54,7 @@ import StarRating from '@/components/StarRating.vue'
             ></div>
             <font-awesome-icon :icon="['fas', 'spa']" class="relative text-2xl text-gold transition-transform group-hover:scale-110" />
             <span class="ritual-wordmark relative text-2xl font-semibold text-foreground">Ritual</span>
-            <span class="relative text-xs text-muted">Head Spa Experience</span>
+            <span class="relative text-xs font-medium text-foreground/80">Head Spa Experience</span>
           </RouterLink>
         </div>
 
