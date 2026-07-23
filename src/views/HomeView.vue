@@ -41,6 +41,10 @@ const status = computed(() => getOpenStatus())
         <span class="text-gold">su misura</span><span class="text-white">.</span>
       </h1>
 
+      <p class="mt-4 max-w-xl text-base font-medium text-white/90 sm:text-lg">
+        Iako Style, parrucchiere a Fondi (LT) per uomo, donna e bambino: taglio, colore, barba e trattamenti benessere per cute e capelli.
+      </p>
+
       <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
         <span class="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white ring-1 ring-white/25 backdrop-blur-sm">
           <span class="h-1.5 w-1.5 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>

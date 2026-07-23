@@ -5,7 +5,7 @@ import { applyThemeForPath } from '@/composables/useTheme'
 
 const SITE_URL = 'https://iakostyle.it'
 const DEFAULT_DESCRIPTION =
-  'Iako Style — salone di parrucchieri per uomo, donna e bambino a Fondi (LT). Taglio, colore, barba, trattamenti e consulenze su misura. Prenota ora.'
+  'Iako Style, parrucchiere a Fondi (LT) per uomo, donna e bambino: taglio, colore, barba, trattamenti benessere per cute e capelli e consulenze su misura. Prenota ora.'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,9 +18,9 @@ const router = createRouter({
       name: 'landing',
       component: () => import('../views/LandingView.vue'),
       meta: {
-        title: 'Iako — Parrucchiere & Head Spa Experience a Fondi (LT)',
+        title: 'Iako Style · Parrucchiere a Fondi (LT) | Head Spa & Trattamenti',
         description:
-          'Iako — parrucchiere e head spa experience a Fondi (LT). Scegli tra Iako Style, Iako Ritual ed Everywhere With You.',
+          'Iako Style, parrucchiere a Fondi (LT): taglio, colore, barba e trattamenti benessere per cute e capelli. Scegli tra Iako Style, Iako Ritual ed Everywhere With You.',
       },
     },
     {
@@ -28,7 +28,9 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: {
-        title: 'Home',
+        // Reso "Iako Style · Parrucchiere a Fondi (LT)" dalla logica di
+        // afterEach: è la parola chiave locale più importante per il sito.
+        title: 'Parrucchiere a Fondi (LT)',
         description: DEFAULT_DESCRIPTION,
       },
     },
@@ -49,7 +51,7 @@ const router = createRouter({
       meta: {
         title: 'Listino Prezzi',
         description:
-          'Listino prezzi Iako Style: taglio, colore, barba, trattamenti e consulenze. Scopri tutti i servizi disponibili e i relativi prezzi.',
+          'Listino prezzi Iako Style, parrucchiere a Fondi (LT): taglio, colore, barba, trattamenti per cute e capelli e percorsi di benessere. Tutti i servizi e i prezzi.',
       },
     },
     {

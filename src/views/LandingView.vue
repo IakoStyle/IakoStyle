@@ -15,7 +15,13 @@ import StarRating from '@/components/StarRating.vue'
 
     <div class="mx-auto flex min-h-[80vh] max-w-3xl flex-col items-center justify-center px-6 py-16 text-center">
       <!-- Logo -->
-      <img :src="styleLogoUrl" alt="Iako Style" class="h-24 w-auto object-contain sm:h-28" />
+      <img :src="styleLogoUrl" alt="Iako Style — parrucchiere a Fondi (LT)" class="h-24 w-auto object-contain sm:h-28" />
+
+      <!-- Titolo principale della home: fondamentale per la SEO (il motore
+           di ricerca legge l'H1 come argomento della pagina). Il logo resta
+           l'elemento grafico; il testo è pensato per i lettori di schermo e
+           per Google, con le parole chiave del salone. -->
+      <h1 class="sr-only">Iako Style — Parrucchiere a Fondi (LT): taglio, colore, barba e trattamenti benessere per cute e capelli</h1>
 
       <!-- Riquadro di scelta, come da bozzetto -->
       <div class="mt-12 w-full overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
