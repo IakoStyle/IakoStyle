@@ -61,7 +61,7 @@ import StarRating from '@/components/StarRating.vue'
         <RouterLink
           to="/with-you"
           class="group relative flex flex-col items-center overflow-hidden border-t border-border px-6 py-8 transition-colors"
-          style="background-color: #BFB2AA"
+          style="background-color: #A19790"
         >
           <div class="relative transition-transform group-hover:scale-105">
             <span class="ritual-claim block text-xl font-medium uppercase sm:text-2xl" style="color: #4a3428">
