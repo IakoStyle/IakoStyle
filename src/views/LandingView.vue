@@ -22,26 +22,46 @@ import StarRating from '@/components/StarRating.vue'
         <div class="grid grid-cols-2">
           <RouterLink
             to="/style"
-            class="group flex flex-col items-center justify-center gap-2 border-r border-border px-6 py-14 transition-colors hover:bg-primary-soft/40"
+            class="group relative flex flex-col items-center justify-center gap-2 overflow-hidden border-r border-border px-6 py-14"
           >
-            <font-awesome-icon :icon="['fas', 'scissors']" class="text-2xl text-primary transition-transform group-hover:scale-110" />
-            <span class="font-display text-2xl font-semibold text-foreground">Studio</span>
-            <span class="text-xs text-muted">Parrucchiere</span>
+            <img
+              src="/scelte/studio.jpeg"
+              alt=""
+              aria-hidden="true"
+              class="absolute inset-0 h-full w-full object-cover opacity-30 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-40"
+            />
+            <div
+              class="absolute inset-0"
+              style="background: radial-gradient(ellipse at center, transparent 15%, rgba(0,0,0,0.35) 100%)"
+            ></div>
+            <font-awesome-icon :icon="['fas', 'scissors']" class="relative text-2xl text-primary transition-transform group-hover:scale-110" />
+            <span class="relative font-display text-2xl font-semibold text-foreground">Studio</span>
+            <span class="relative text-xs text-muted">Parrucchiere</span>
           </RouterLink>
           <RouterLink
             to="/ritual"
-            class="group flex flex-col items-center justify-center gap-2 px-6 py-14 transition-colors hover:bg-gold-soft/40"
+            class="group relative flex flex-col items-center justify-center gap-2 overflow-hidden px-6 py-14"
           >
-            <font-awesome-icon :icon="['fas', 'spa']" class="text-2xl text-gold transition-transform group-hover:scale-110" />
-            <span class="ritual-wordmark text-2xl font-semibold text-foreground">Ritual</span>
-            <span class="text-xs text-muted">Head Spa Experience</span>
+            <img
+              src="/scelte/ritual.jpeg"
+              alt=""
+              aria-hidden="true"
+              class="absolute inset-0 h-full w-full object-cover opacity-30 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-40"
+            />
+            <div
+              class="absolute inset-0"
+              style="background: radial-gradient(ellipse at center, transparent 15%, rgba(0,0,0,0.35) 100%)"
+            ></div>
+            <font-awesome-icon :icon="['fas', 'spa']" class="relative text-2xl text-gold transition-transform group-hover:scale-110" />
+            <span class="ritual-wordmark relative text-2xl font-semibold text-foreground">Ritual</span>
+            <span class="relative text-xs text-muted">Head Spa Experience</span>
           </RouterLink>
         </div>
 
         <RouterLink
           to="/with-you"
-          class="group flex flex-col items-center border-t border-border px-6 py-8 transition-colors hover:opacity-90"
-          style="background-color: #f9f7f3"
+          class="group relative flex flex-col items-center overflow-hidden border-t border-border px-6 py-8 transition-colors"
+          style="background-color: #BFB2AA"
         >
           <div class="relative transition-transform group-hover:scale-105">
             <span class="ritual-claim block text-xl font-medium uppercase sm:text-2xl" style="color: #4a3428">
