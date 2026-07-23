@@ -17,9 +17,8 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
       che copra l'uso "webfont"; (2) comprare la licenza web (~15-30€);
       (3) tenere Allura.
 
-- [ ] **Foto per il carosello di Iako Ritual**: valutare una SECONDA
-      cartella Google Drive dedicata, così Style e Ritual hanno
-      caroselli separati (per ora Ritual mostra solo segnaposto "in arrivo").
+- [ ] **Foto per il carosello di Iako Ritual**: servono altre foto reali
+      per sostituire i segnaposto "in arrivo" ancora presenti.
 
 - [ ] **Widget di prenotazione Treatwell incorporato nel sito** (invece del semplice link
       che porta fuori dal sito). Serve il codice del "Widget" dal pannello
@@ -37,8 +36,7 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
       widget di terzi tipo Elfsight/SnapWidget (comodo, a pagamento).
 - [ ] **Sezione FAQ** (es. "si accettano clienti senza appuntamento?", "come si paga?",
       "c'è parcheggio?").
-- [ ] **Pagina "Prima & Dopo" dedicata**, galleria di trasformazioni — potrebbe pescare
-      dalla stessa cartella Google Drive già collegata al carosello.
+- [ ] **Pagina "Prima & Dopo" dedicata**, galleria di trasformazioni.
 - [ ] **Testo esteso pagina Chi Siamo** (esperienza del salone, storia) — Matteo aveva
       detto "te lo dirò più avanti". Aiuterebbe anche la SEO (più contenuto testuale).
 - [ ] **Backlink locali**: farsi inserire su directory/elenchi locali di Fondi e Latina,
@@ -48,7 +46,6 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
 
 - Sito completo (Home, Chi Siamo, Listino, Prodotti, Contatti) — Vue 3 + TypeScript + Tailwind
 - Deploy su Vercel, repo su GitHub (org IakoStyle), dominio provvisorio iako-style.vercel.app
-- Galleria foto automatica da Google Drive (il cliente carica, il sito si aggiorna da solo)
 - Listino prezzi completo e reale da Treatwell, con accordion per prezzi variabili
 - Conformità privacy: Privacy Policy, font auto-ospitati, cookie/consenso gestiti da Iubenda
 - SEO: meta dinamici per pagina, dati strutturati, sitemap, robots.txt, favicon completa
@@ -76,9 +73,9 @@ Lista delle cose in sospeso, per non perderle tra una sessione e l'altra.
   ogni pagina (prima si poteva tornare alla landing solo da Home di Style)
 - Logo nell'header e nel footer ora è consapevole del marchio: Ritual e With
   You mostrano il logo di Ritual, non quello di Style
-- Carosello reso riutilizzabile (props items + driveFolderId) invece di
-  legato solo alle foto di Style; home di Ritual ora ha il proprio carosello
-  (segnaposto per ora, in attesa di una cartella Drive dedicata)
+- Carosello reso riutilizzabile (prop items) invece di legato solo alle
+  foto di Style; home di Ritual ora ha il proprio carosello (segnaposto
+  per ora, in attesa di altre foto reali)
 - Fix: lo switch Style/Ritual nell'header non restava centrato quando i due
   marchi avevano un numero diverso di voci di menu
 - Logo rigenerato dal PDF vettoriale (più nitido, trasparente, più leggero);
