@@ -31,6 +31,27 @@ function driveImageUrl(file: DriveFile): string {
   return `https://www.googleapis.com/drive/v3/files/${file.id}?alt=media&key=${DRIVE_API_KEY}`
 }
 
+// Prima di sostituire le foto di riserva con quelle di Drive, verifica che
+// si carichino davvero nel browser (non basta che l'API le abbia elencate:
+// un blocco lato utente — es. estensione anti-tracking sul dominio Google —
+// o un link scaduto lascerebbe l'icona di immagine rotta al posto della
+// foto). Le foto che non si caricano entro il timeout vengono scartate.
+function preloadImage(src: string, timeoutMs = 6000): Promise<boolean> {
+  return new Promise((resolve) => {
+    const img = new Image()
+    const timer = setTimeout(() => resolve(false), timeoutMs)
+    img.onload = () => {
+      clearTimeout(timer)
+      resolve(true)
+    }
+    img.onerror = () => {
+      clearTimeout(timer)
+      resolve(false)
+    }
+    img.src = src
+  })
+}
+
 /**
  * Recupera le immagini da una cartella Google Drive pubblica.
  * Restituisce un array vuoto (mai un errore bloccante) se qualcosa va
@@ -68,11 +89,18 @@ export function useDriveGallery(folderId: string | null = DRIVE_FOLDER_ID) {
         throw new Error(data.error?.message || `Richiesta Drive fallita (${res.status})`)
       }
 
-      items.value = (data.files ?? []).map((file) => ({
-        type: 'image',
+      const candidates = (data.files ?? []).map((file) => ({
+        type: 'image' as const,
         src: driveImageUrl(file),
         alt: 'Foto Iako Style',
       }))
+
+      const loadable = await Promise.all(candidates.map((item) => preloadImage(item.src!)))
+      items.value = candidates.filter((_, i) => loadable[i])
+
+      if (candidates.length > 0 && items.value.length === 0) {
+        throw new Error('Le foto di Drive non si sono caricate nel browser (bloccate o link non validi).')
+      }
     } catch (err) {
       console.warn('Galleria Google Drive non disponibile, uso le foto di riserva.', err)
       hasError.value = true
