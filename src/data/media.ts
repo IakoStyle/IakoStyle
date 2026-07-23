@@ -45,7 +45,6 @@ const bobOndulato = studioImg('IMG_4106')
 const ramatoLucente = studioImg('IMG_2984')
 const ondeCastane = studioImg('IMG_3124')
 const raccoltoCerimonia = studioImg('IMG_8624')
-const liscioBiondo = studioImg('IMG_1027')
 const riflessiRossi = studioImg('IMG_5314')
 const ondeBionde = studioImg('IMG_9220')
 const ramatoOndulato = studioImg('IMG_1664')
@@ -74,7 +73,6 @@ export const gallery: MediaItem[] = [
   { type: 'image', src: ramatoLucente, alt: 'Colore ramato lucente con onde' },
   { type: 'image', src: ondeCastane, alt: 'Capelli castani con onde morbide' },
   { type: 'image', src: raccoltoCerimonia, alt: 'Raccolto da cerimonia con fermaglio gioiello' },
-  { type: 'image', src: liscioBiondo, alt: 'Piega liscia su capelli biondi' },
   { type: 'image', src: riflessiRossi, alt: 'Riflessi rossi su capelli mossi' },
   { type: 'image', src: ondeBionde, alt: 'Onde bionde luminose davanti al salone' },
   { type: 'image', src: ramatoOndulato, alt: 'Colore ramato con lunghezze ondulate' },
