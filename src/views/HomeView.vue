@@ -14,7 +14,7 @@ const status = computed(() => getOpenStatus())
 
 <template>
   <!-- HERO: banner fotografico con vignetta -->
-  <section class="relative h-[26rem] w-full overflow-hidden sm:h-[24rem]">
+  <section class="relative min-h-[28rem] w-full overflow-hidden py-14 sm:min-h-[26rem]">
     <img
       :src="heroPhoto"
       alt="Interno del salone Iako Style"
