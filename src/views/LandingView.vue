@@ -14,8 +14,16 @@ import StarRating from '@/components/StarRating.vue'
     </div>
 
     <div class="mx-auto flex min-h-[80vh] max-w-3xl flex-col items-center justify-center px-6 py-16 text-center">
-      <!-- Logo -->
-      <img :src="styleLogoUrl" alt="Iako Style — parrucchiere a Fondi (LT)" class="h-24 w-auto object-contain sm:h-28" />
+      <!-- Logo (elemento LCP: caricato con priorità alta, non lazy) -->
+      <img
+        :src="styleLogoUrl"
+        alt="Iako Style — parrucchiere a Fondi (LT)"
+        width="301"
+        height="320"
+        fetchpriority="high"
+        decoding="async"
+        class="h-24 w-auto object-contain sm:h-28"
+      />
 
       <!-- Titolo principale della home: fondamentale per la SEO (il motore
            di ricerca legge l'H1 come argomento della pagina). Il logo resta
@@ -31,9 +39,12 @@ import StarRating from '@/components/StarRating.vue'
             class="group relative flex flex-col items-center justify-center gap-2 overflow-hidden border-r border-border px-6 py-14"
           >
             <img
-              src="/scelte/studio.jpeg"
+              src="/scelte/studio.webp"
               alt=""
               aria-hidden="true"
+              width="640"
+              height="640"
+              decoding="async"
               class="absolute inset-0 h-full w-full object-cover opacity-30 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-40"
             />
             <div
@@ -49,9 +60,12 @@ import StarRating from '@/components/StarRating.vue'
             class="group relative flex flex-col items-center justify-center gap-2 overflow-hidden px-6 py-14"
           >
             <img
-              src="/scelte/ritual.jpeg"
+              src="/scelte/ritual.webp"
               alt=""
               aria-hidden="true"
+              width="640"
+              height="640"
+              decoding="async"
               class="absolute inset-0 h-full w-full object-cover opacity-30 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-40"
             />
             <div

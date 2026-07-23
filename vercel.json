@@ -10,5 +10,13 @@
     { "source": "/with-you", "destination": "/index.html" },
     { "source": "/with-you/storia", "destination": "/index.html" },
     { "source": "/privacy", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.(webp|jpg|jpeg|png|gif|svg|ico|mp4|woff|woff2)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+      ]
+    }
   ]
 }

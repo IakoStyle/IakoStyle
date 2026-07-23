@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
   <head>
-    <script type="text/javascript" src="https://embeds.iubenda.com/widgets/7210d939-dc12-4870-9a2f-c86f18e5e751.js"></script>
-
     <meta charset="UTF-8">
+
+    <!-- Widget legale iubenda: caricato in modo asincrono per non bloccare
+         il rendering della pagina (prima era sincrono in cima all'head e
+         ritardava First/Largest Contentful Paint di oltre un secondo). -->
+    <link rel="preconnect" href="https://embeds.iubenda.com" crossorigin>
+    <script type="text/javascript" src="https://embeds.iubenda.com/widgets/7210d939-dc12-4870-9a2f-c86f18e5e751.js" async></script>
 
     <!-- Favicon (set completo per massima compatibilità) -->
     <link rel="shortcut icon" href="/favicon.ico">
