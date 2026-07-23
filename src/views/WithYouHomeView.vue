@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { salon } from '@/data/salon'
 import { withYouCollection } from '@/data/brands'
+
+const detailsOpen = ref(false)
 </script>
 
 <template>
@@ -112,6 +115,58 @@ import { withYouCollection } from '@/data/brands'
     </div>
   </section>
 
+  <!-- Foto pochette + prezzo, con dettagli a tendina -->
+  <section class="mx-auto max-w-3xl px-6 pb-20">
+    <div class="overflow-hidden rounded-xl border border-border bg-surface">
+      <img
+        src="/everywhere/pochette.jpeg"
+        alt="Pochette Everywhere with you"
+        class="h-72 w-full object-cover sm:h-96"
+      />
+
+      <div class="p-6 text-center">
+        <p class="font-display text-2xl font-bold text-gold">€ 19,90</p>
+
+        <button
+          class="mx-auto mt-3 flex items-center gap-1.5 text-sm font-bold text-primary"
+          :aria-expanded="detailsOpen"
+          @click="detailsOpen = !detailsOpen"
+        >
+          {{ detailsOpen ? 'Nascondi dettagli' : 'Scopri i dettagli' }}
+          <font-awesome-icon
+            :icon="['fas', 'chevron-down']"
+            class="text-xs transition-transform duration-300"
+            :class="detailsOpen ? 'rotate-180' : ''"
+          />
+        </button>
+      </div>
+
+      <!-- Dettagli materiali, come sull'etichetta -->
+      <Transition
+        enter-active-class="transition-all duration-300 ease-out"
+        enter-from-class="max-h-0 opacity-0"
+        enter-to-class="max-h-[32rem] opacity-100"
+        leave-active-class="transition-all duration-200 ease-in"
+        leave-from-class="max-h-[32rem] opacity-100"
+        leave-to-class="max-h-0 opacity-0"
+      >
+        <div v-if="detailsOpen" class="overflow-hidden border-t border-border bg-surface-2 px-8 py-6 text-center">
+          <font-awesome-icon :icon="['fas', 'leaf']" class="text-2xl text-gold" />
+          <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-muted">
+            Questo articolo è realizzato in cotone riciclato proveniente da fonti
+            certificate. È privo di sostanze chimiche nocive. È rispettoso
+            dell'ambiente e delicato sulla pelle.
+            <br />
+            Standard di cotone riciclato: GRS, RCS.
+          </p>
+          <p class="mt-4 text-xs text-muted">
+            Designed by Iako Ritual · {{ salon.city }} · Prossima collezione — {{ withYouCollection.nextSeason }}
+          </p>
+        </div>
+      </Transition>
+    </div>
+  </section>
+
   <!-- Rimando alla pagina "La nostra storia" -->
   <section class="mx-auto max-w-2xl px-6 pb-16 text-center sm:pb-20">
     <p class="font-display text-xl italic text-muted">Ogni progetto ha una storia.</p>
@@ -122,22 +177,5 @@ import { withYouCollection } from '@/data/brands'
       Scopri la nostra storia
       <font-awesome-icon :icon="['fas', 'arrow-right']" />
     </RouterLink>
-  </section>
-
-  <!-- Dettagli materiali, come sull'etichetta -->
-  <section class="mx-auto max-w-3xl px-6 pb-20">
-    <div class="rounded-xl border border-border bg-surface p-8 text-center">
-      <font-awesome-icon :icon="['fas', 'leaf']" class="text-2xl text-gold" />
-      <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-muted">
-        Questo articolo è realizzato in cotone riciclato proveniente da fonti
-        certificate. È privo di sostanze chimiche nocive. È rispettoso
-        dell'ambiente e delicato sulla pelle.
-        <br />
-        Standard di cotone riciclato: GRS, RCS.
-      </p>
-      <p class="mt-4 text-xs text-muted">
-        Designed by Iako Ritual · {{ salon.city }} · Prossima collezione — {{ withYouCollection.nextSeason }}
-      </p>
-    </div>
   </section>
 </template>
