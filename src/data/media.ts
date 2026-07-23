@@ -89,6 +89,7 @@ export const gallery: MediaItem[] = [
 export const ritualGallery: MediaItem[] = [
   { type: 'image', src: '/ritual/volantino.png', alt: 'Volantino Iako Ritual' },
   { type: 'image', src: '/ritual/trattamentoRitual.jpeg', alt: 'Trattamento Iako Ritual, risultati prima e dopo' },
+  { type: 'image', src: '/ritual/primadopo.jpg', alt: 'Iako Ritual, risultato prima e dopo' },
   { type: 'image', placeholder: true, tint: 'mint', caption: 'Cura e benessere' },
   { type: 'image', placeholder: true, tint: 'gold', caption: 'L\'ambiente' },
   { type: 'image', placeholder: true, tint: 'mint', caption: 'I dettagli' },
