@@ -65,32 +65,28 @@ export interface MediaItem {
 }
 
 export const gallery: MediaItem[] = [
-  { type: 'image', src: balayageInsegna, alt: 'Balayage biondo con onde morbide', caption: 'Balayage luminoso' },
-  { type: 'image', src: rameNaturale, alt: 'Colore rame naturale con onde morbide', caption: 'Rame naturale' },
-  { type: 'image', src: acconciaturaSposa, alt: 'Acconciatura sposa realizzata in salone', caption: 'Acconciatura sposa' },
-  { type: 'image', src: rossoCiliegia, alt: 'Colore rosso ciliegia su capelli lunghi lisci', caption: 'Rosso ciliegia' },
-  { type: 'image', src: balayageMosso, alt: 'Balayage biondo con piega mossa', caption: 'Balayage mosso' },
-  { type: 'image', src: bobOndulato, alt: 'Taglio bob corto ondulato con balayage caramello', caption: 'Bob ondulato' },
-  { type: 'image', src: ramatoLucente, alt: 'Colore ramato lucente con onde', caption: 'Ramato lucente' },
-  { type: 'image', src: ondeCastane, alt: 'Capelli castani con onde morbide', caption: 'Onde castane' },
-  { type: 'image', src: raccoltoCerimonia, alt: 'Raccolto da cerimonia con fermaglio gioiello', caption: 'Raccolto da cerimonia' },
-  { type: 'image', src: liscioBiondo, alt: 'Piega liscia su capelli biondi', caption: 'Liscio biondo' },
-  { type: 'image', src: riflessiRossi, alt: 'Riflessi rossi su capelli mossi', caption: 'Riflessi rossi' },
-  { type: 'image', src: ondeBionde, alt: 'Onde bionde luminose davanti al salone', caption: 'Onde bionde' },
-  { type: 'image', src: ramatoOndulato, alt: 'Colore ramato con lunghezze ondulate', caption: 'Ramato ondulato' },
-  { type: 'image', src: castanoCaramello, alt: 'Balayage castano caramello su onde morbide', caption: 'Castano caramello' },
-  { type: 'image', src: acconciaturaBimba, alt: 'Acconciatura da cerimonia con fiori tra i capelli', caption: 'Acconciatura cerimonia' },
-  { type: 'image', src: biondoFreddo, alt: 'Colore biondo freddo con piega liscia', caption: 'Biondo freddo' },
-  { type: 'image', src: piegaMorbida, alt: 'Piega morbida su capelli castano ramato', caption: 'Piega morbida' },
+  { type: 'image', src: balayageInsegna, alt: 'Balayage biondo con onde morbide' },
+  { type: 'image', src: rameNaturale, alt: 'Colore rame naturale con onde morbide' },
+  { type: 'image', src: acconciaturaSposa, alt: 'Acconciatura sposa realizzata in salone' },
+  { type: 'image', src: rossoCiliegia, alt: 'Colore rosso ciliegia su capelli lunghi lisci' },
+  { type: 'image', src: balayageMosso, alt: 'Balayage biondo con piega mossa' },
+  { type: 'image', src: bobOndulato, alt: 'Taglio bob corto ondulato con balayage caramello' },
+  { type: 'image', src: ramatoLucente, alt: 'Colore ramato lucente con onde' },
+  { type: 'image', src: ondeCastane, alt: 'Capelli castani con onde morbide' },
+  { type: 'image', src: raccoltoCerimonia, alt: 'Raccolto da cerimonia con fermaglio gioiello' },
+  { type: 'image', src: liscioBiondo, alt: 'Piega liscia su capelli biondi' },
+  { type: 'image', src: riflessiRossi, alt: 'Riflessi rossi su capelli mossi' },
+  { type: 'image', src: ondeBionde, alt: 'Onde bionde luminose davanti al salone' },
+  { type: 'image', src: ramatoOndulato, alt: 'Colore ramato con lunghezze ondulate' },
+  { type: 'image', src: castanoCaramello, alt: 'Balayage castano caramello su onde morbide' },
+  { type: 'image', src: acconciaturaBimba, alt: 'Acconciatura da cerimonia con fiori tra i capelli' },
+  { type: 'image', src: biondoFreddo, alt: 'Colore biondo freddo con piega liscia' },
+  { type: 'image', src: piegaMorbida, alt: 'Piega morbida su capelli castano ramato' },
 ]
 
-// Galleria di Iako Ritual: solo segnaposto "in arrivo" più qualche foto
-// reale caricata a mano (vedi TODO.md).
+// Galleria di Iako Ritual: foto reali caricate a mano (vedi TODO.md).
 export const ritualGallery: MediaItem[] = [
   { type: 'image', src: '/ritual/volantino.webp', alt: 'Volantino Iako Ritual' },
   { type: 'image', src: '/ritual/trattamentoRitual.jpeg', alt: 'Trattamento Iako Ritual, risultati prima e dopo' },
   { type: 'image', src: '/ritual/primadopo.webp', alt: 'Iako Ritual, risultato prima e dopo' },
-  { type: 'image', placeholder: true, tint: 'mint', caption: 'Cura e benessere' },
-  { type: 'image', placeholder: true, tint: 'gold', caption: 'L\'ambiente' },
-  { type: 'image', placeholder: true, tint: 'mint', caption: 'I dettagli' },
 ]
