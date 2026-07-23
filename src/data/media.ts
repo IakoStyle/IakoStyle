@@ -39,7 +39,6 @@ function studioImg(name: string, localExt = 'webp'): string {
 const balayageInsegna = studioImg('IMG_9226')
 const rameNaturale = studioImg('IMG_0754')
 const acconciaturaSposa = studioImg('IMG_8884')
-const rossoCiliegia = studioImg('IMG_2981')
 const balayageMosso = studioImg('IMG_0884')
 const bobOndulato = studioImg('IMG_4106')
 const ramatoLucente = studioImg('IMG_2984')
@@ -67,7 +66,6 @@ export const gallery: MediaItem[] = [
   { type: 'image', src: balayageInsegna, alt: 'Balayage biondo con onde morbide' },
   { type: 'image', src: rameNaturale, alt: 'Colore rame naturale con onde morbide' },
   { type: 'image', src: acconciaturaSposa, alt: 'Acconciatura sposa realizzata in salone' },
-  { type: 'image', src: rossoCiliegia, alt: 'Colore rosso ciliegia su capelli lunghi lisci' },
   { type: 'image', src: balayageMosso, alt: 'Balayage biondo con piega mossa' },
   { type: 'image', src: bobOndulato, alt: 'Taglio bob corto ondulato con balayage caramello' },
   { type: 'image', src: ramatoLucente, alt: 'Colore ramato lucente con onde' },
