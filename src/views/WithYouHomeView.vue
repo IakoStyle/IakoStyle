@@ -7,11 +7,14 @@ import { withYouCollection } from '@/data/brands'
 <template>
   <!-- HERO: banner fotografico con vignetta -->
   <section class="relative h-[26rem] w-full overflow-hidden sm:h-[24rem]">
-    <img
-      src="/everywhere/pochette2.png"
-      alt="Pochette Everywhere With You — Collection N. 1, Summer 2026"
+    <video
+      src="/everywhere/video.mp4"
+      autoplay
+      loop
+      muted
+      playsinline
       class="absolute inset-0 h-full w-full object-cover"
-    />
+    ></video>
     <!-- Scurimento uniforme -->
     <div class="absolute inset-0 bg-black/50"></div>
     <!-- Vignetta: bordi più scuri, centro più leggibile -->
