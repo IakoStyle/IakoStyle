@@ -21,7 +21,7 @@ import StarRating from '@/components/StarRating.vue'
            di ricerca legge l'H1 come argomento della pagina). Il logo resta
            l'elemento grafico; il testo è pensato per i lettori di schermo e
            per Google, con le parole chiave del salone. -->
-      <h1 class="sr-only">Iako Style — Parrucchiere a Fondi (LT): taglio, colore, barba e trattamenti benessere per cute e capelli</h1>
+      <h1 class="sr-only">Iako Style — Parrucchiere &amp; Head Spa a Fondi (LT)</h1>
 
       <!-- Riquadro di scelta, come da bozzetto -->
       <div class="mt-12 w-full overflow-hidden rounded-xl border border-border bg-surface shadow-sm">

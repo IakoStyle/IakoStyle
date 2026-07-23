@@ -1,5 +1,14 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/style", "destination": "/index.html" },
+    { "source": "/chi-siamo", "destination": "/index.html" },
+    { "source": "/listino", "destination": "/index.html" },
+    { "source": "/contatti", "destination": "/index.html" },
+    { "source": "/ritual", "destination": "/index.html" },
+    { "source": "/ritual/listino", "destination": "/index.html" },
+    { "source": "/ritual/contatti", "destination": "/index.html" },
+    { "source": "/with-you", "destination": "/index.html" },
+    { "source": "/with-you/storia", "destination": "/index.html" },
+    { "source": "/privacy", "destination": "/index.html" }
   ]
 }
