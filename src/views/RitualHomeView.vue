@@ -112,7 +112,7 @@ onMounted(async () => {
         I rituali
       </h2>
     </div>
-    <MediaCarousel :items="ritualGallery" :drive-folder-id="null" />
+    <MediaCarousel :items="ritualGallery" />
   </section>
 
   <!-- Rimando al Listino -->

@@ -4,7 +4,8 @@ import { RouterLink } from 'vue-router'
 import { salon, services, macroServices, getOpenStatus } from '@/data/salon'
 import MediaCarousel from '@/components/MediaCarousel.vue'
 import ServiceCard from '@/components/ServiceCard.vue'
-import heroPhoto from '@/assets/gallery/salone-ingresso.webp'
+
+const heroPhoto = '/studio/salone-ingresso.jpg'
 
 const featured = services.filter((s) => s.featured)
 

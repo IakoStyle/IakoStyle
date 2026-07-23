@@ -1,34 +1,21 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import type { MediaItem } from '@/data/media'
 import { gallery as styleGallery } from '@/data/media'
-import { DRIVE_FOLDER_ID } from '@/data/drive-config'
-import { useDriveGallery } from '@/composables/useDriveGallery'
 
 const props = withDefaults(
   defineProps<{
-    /** Foto mostrate subito, prima che Drive (se presente) risponda. */
     items?: MediaItem[]
-    /** ID della cartella Drive da cui leggere le foto vere. null = nessun tentativo. */
-    driveFolderId?: string | null
   }>(),
   {
     items: () => styleGallery,
-    driveFolderId: DRIVE_FOLDER_ID,
   },
 )
 
-// Si parte subito con le foto di riserva (niente attesa a vuoto per chi
-// visita il sito). In background, se è stata indicata una cartella Drive,
-// carichiamo quelle vere: se ce ne sono, sostituiscono automaticamente
-// quelle di riserva.
-const activeGallery = ref(props.items)
-const drive = useDriveGallery(props.driveFolderId)
-
-const N = computed(() => activeGallery.value.length)
+const N = computed(() => props.items.length)
 // Contenuto triplicato: copia prima, centrale (quella "vera", da cui si parte),
 // copia dopo. Serve per poter scorrere all'infinito in entrambe le direzioni.
-const tripleGallery = computed(() => [...activeGallery.value, ...activeGallery.value, ...activeGallery.value])
+const tripleGallery = computed(() => [...props.items, ...props.items, ...props.items])
 
 // Il carosello NON simula più il trascinamento via JS (era fragile su
 // mobile: bastava che il browser decidesse, anche solo per un istante,
@@ -52,9 +39,8 @@ function measureStep() {
 }
 
 // Ricentra la carrellata sulla copia centrale, senza animazione (si
-// imposta scrollLeft direttamente, quindi è istantaneo). Usata sia al
-// primo montaggio sia ogni volta che la sorgente delle foto cambia
-// (es. quando arrivano quelle vere da Drive al posto di quelle di riserva).
+// imposta scrollLeft direttamente, quindi è istantaneo). Usata al
+// primo montaggio.
 async function recenter() {
   await nextTick()
   measureStep()
@@ -108,21 +94,7 @@ onMounted(async () => {
 
   resizeObserver = new ResizeObserver(() => measureStep())
   if (scrollerEl.value) resizeObserver.observe(scrollerEl.value)
-
-  // Carica le foto vere da Google Drive in background. Se la cartella
-  // contiene almeno un'immagine, sostituiscono quelle di riserva mostrate
-  // inizialmente; altrimenti (cartella vuota o errore) restano quelle
-  // di riserva, senza che l'utente se ne accorga.
-  await drive.load()
-  if (drive.items.value.length > 0) {
-    activeGallery.value = drive.items.value
-  }
 })
-
-// Quando la sorgente delle foto cambia (di riserva -> Drive), ricentra
-// e rimisura, altrimenti la posizione resterebbe basata sul numero di
-// elementi precedente.
-watch(activeGallery, recenter)
 
 onUnmounted(() => {
   resizeObserver?.disconnect()
