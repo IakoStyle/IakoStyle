@@ -81,31 +81,6 @@ const detailsOpen = ref(false)
           </div>
           <p class="ritual-script mt-2 text-4xl text-foreground sm:text-5xl">with you</p>
         </div>
-
-        <div class="mx-auto mt-6 max-w-md space-y-4 text-center text-sm leading-relaxed text-muted">
-          <p>
-            Questa non è solo una pochette. È il simbolo del primo capitolo di
-            <strong class="text-foreground">Everywhere with you</strong>.
-          </p>
-          <p>
-            Un progetto nato per accompagnarti ovunque: in vacanza, al mare, in
-            viaggio, nelle piccole abitudini di ogni giorno. Ogni estate nascerà
-            una nuova edizione, con dettagli, colori e ispirazioni diverse.
-            Conservala. Fra qualche anno racconterà dove tutto è iniziato.
-          </p>
-        </div>
-
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a
-            :href="`https://wa.me/39${salon.whatsappNumber}`"
-            target="_blank"
-            rel="noopener"
-            class="flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 font-bold text-white shadow-lg shadow-primary/25 transition-transform hover:scale-105"
-          >
-            <font-awesome-icon :icon="['fab', 'whatsapp']" />
-            Chiedici info
-          </a>
-        </div>
       </div>
     </div>
   </section>
@@ -139,16 +114,6 @@ const detailsOpen = ref(false)
             :class="detailsOpen ? 'rotate-180' : ''"
           />
         </button>
-
-        <a
-          :href="`https://wa.me/39${salon.whatsappNumber}`"
-          target="_blank"
-          rel="noopener"
-          class="mx-auto mt-4 flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-white shadow-lg shadow-primary/25 transition-transform hover:scale-105"
-        >
-          <font-awesome-icon :icon="['fab', 'whatsapp']" />
-          Chiedici info
-        </a>
       </div>
 
       <!-- Dettagli materiali, come sull'etichetta -->
@@ -174,6 +139,31 @@ const detailsOpen = ref(false)
           </p>
         </div>
       </Transition>
+    </div>
+
+    <div class="mx-auto mt-8 max-w-md space-y-4 text-center text-sm leading-relaxed text-muted">
+      <p>
+        Questa non è solo una pochette. È il simbolo del primo capitolo di
+        <strong class="text-foreground">Everywhere with you</strong>.
+      </p>
+      <p>
+        Un progetto nato per accompagnarti ovunque: in vacanza, al mare, in
+        viaggio, nelle piccole abitudini di ogni giorno. Ogni estate nascerà
+        una nuova edizione, con dettagli, colori e ispirazioni diverse.
+        Conservala. Fra qualche anno racconterà dove tutto è iniziato.
+      </p>
+    </div>
+
+    <div class="mt-8 flex justify-center">
+      <a
+        :href="`https://wa.me/39${salon.whatsappNumber}`"
+        target="_blank"
+        rel="noopener"
+        class="flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 font-bold text-white shadow-lg shadow-primary/25 transition-transform hover:scale-105"
+      >
+        <font-awesome-icon :icon="['fab', 'whatsapp']" />
+        Chiedici info
+      </a>
     </div>
   </section>
 
