@@ -1,31 +1,58 @@
 // ============================================================
 //  GALLERIA FOTO / VIDEO — Iako Style
 //  ------------------------------------------------------------
+//  Le foto dello studio sono servite da Cloudinary (CDN) quando la
+//  variabile d'ambiente VITE_CLOUDINARY_CLOUD_NAME è impostata; in caso
+//  contrario si usa il fallback locale in public/studio/ (così il sito
+//  non si rompe finché Cloudinary non è configurato).
+//
+//  SETUP CLOUDINARY (una volta sola):
+//  1. Crea un account gratuito su cloudinary.com
+//  2. Carica le foto dentro una cartella chiamata "iako-style/studio"
+//     TENENDO GLI STESSI NOMI FILE (IMG_9226, IMG_0754, ...). In fase di
+//     upload attiva "Use filename as public ID" (o rinomina il public ID
+//     al nome del file senza estensione).
+//  3. Metti il tuo "Cloud name" (lo trovi nella dashboard) nella variabile
+//     VITE_CLOUDINARY_CLOUD_NAME — nel file .env in locale e nelle env del
+//     tuo hosting per la produzione. Vedi .env.example.
+//
 //  Per aggiungere altri media:
-//  1. Metti il file dentro  public/studio/
-//  2. Aggiungi un oggetto all'array "gallery" qui sotto con src: '/studio/file.jpg'
+//  - Carica il file su Cloudinary in "iako-style/studio" e aggiungi un
+//    oggetto all'array "gallery" con src: studioImg('nome-file').
 //
 //  Per i VIDEO: { type: 'video', src: video, poster: immaginePoster }
 // ============================================================
 
-const salone1 = '/studio/salone-1.jpg'
-const salone2 = '/studio/salone-2.jpg'
-const reception = '/studio/reception.png'
-const capelli = '/studio/capelli.jpg'
-const riccio = '/studio/riccio.jpg'
-const primaDopo = '/studio/prima-dopo.jpg'
-const rinascita = '/studio/rinascita.jpg'
-const ricostruzione = '/studio/ricostruzione.jpg'
-const tricologia = '/studio/tricologia.jpg'
-const hairBalayage = '/studio/hair-balayage.jpg'
-const hairRicciRame = '/studio/hair-ricci-rame.jpg'
-const hairMosso = '/studio/hair-mosso.jpg'
-const lavoroPiega = '/studio/lavoro-piega.jpg'
-const saloneIngresso = '/studio/salone-ingresso.jpg'
-const salonePostazioni = '/studio/salone-postazioni.jpg'
-const lavoroProdotti = '/studio/lavoro-prodotti.jpg'
-const promoStiraggio = '/studio/promo-stiraggio.jpg'
-const promoPermanente = '/studio/promo-permanente.jpg'
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME as string | undefined
+const CLOUDINARY_FOLDER = 'iako-style/studio'
+
+// Costruisce l'URL di una foto dello studio. Se Cloudinary è configurato
+// serve dal CDN con ottimizzazione automatica (f_auto = miglior formato
+// WebP/AVIF, q_auto = qualità automatica); altrimenti resta sul file locale.
+function studioImg(name: string, localExt = 'jpg'): string {
+  if (CLOUDINARY_CLOUD_NAME) {
+    return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/${CLOUDINARY_FOLDER}/${name}`
+  }
+  return `/studio/${name}.${localExt}`
+}
+
+const balayageInsegna = studioImg('IMG_9226')
+const rameNaturale = studioImg('IMG_0754')
+const acconciaturaSposa = studioImg('IMG_8884')
+const rossoCiliegia = studioImg('IMG_2981')
+const balayageMosso = studioImg('IMG_0884')
+const bobOndulato = studioImg('IMG_4106')
+const ramatoLucente = studioImg('IMG_2984')
+const ondeCastane = studioImg('IMG_3124')
+const raccoltoCerimonia = studioImg('IMG_8624')
+const liscioBiondo = studioImg('IMG_1027')
+const riflessiRossi = studioImg('IMG_5314')
+const ondeBionde = studioImg('IMG_9220')
+const ramatoOndulato = studioImg('IMG_1664')
+const castanoCaramello = studioImg('IMG_5753')
+const acconciaturaBimba = studioImg('IMG_1907')
+const biondoFreddo = studioImg('IMG_6221')
+const piegaMorbida = studioImg('IMG_5756')
 
 export interface MediaItem {
   type: 'image' | 'video'
@@ -38,24 +65,23 @@ export interface MediaItem {
 }
 
 export const gallery: MediaItem[] = [
-  { type: 'image', src: reception, alt: 'Reception Iako Style', caption: 'La nostra reception' },
-  { type: 'image', src: hairRicciRame, alt: 'Ricci definiti con riflessi ramati', caption: 'Ricci definiti' },
-  { type: 'image', src: lavoroPiega, alt: 'Piega professionale allo styling', caption: 'Piega professionale' },
-  { type: 'image', src: capelli, alt: 'Colore e piega', caption: 'Colore & luce' },
-  { type: 'image', src: promoPermanente, alt: 'Permanente con onde e volume', caption: 'La permanente' },
-  { type: 'image', src: salone2, alt: 'Sala tagli Iako Style', caption: 'La sala principale' },
-  { type: 'image', src: hairBalayage, alt: 'Balayage su base scura', caption: 'Balayage su base scura' },
-  { type: 'image', src: riccio, alt: 'Taglio riccio con volume', caption: 'Texture & volume' },
-  { type: 'image', src: saloneIngresso, alt: 'Ingresso del salone Iako Style', caption: "L'ingresso del salone" },
-  { type: 'image', src: primaDopo, alt: 'Prima e dopo trattamento capelli', caption: 'Prima & dopo' },
-  { type: 'image', src: promoStiraggio, alt: 'Trattamento stiraggio, capelli lisci e lucenti', caption: 'Lo stiraggio' },
-  { type: 'image', src: salone1, alt: 'Area lavaggio e prodotti', caption: 'Ambiente del salone' },
-  { type: 'image', src: hairMosso, alt: 'Taglio mosso a strati', caption: 'Mosso e movimento' },
-  { type: 'image', src: rinascita, alt: 'Trattamento capelli morbidezza e vitalità', caption: 'Morbidezza & Vitalità' },
-  { type: 'image', src: lavoroProdotti, alt: 'Prodotti Nubea in salone', caption: 'Cura in vetrina' },
-  { type: 'image', src: ricostruzione, alt: 'Trattamento di ricostruzione', caption: 'Ricostruzione & luminosità' },
-  { type: 'image', src: salonePostazioni, alt: 'Postazioni taglio con specchi', caption: 'Postazioni taglio' },
-  { type: 'image', src: tricologia, alt: 'Consulenza tricologica gratuita', caption: 'Consulenza tricologica' },
+  { type: 'image', src: balayageInsegna, alt: 'Balayage biondo con onde morbide', caption: 'Balayage luminoso' },
+  { type: 'image', src: rameNaturale, alt: 'Colore rame naturale con onde morbide', caption: 'Rame naturale' },
+  { type: 'image', src: acconciaturaSposa, alt: 'Acconciatura sposa realizzata in salone', caption: 'Acconciatura sposa' },
+  { type: 'image', src: rossoCiliegia, alt: 'Colore rosso ciliegia su capelli lunghi lisci', caption: 'Rosso ciliegia' },
+  { type: 'image', src: balayageMosso, alt: 'Balayage biondo con piega mossa', caption: 'Balayage mosso' },
+  { type: 'image', src: bobOndulato, alt: 'Taglio bob corto ondulato con balayage caramello', caption: 'Bob ondulato' },
+  { type: 'image', src: ramatoLucente, alt: 'Colore ramato lucente con onde', caption: 'Ramato lucente' },
+  { type: 'image', src: ondeCastane, alt: 'Capelli castani con onde morbide', caption: 'Onde castane' },
+  { type: 'image', src: raccoltoCerimonia, alt: 'Raccolto da cerimonia con fermaglio gioiello', caption: 'Raccolto da cerimonia' },
+  { type: 'image', src: liscioBiondo, alt: 'Piega liscia su capelli biondi', caption: 'Liscio biondo' },
+  { type: 'image', src: riflessiRossi, alt: 'Riflessi rossi su capelli mossi', caption: 'Riflessi rossi' },
+  { type: 'image', src: ondeBionde, alt: 'Onde bionde luminose davanti al salone', caption: 'Onde bionde' },
+  { type: 'image', src: ramatoOndulato, alt: 'Colore ramato con lunghezze ondulate', caption: 'Ramato ondulato' },
+  { type: 'image', src: castanoCaramello, alt: 'Balayage castano caramello su onde morbide', caption: 'Castano caramello' },
+  { type: 'image', src: acconciaturaBimba, alt: 'Acconciatura da cerimonia con fiori tra i capelli', caption: 'Acconciatura cerimonia' },
+  { type: 'image', src: biondoFreddo, alt: 'Colore biondo freddo con piega liscia', caption: 'Biondo freddo' },
+  { type: 'image', src: piegaMorbida, alt: 'Piega morbida su capelli castano ramato', caption: 'Piega morbida' },
 ]
 
 // Galleria di Iako Ritual: solo segnaposto "in arrivo" più qualche foto
