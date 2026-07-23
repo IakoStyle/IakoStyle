@@ -29,7 +29,7 @@ const CLOUDINARY_FOLDER = 'iako-style/studio'
 // Costruisce l'URL di una foto dello studio. Se Cloudinary è configurato
 // serve dal CDN con ottimizzazione automatica (f_auto = miglior formato
 // WebP/AVIF, q_auto = qualità automatica); altrimenti resta sul file locale.
-function studioImg(name: string, localExt = 'jpg'): string {
+function studioImg(name: string, localExt = 'webp'): string {
   if (CLOUDINARY_CLOUD_NAME) {
     return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/${CLOUDINARY_FOLDER}/${name}`
   }
@@ -87,9 +87,9 @@ export const gallery: MediaItem[] = [
 // Galleria di Iako Ritual: solo segnaposto "in arrivo" più qualche foto
 // reale caricata a mano (vedi TODO.md).
 export const ritualGallery: MediaItem[] = [
-  { type: 'image', src: '/ritual/volantino.png', alt: 'Volantino Iako Ritual' },
+  { type: 'image', src: '/ritual/volantino.webp', alt: 'Volantino Iako Ritual' },
   { type: 'image', src: '/ritual/trattamentoRitual.jpeg', alt: 'Trattamento Iako Ritual, risultati prima e dopo' },
-  { type: 'image', src: '/ritual/primadopo.jpg', alt: 'Iako Ritual, risultato prima e dopo' },
+  { type: 'image', src: '/ritual/primadopo.webp', alt: 'Iako Ritual, risultato prima e dopo' },
   { type: 'image', placeholder: true, tint: 'mint', caption: 'Cura e benessere' },
   { type: 'image', placeholder: true, tint: 'gold', caption: 'L\'ambiente' },
   { type: 'image', placeholder: true, tint: 'mint', caption: 'I dettagli' },
