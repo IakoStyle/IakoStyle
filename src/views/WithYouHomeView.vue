@@ -82,11 +82,6 @@ const detailsOpen = ref(false)
           <p class="ritual-script mt-2 text-4xl text-foreground sm:text-5xl">with you</p>
         </div>
 
-        <p class="mt-6 font-display text-xl font-bold text-gold">
-          Collection N. {{ withYouCollection.number }}
-        </p>
-        <p class="ritual-wordmark text-lg text-muted">{{ withYouCollection.season }}</p>
-
         <div class="mx-auto mt-6 max-w-md space-y-4 text-center text-sm leading-relaxed text-muted">
           <p>
             Questa non è solo una pochette. È il simbolo del primo capitolo di
@@ -125,7 +120,12 @@ const detailsOpen = ref(false)
       />
 
       <div class="p-6 text-center">
-        <p class="font-display text-2xl font-bold text-gold">€ 19,90</p>
+        <p class="font-display text-lg font-bold text-gold">
+          Collection N. {{ withYouCollection.number }}
+        </p>
+        <p class="ritual-wordmark text-sm text-muted">{{ withYouCollection.season }}</p>
+
+        <p class="mt-4 font-display text-2xl font-bold text-gold">€ 19,90</p>
 
         <button
           class="mx-auto mt-3 flex items-center gap-1.5 text-sm font-bold text-primary"
@@ -139,6 +139,16 @@ const detailsOpen = ref(false)
             :class="detailsOpen ? 'rotate-180' : ''"
           />
         </button>
+
+        <a
+          :href="`https://wa.me/39${salon.whatsappNumber}`"
+          target="_blank"
+          rel="noopener"
+          class="mx-auto mt-4 flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-white shadow-lg shadow-primary/25 transition-transform hover:scale-105"
+        >
+          <font-awesome-icon :icon="['fab', 'whatsapp']" />
+          Chiedici info
+        </a>
       </div>
 
       <!-- Dettagli materiali, come sull'etichetta -->

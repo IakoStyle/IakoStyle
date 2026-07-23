@@ -45,9 +45,9 @@ export const brands: Record<BrandId, Brand> = {
   },
 }
 
-// La collezione attuale (dalla pochette): Collection N. 01, Summer 2026.
+// La collezione attuale (dalla pochette): Collection N. 0.1, Summer 2026.
 export const withYouCollection = {
-  number: 1,
+  number: '0.1',
   season: 'Summer 2026',
   nextSeason: 'Summer 2027',
 }
