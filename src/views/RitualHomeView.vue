@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { getOpenStatus } from '@/data/salon'
+import { getOpenStatus, ritualReviews } from '@/data/salon'
 import { ritualFruit } from '@/data/brands'
 import { ritualGallery } from '@/data/media'
 import lemonIcon from '@/assets/ritual/lemon-icon.webp'
 import heroPoster from '@/assets/ritual/hero-ritual-poster.webp'
 import MediaCarousel from '@/components/MediaCarousel.vue'
+import ReviewCard from '@/components/ReviewCard.vue'
 
 const status = computed(() => getOpenStatus())
 
@@ -129,5 +130,17 @@ onMounted(async () => {
       </h2>
     </div>
     <MediaCarousel :items="ritualGallery" />
+  </section>
+
+  <!-- RECENSIONI -->
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="mb-8 text-center">
+      <h2 class="ritual-wordmark text-2xl font-semibold text-gold sm:text-3xl">
+        Cosa dicono di noi
+      </h2>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <ReviewCard v-for="r in ritualReviews" :key="r.author" :review="r" />
+    </div>
   </section>
 </template>

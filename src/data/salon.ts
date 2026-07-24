@@ -424,6 +424,23 @@ export interface RitualService {
   bookable?: boolean
 }
 
+export const ritualReviews: Review[] = [
+  {
+    author: 'Anastasia Parisella',
+    when: '1 giorno fa',
+    service: 'Rituale Rinascita',
+    text: 'Ho provato da Iako style il Rituale rinascita: una coccola per me e per i miei capelli! La professionalità di Matteo e la qualità dei prodotti sono una garanzia. Un trattamento rinfrescante che alleggerisce cute e capelli: proprio quello che ci voleva!',
+    by: 'Matteo',
+  },
+  {
+    author: 'Alessia De Santis',
+    when: '4 giorni fa',
+    service: 'Rituale Rinascita',
+    text: 'Esperienza super positiva! Oggi ho provato il trattamento Rituale Rinascita ed è stato fantastico. La sensazione immediata è di una cute incredibilmente più leggera e fresca... Professionalità al top e massimo relax! 5 stelle Deluxe!',
+    by: 'Matteo',
+  },
+]
+
 export const ritualSeason = 'Summer Ritual 2026'
 
 export const ritualServices: RitualService[] = [
