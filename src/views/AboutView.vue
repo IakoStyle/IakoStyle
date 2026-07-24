@@ -43,11 +43,6 @@ const strengths = [
           specializzati e su misura di cliente. L'obiettivo è sempre lo stesso: regalare
           un'esperienza altamente personalizzata, dalla consulenza al risultato finale.
         </p>
-        <p class="mt-4 rounded-2xl bg-surface-2 p-4 text-sm text-muted">
-          <font-awesome-icon :icon="['fas', 'circle-check']" class="mr-2 text-primary" />
-          Presto qui: la storia completa del salone e la sua esperienza.
-          <em>(sezione da completare con i tuoi testi)</em>
-        </p>
       </div>
       <div class="flex items-center justify-center">
         <div class="animate-floaty h-56 w-56 overflow-hidden rounded-2xl bg-gradient-to-br from-primary-soft to-accent-soft p-2">
