@@ -45,9 +45,20 @@ const strengths = [
         <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Il titolare</p>
         <h2 class="mt-1 font-display text-3xl font-bold text-foreground">{{ salon.owner }}</h2>
         <p class="mt-4 text-muted">
-          Matteo si prende cura dei capelli di lui e di lei proponendo servizi
-          specializzati e su misura di cliente. L'obiettivo è sempre lo stesso: regalare
-          un'esperienza altamente personalizzata, dalla consulenza al risultato finale.
+          Per Matteo fare il parrucchiere non ha mai significato semplicemente creare un
+          bel risultato.
+        </p>
+        <p class="mt-4 text-muted">
+          Significa ascoltare, studiare, cercare e continuare a evolversi.
+        </p>
+        <p class="mt-4 text-muted">
+          È da questa visione che negli anni Iako Style è cambiato insieme a lui: dalla
+          ricerca nel colore e nella forma fino a un'attenzione sempre maggiore per la
+          salute e il benessere di cute e capelli.
+        </p>
+        <p class="mt-4 text-muted">
+          Una continua ricerca di qualcosa in più, con un obiettivo che rimane sempre lo
+          stesso: costruire per ogni persona un'esperienza che le somigli davvero.
         </p>
       </div>
       <div class="flex items-center justify-center">
