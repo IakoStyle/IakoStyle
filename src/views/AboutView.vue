@@ -24,9 +24,16 @@ const strengths = [
         Un salone, tante <span class="text-primary">storie di stile</span>
       </h1>
       <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">
-        Iako Style si trova in Via Vincenzo Gioberti 60, a Fondi in provincia di Latina:
-        un salone di parrucchieri per uomo, donna e bambino dove rinnovare il proprio look
-        con un'esperienza altamente personalizzata.
+        Iako Style nasce a Fondi come salone dedicato alla bellezza e alla cura dei capelli.
+        Nel tempo, però, è diventato qualcosa di più.
+      </p>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
+        Un luogo in cui tecnica, consulenza e benessere si incontrano per costruire esperienze
+        sempre più personali, partendo dall'ascolto e dalle reali esigenze di ogni cliente.
+      </p>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
+        Perché per noi prendersi cura dei capelli non significa semplicemente cambiarne
+        l'aspetto, ma valorizzarli, conoscerli e farli stare bene.
       </p>
     </div>
   </section>
