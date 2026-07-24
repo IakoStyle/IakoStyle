@@ -7,7 +7,15 @@ import ServiceCard from '@/components/ServiceCard.vue'
 
 const heroPhoto = '/studio/salone-ingresso.jpg'
 
-const featured = services.filter((s) => s.featured)
+const featuredOrder = [
+  'Taglio Uomo | Benessere Cute',
+  'Taglio Donna | Benessere Cute',
+  'Piega Illuminante',
+  'Piega Benessere',
+]
+const featured = featuredOrder
+  .map((name) => services.find((s) => s.name === name))
+  .filter((s): s is (typeof services)[number] => !!s)
 
 const status = computed(() => getOpenStatus())
 </script>
@@ -81,18 +89,6 @@ const status = computed(() => getOpenStatus())
     </p>
   </section>
 
-  <!-- GALLERIA -->
-  <section class="mx-auto max-w-6xl px-6 py-12">
-    <div class="mb-8 text-center">
-      <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Il salone</p>
-      <h2 class="mt-1 font-display text-3xl font-bold text-foreground">Foto</h2>
-      <p class="mx-auto mt-2 max-w-md text-muted">
-        Uno sguardo tra tagli, colori e atmosfera. Scorri la galleria.
-      </p>
-    </div>
-    <MediaCarousel />
-  </section>
-
   <!-- SERVIZI PIÙ RICHIESTI -->
   <section class="mx-auto max-w-6xl px-6 py-12">
     <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
@@ -110,6 +106,18 @@ const status = computed(() => getOpenStatus())
         <ServiceCard :service="s" />
       </div>
     </div>
+  </section>
+
+  <!-- GALLERIA -->
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="mb-8 text-center">
+      <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Il salone</p>
+      <h2 class="mt-1 font-display text-3xl font-bold text-foreground">Foto</h2>
+      <p class="mx-auto mt-2 max-w-md text-muted">
+        Uno sguardo tra tagli, colori e atmosfera. Scorri la galleria.
+      </p>
+    </div>
+    <MediaCarousel />
   </section>
 
   <!-- CTA -->
