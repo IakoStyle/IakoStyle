@@ -6,25 +6,33 @@
 //  contrario si usa il fallback locale in public/studio/ (così il sito
 //  non si rompe finché Cloudinary non è configurato).
 //
-//  SETUP CLOUDINARY (una volta sola):
+//  SETUP CLOUDINARY (una volta sola) — vedi anche CLOUDINARY.md:
 //  1. Crea un account gratuito su cloudinary.com
-//  2. Carica le foto dentro una cartella chiamata "iako-style/studio"
-//     TENENDO GLI STESSI NOMI FILE (IMG_9226, IMG_0754, ...). In fase di
-//     upload attiva "Use filename as public ID" (o rinomina il public ID
-//     al nome del file senza estensione).
-//  3. Metti il tuo "Cloud name" (lo trovi nella dashboard) nella variabile
+//  2. Settings → Security: togli "Resource list" dai tipi limitati
+//     (serve per far leggere al sito l'elenco delle foto).
+//  3. Crea un "Upload preset" che applichi in automatico il tag "iako-studio"
+//     a ogni foto caricata (così non devi taggarle a mano).
+//  4. Metti il tuo "Cloud name" (dashboard) nella variabile
 //     VITE_CLOUDINARY_CLOUD_NAME — nel file .env in locale e nelle env del
 //     tuo hosting per la produzione. Vedi .env.example.
 //
-//  Per aggiungere altri media:
-//  - Carica il file su Cloudinary in "iako-style/studio" e aggiungi un
-//    oggetto all'array "gallery" con src: studioImg('nome-file').
+//  AGGIUNGERE FOTO (l'uso di tutti i giorni):
+//  - Carica la foto su Cloudinary con il tag "iako-studio" (se usi l'upload
+//    preset del punto 3, il tag viene messo da solo). Compare nel carosello
+//    entro pochi minuti, SENZA modificare il codice né rifare il deploy.
+//
+//  L'array "gallery" qui sotto resta solo come fallback (se Cloudinary non
+//  è configurato o irraggiungibile).
 //
 //  Per i VIDEO: { type: 'video', src: video, poster: immaginePoster }
 // ============================================================
 
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME as string | undefined
 const CLOUDINARY_FOLDER = 'iako-style/studio'
+// Tag applicato alle foto dello studio su Cloudinary. Il carosello scarica
+// automaticamente TUTTE le foto con questo tag: basta caricarne una nuova
+// (con il tag) e compare da sola sul sito, senza toccare il codice.
+const CLOUDINARY_TAG = 'iako-studio'
 
 // Costruisce l'URL di una foto dello studio. Se Cloudinary è configurato
 // serve dal CDN con ottimizzazione automatica (f_auto = miglior formato
@@ -61,6 +69,40 @@ export interface MediaItem {
   caption?: string
   placeholder?: boolean
   tint?: 'mint' | 'sky' | 'gold'
+}
+
+// Forma (parziale) della risposta di Cloudinary all'endpoint "resource list".
+interface CloudinaryResource {
+  public_id: string
+  format?: string
+  created_at?: string
+}
+
+// Scarica da Cloudinary l'elenco di tutte le foto taggate CLOUDINARY_TAG e le
+// trasforma in MediaItem pronti per il carosello. Restituisce null se
+// Cloudinary non è configurato o se la richiesta fallisce: in quel caso il
+// carosello usa la galleria statica di fallback qui sopra.
+//
+// NB: perché funzioni, su Cloudinary va abilitata la "Resource list"
+// (Settings → Security → togli la spunta a "Resource list" tra i tipi
+// limitati) e ogni foto deve avere il tag "iako-studio".
+export async function fetchStudioGallery(): Promise<MediaItem[] | null> {
+  if (!CLOUDINARY_CLOUD_NAME) return null
+  try {
+    const url = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/list/${CLOUDINARY_TAG}.json`
+    const res = await fetch(url)
+    if (!res.ok) return null
+    const data = (await res.json()) as { resources?: CloudinaryResource[] }
+    const resources = data.resources ?? []
+    if (resources.length === 0) return null
+    return resources.map((r) => ({
+      type: 'image' as const,
+      src: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/${r.public_id}`,
+      alt: 'Foto Iako Style',
+    }))
+  } catch {
+    return null
+  }
 }
 
 export const gallery: MediaItem[] = [

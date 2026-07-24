@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import type { MediaItem } from '@/data/media'
-import { gallery as styleGallery } from '@/data/media'
+import { useStudioGallery } from '@/composables/useStudioGallery'
 
-const props = withDefaults(
-  defineProps<{
-    items?: MediaItem[]
-  }>(),
-  {
-    items: () => styleGallery,
-  },
-)
+const props = defineProps<{
+  items?: MediaItem[]
+}>()
 
-const N = computed(() => props.items.length)
+// Se il componente riceve una lista esplicita (es. la galleria Ritual) usa
+// quella; altrimenti usa la galleria dello studio, che si aggiorna da sola
+// da Cloudinary quando disponibile.
+const studioGallery = useStudioGallery()
+const galleryItems = computed<MediaItem[]>(() => props.items ?? studioGallery.value)
+
+const N = computed(() => galleryItems.value.length)
 // Contenuto triplicato: copia prima, centrale (quella "vera", da cui si parte),
 // copia dopo. Serve per poter scorrere all'infinito in entrambe le direzioni.
-const tripleGallery = computed(() => [...props.items, ...props.items, ...props.items])
+const tripleGallery = computed(() => [...galleryItems.value, ...galleryItems.value, ...galleryItems.value])
 
 // Il carosello NON simula più il trascinamento via JS (era fragile su
 // mobile: bastava che il browser decidesse, anche solo per un istante,
@@ -94,6 +95,12 @@ onMounted(async () => {
 
   resizeObserver = new ResizeObserver(() => measureStep())
   if (scrollerEl.value) resizeObserver.observe(scrollerEl.value)
+})
+
+// Se la galleria cambia (es. quando arrivano le foto live da Cloudinary
+// dopo il primo render), ri-centra il carosello sulla copia centrale.
+watch(N, () => {
+  recenter()
 })
 
 onUnmounted(() => {
