@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router'
+import { Analytics } from '@vercel/analytics/vue'
 import AppHeader from '@/components/AppHeader.vue'
 import AppFooter from '@/components/AppFooter.vue'
 import BookingModal from '@/components/BookingModal.vue'
@@ -17,5 +18,6 @@ const route = useRoute()
     </main>
     <AppFooter />
     <BookingModal />
+    <Analytics />
   </div>
 </template>
