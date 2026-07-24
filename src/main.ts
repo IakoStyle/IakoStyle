@@ -24,6 +24,7 @@ import router from './router'
 import { FontAwesomeIcon } from './plugins/fontawesome'
 import { initTheme } from './composables/useTheme'
 import { applyBrandToDom, currentBrandFromPath } from './composables/useBrand'
+import { inject } from '@vercel/analytics'
 
 // Tema scuro ovunque, tranne nella home di scelta del mondo ("/"): si
 // applica in base al percorso corrente prima del mount, così non c'è
@@ -41,3 +42,6 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(router)
 
 app.mount('#app')
+
+// Abilita Vercel Web Analytics
+inject()
