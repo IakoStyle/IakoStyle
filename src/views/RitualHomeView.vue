@@ -139,8 +139,10 @@ onMounted(async () => {
         Cosa dicono di noi
       </h2>
     </div>
-    <div class="grid gap-6 sm:grid-cols-2">
-      <ReviewCard v-for="r in ritualReviews" :key="r.author" :review="r" />
+    <div class="columns-1 gap-6 sm:columns-2">
+      <div v-for="r in ritualReviews" :key="r.author" class="mb-6 break-inside-avoid-column">
+        <ReviewCard :review="r" />
+      </div>
     </div>
   </section>
 </template>

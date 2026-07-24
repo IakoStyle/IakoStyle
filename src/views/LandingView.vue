@@ -142,8 +142,10 @@ import StarRating from '@/components/StarRating.vue'
         <span class="text-sm text-muted">· {{ totalReviewsCount() }}+ recensioni</span>
       </span>
     </div>
-    <div class="grid gap-4 md:grid-cols-3">
-      <ReviewCard v-for="r in reviews.slice(0, 3)" :key="r.author" :review="r" />
+    <div class="columns-1 gap-4 md:columns-3">
+      <div v-for="r in reviews.slice(0, 3)" :key="r.author" class="mb-4 break-inside-avoid-column">
+        <ReviewCard :review="r" />
+      </div>
     </div>
     <div class="mt-8 flex flex-wrap justify-center gap-3 text-center">
       <a
