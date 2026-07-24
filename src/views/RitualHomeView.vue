@@ -105,18 +105,8 @@ onMounted(async () => {
     </p>
   </section>
 
-  <!-- GALLERIA -->
-  <section class="mx-auto max-w-6xl px-6 pb-12">
-    <div class="mb-8 text-center">
-      <h2 class="ritual-wordmark mt-4 text-2xl font-semibold text-gold sm:text-3xl">
-        I rituali
-      </h2>
-    </div>
-    <MediaCarousel :items="ritualGallery" />
-  </section>
-
   <!-- Rimando al Listino -->
-  <section class="mx-auto max-w-6xl px-6 pb-20">
+  <section class="mx-auto max-w-6xl px-6 pt-12 pb-12">
     <div class="mx-auto max-w-sm">
       <RouterLink
         to="/ritual/listino"
@@ -129,5 +119,15 @@ onMounted(async () => {
         <p class="mt-1 text-sm text-muted">Scopri Rituale Origine e Rituale Rinascita, prezzi e durata.</p>
       </RouterLink>
     </div>
+  </section>
+
+  <!-- GALLERIA -->
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="mb-8 text-center">
+      <h2 class="ritual-wordmark mt-4 text-2xl font-semibold text-gold sm:text-3xl">
+        I rituali
+      </h2>
+    </div>
+    <MediaCarousel :items="ritualGallery" />
   </section>
 </template>
