@@ -1,9 +1,10 @@
 // Il sito usa sempre il tema scuro ("Notte"), tranne nella home di
-// scelta del mondo ("/"), che resta in tema chiaro: nessuna scelta
-// per chi visita, nessuna preferenza salvata o di sistema da leggere.
+// scelta del mondo ("/") e nella pagina Contatti raggiungibile da lì:
+// restano in tema chiaro, nessuna scelta per chi visita, nessuna
+// preferenza salvata o di sistema da leggere.
 export function applyThemeForPath(path: string) {
-  const isLanding = path === '/'
-  document.documentElement.classList.toggle('dark', !isLanding)
+  const isLight = path === '/' || path === '/contatti'
+  document.documentElement.classList.toggle('dark', !isLight)
 }
 
 // Mantenuto per compatibilità: applica il tema in base al percorso

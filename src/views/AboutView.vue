@@ -2,7 +2,6 @@
 import { RouterLink } from 'vue-router'
 import { salon } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
-import MediaCarousel from '@/components/MediaCarousel.vue'
 import matteoPhoto from '@/assets/team/matteo.webp'
 
 const strengths = [
@@ -75,15 +74,6 @@ const strengths = [
         <p class="mt-2 text-sm text-muted">{{ s.desc }}</p>
       </div>
     </div>
-  </section>
-
-  <!-- GALLERIA -->
-  <section class="mx-auto max-w-6xl px-6 py-12">
-    <div class="mb-8 text-center">
-      <p class="font-display text-sm font-bold uppercase tracking-wide text-primary">Il salone</p>
-      <h2 class="mt-1 font-display text-3xl font-bold text-foreground">Dai un'occhiata</h2>
-    </div>
-    <MediaCarousel />
   </section>
 
   <!-- CTA -->
