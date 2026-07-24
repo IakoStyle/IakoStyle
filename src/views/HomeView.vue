@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import { salon, services, macroServices, getOpenStatus } from '@/data/salon'
+import { salon, services, getOpenStatus } from '@/data/salon'
 import MediaCarousel from '@/components/MediaCarousel.vue'
 import ServiceCard from '@/components/ServiceCard.vue'
 
@@ -79,23 +79,6 @@ const status = computed(() => getOpenStatus())
       Salone di parrucchieri per uomo, donna e bambino. Taglio, colore, barba e
       trattamenti curati nei minimi dettagli da {{ salon.owner }}.
     </p>
-  </section>
-
-  <!-- MACRO SERVIZI -->
-  <section class="mx-auto max-w-6xl px-6 py-12">
-    <div class="grid gap-4 sm:grid-cols-3">
-      <div
-        v-for="m in macroServices"
-        :key="m.label"
-        class="group rounded-xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-lg hover:shadow-primary/10"
-      >
-        <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-xl text-accent transition-transform duration-300 group-hover:rotate-6">
-          <font-awesome-icon :icon="m.icon" />
-        </span>
-        <h3 class="mt-4 font-display text-lg font-bold text-foreground">{{ m.label }}</h3>
-        <p class="mt-1 text-sm text-muted">{{ m.desc }}</p>
-      </div>
-    </div>
   </section>
 
   <!-- GALLERIA -->
