@@ -74,14 +74,14 @@ function toggleDesc() {
         >
           Seleziona
         </button>
-        <!-- Servizio con varianti: freccia per aprire/chiudere -->
-        <span
+        <!-- Servizio con varianti: bottone per aprire/chiudere la tendina -->
+        <button
           v-else
-          class="flex h-7 w-7 items-center justify-center rounded-full bg-surface-2 text-muted transition-transform duration-300"
-          :class="isOpen ? 'rotate-180' : ''"
+          class="rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent transition-colors hover:bg-accent hover:text-white"
+          @click.stop="toggle"
         >
-          <font-awesome-icon :icon="['fas', 'chevron-down']" class="text-xs" />
-        </span>
+          Seleziona
+        </button>
       </div>
     </div>
 

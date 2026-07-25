@@ -1,20 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { salon, services, serviceCategories } from '@/data/salon'
+import { salon, services } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
 import ServiceCard from '@/components/ServiceCard.vue'
-
-const active = ref('Tutti')
-
-const filtered = computed(() =>
-  active.value === 'Tutti'
-    ? services
-    : services.filter((s) => s.category === active.value),
-)
-
-function count(cat: string) {
-  return cat === 'Tutti' ? services.length : services.filter((s) => s.category === cat).length
-}
 </script>
 
 <template>
@@ -36,34 +23,11 @@ function count(cat: string) {
 
   <!-- SERVIZI CON NOME E PREZZO -->
   <section class="mx-auto max-w-6xl px-6 pb-16">
-    <div class="no-scrollbar mb-8 flex gap-2 overflow-x-auto pb-2">
-      <button
-        v-for="cat in serviceCategories"
-        :key="cat"
-        class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-colors"
-        :class="active === cat
-          ? 'border-primary bg-primary text-white'
-          : 'border-border bg-surface text-muted hover:border-primary hover:text-primary'"
-        @click="active = cat"
-      >
-        {{ cat }}
-        <span
-          class="rounded-full px-1.5 text-xs"
-          :class="active === cat ? 'bg-white/25' : 'bg-surface-2'"
-        >{{ count(cat) }}</span>
-      </button>
-    </div>
-
-    <TransitionGroup
-      tag="div"
-      class="columns-1 gap-4 md:columns-2"
-      enter-active-class="transition duration-300 ease-out"
-      enter-from-class="opacity-0 scale-95"
-    >
-      <div v-for="s in filtered" :key="s.name + s.category" class="mb-4 break-inside-avoid-column">
+    <div class="columns-1 gap-4 md:columns-2">
+      <div v-for="s in services" :key="s.name + s.category" class="mb-4 break-inside-avoid-column">
         <ServiceCard :service="s" />
       </div>
-    </TransitionGroup>
+    </div>
 
     <p class="mt-8 text-center text-sm text-muted">
       <font-awesome-icon :icon="['fas', 'circle-check']" class="mr-1 text-primary" />
