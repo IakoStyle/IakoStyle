@@ -67,7 +67,7 @@ onMounted(async () => {
 
     <div class="relative mx-auto flex max-w-3xl flex-col items-center px-6 text-center">
       <div class="flex items-center justify-center gap-3">
-        <div class="text-left leading-none">
+        <div class="text-center leading-none">
           <p class="ritual-wordmark text-4xl font-semibold text-white drop-shadow-sm sm:text-5xl">IAKO</p>
           <p class="ritual-subword mt-2 text-xs font-medium text-white/90 sm:text-sm">RITUAL</p>
         </div>

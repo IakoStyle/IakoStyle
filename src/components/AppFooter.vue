@@ -63,7 +63,7 @@ const otherBrands = computed(() =>
              (leggibile sullo sfondo scuro del footer) accanto al limone,
              che resta a colori. -->
         <div v-else-if="isRitual" class="flex items-center gap-3">
-          <div>
+          <div class="text-center">
             <p class="ritual-wordmark text-2xl font-semibold text-white">IAKO</p>
             <p class="ritual-subword mt-1 text-[0.55rem] font-medium text-white/90">RITUAL</p>
           </div>
