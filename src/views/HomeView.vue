@@ -8,7 +8,7 @@ import { useBookingModal } from '@/composables/useBookingModal'
 
 const { open: openBooking } = useBookingModal()
 
-const heroPhoto = '/studio/salone-ingresso.jpg'
+const heroPhoto = '/studio/IMG_9226.webp'
 
 const featuredOrder = [
   'Taglio Uomo | Benessere Cute',
