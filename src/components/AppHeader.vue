@@ -2,11 +2,12 @@
 import { ref, computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useBrand } from '@/composables/useBrand'
-import { salon } from '@/data/salon'
+import { useBookingModal } from '@/composables/useBookingModal'
 
 const route = useRoute()
 const { brandId } = useBrand()
 const menuOpen = ref(false)
+const { open: openBooking } = useBookingModal()
 
 // Chi Siamo e Contatti sono pagine "indipendenti": raggiungibili solo
 // dalla landing page, non appartengono alla navigazione di un marchio
@@ -70,16 +71,14 @@ const links = computed(() => {
 
       <!-- Azioni -->
       <div class="flex shrink-0 items-center gap-2">
-        <a
-          :href="salon.bookingUrl"
-          target="_blank"
-          rel="noopener"
+        <button
           class="items-center gap-2 rounded-full bg-primary px-3.5 py-2.5 text-xs font-bold text-white shadow-md shadow-primary/30 ring-1 ring-gold/40 transition-transform hover:scale-105 sm:px-5 sm:text-sm"
           :class="isStandalone ? 'flex' : 'hidden lg:flex'"
+          @click="openBooking()"
         >
           <font-awesome-icon :icon="['fas', 'calendar-check']" />
           <span class="hidden sm:inline">Prenota ora</span>
-        </a>
+        </button>
 
         <button
           v-if="!isStandalone"
@@ -111,15 +110,13 @@ const links = computed(() => {
         >
           {{ link.label }}
         </RouterLink>
-        <a
-          :href="salon.bookingUrl"
-          target="_blank"
-          rel="noopener"
-          class="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 font-bold text-white"
+        <button
+          class="mt-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 font-bold text-white"
+          @click="menuOpen = false; openBooking()"
         >
           <font-awesome-icon :icon="['fas', 'calendar-check']" />
           Prenota ora
-        </a>
+        </button>
       </div>
     </Transition>
   </header>

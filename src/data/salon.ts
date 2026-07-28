@@ -17,7 +17,6 @@ export const salon = {
   // cresce nel tempo e non è recuperabile via API senza una chiave a
   // pagamento.
   googleReviewsCount: 29,
-  bookingUrl: 'https://www.treatwell.it/salone/iako-style/',
   // Widget incorporabile: apre il calendario di prenotazione dentro il
   // sito stesso (in un riquadro), invece di rimandare a una scheda esterna.
   bookingWidgetUrl: 'https://widget.treatwell.it/salone/100038957/menu/',

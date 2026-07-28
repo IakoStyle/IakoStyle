@@ -3,6 +3,9 @@ import { RouterLink } from 'vue-router'
 import { salon } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
 import matteoPhoto from '@/assets/team/matteo.webp'
+import { useBookingModal } from '@/composables/useBookingModal'
+
+const { open: openBooking } = useBookingModal()
 
 const strengths = [
   { icon: ['fas', 'spa'], title: 'Ambiente', desc: 'Professionale e curato, pensato per farti sentire a tuo agio.' },
@@ -100,10 +103,10 @@ const strengths = [
       <h2 class="font-display text-2xl font-bold text-foreground sm:text-3xl">Vieni a trovarci</h2>
       <p class="max-w-md text-muted">Prenota il tuo appuntamento o scoprine di più sui contatti.</p>
       <div class="flex flex-wrap justify-center gap-3">
-        <a :href="salon.bookingUrl" target="_blank" rel="noopener" class="flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-white transition-transform hover:scale-105">
+        <button class="flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-white transition-transform hover:scale-105" @click="openBooking()">
           <font-awesome-icon :icon="['fas', 'calendar-check']" />
           Prenota ora
-        </a>
+        </button>
         <RouterLink to="/contatti" class="flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 font-bold text-foreground transition-colors hover:border-primary hover:text-primary">
           <font-awesome-icon :icon="['fas', 'location-dot']" />
           Contatti

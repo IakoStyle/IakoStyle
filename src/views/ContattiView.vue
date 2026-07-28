@@ -2,7 +2,9 @@
 import { computed } from 'vue'
 import { salon, socials, openingHours, todayIndex, getOpenStatus } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
+import { useBookingModal } from '@/composables/useBookingModal'
 
+const { open: openBooking } = useBookingModal()
 const idx = todayIndex()
 const status = computed(() => getOpenStatus())
 
@@ -165,15 +167,13 @@ const mapsLink = computed(
           <span class="text-sm font-bold">{{ s.label }}</span>
         </a>
       </div>
-      <a
-        :href="salon.bookingUrl"
-        target="_blank"
-        rel="noopener"
-        class="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3.5 font-bold text-white ring-1 ring-gold/40 transition-transform hover:scale-[1.02]"
+      <button
+        class="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3.5 font-bold text-white ring-1 ring-gold/40 transition-transform hover:scale-[1.02]"
+        @click="openBooking()"
       >
         <font-awesome-icon :icon="['fas', 'calendar-check']" />
-        Prenota su Treatwell
-      </a>
+        Prenota ora
+      </button>
     </div>
   </section>
 </template>

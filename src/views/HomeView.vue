@@ -4,6 +4,9 @@ import { RouterLink } from 'vue-router'
 import { salon, services, getOpenStatus } from '@/data/salon'
 import MediaCarousel from '@/components/MediaCarousel.vue'
 import ServiceCard from '@/components/ServiceCard.vue'
+import { useBookingModal } from '@/composables/useBookingModal'
+
+const { open: openBooking } = useBookingModal()
 
 const heroPhoto = '/studio/salone-ingresso.jpg'
 
@@ -57,15 +60,13 @@ const status = computed(() => getOpenStatus())
       </div>
 
       <div class="mt-7 flex flex-wrap items-center gap-3">
-        <a
-          :href="salon.bookingUrl"
-          target="_blank"
-          rel="noopener"
+        <button
           class="flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 font-bold text-white shadow-lg shadow-black/30 transition-transform hover:scale-105"
+          @click="openBooking()"
         >
           <font-awesome-icon :icon="['fas', 'calendar-check']" />
           Prenota ora
-        </a>
+        </button>
         <RouterLink
           to="/listino"
           class="flex items-center gap-2 rounded-full bg-white/10 px-6 py-3.5 font-bold text-white ring-1 ring-white/30 backdrop-blur-sm transition-colors hover:bg-white/20"
@@ -125,15 +126,13 @@ const status = computed(() => getOpenStatus())
       <p class="relative mx-auto mt-3 max-w-md text-white/90">
         Prenota il tuo appuntamento in pochi tap e lasciati coccolare.
       </p>
-      <a
-        :href="salon.bookingUrl"
-        target="_blank"
-        rel="noopener"
+      <button
         class="relative mt-7 inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-bold text-primary shadow-lg transition-transform hover:scale-105"
+        @click="openBooking()"
       >
         <font-awesome-icon :icon="['fas', 'calendar-check']" />
         Prenota ora
-      </a>
+      </button>
     </div>
   </section>
 </template>

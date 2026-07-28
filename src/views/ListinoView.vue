@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { salon, services } from '@/data/salon'
+import { services } from '@/data/salon'
 import BlobDecor from '@/components/BlobDecor.vue'
 import ServiceCard from '@/components/ServiceCard.vue'
+import { useBookingModal } from '@/composables/useBookingModal'
+
+const { open: openBooking } = useBookingModal()
 </script>
 
 <template>
@@ -35,15 +38,13 @@ import ServiceCard from '@/components/ServiceCard.vue'
     </p>
 
     <div class="mt-8 text-center">
-      <a
-        :href="salon.bookingUrl"
-        target="_blank"
-        rel="noopener"
+      <button
         class="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-bold text-white shadow-lg shadow-primary/30 ring-1 ring-gold/40 transition-transform hover:scale-105"
+        @click="openBooking()"
       >
         <font-awesome-icon :icon="['fas', 'calendar-check']" />
         Prenota ora
-      </a>
+      </button>
     </div>
   </section>
 </template>
