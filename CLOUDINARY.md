@@ -56,8 +56,10 @@ tag `iako-studio`.
 
 ## Dettagli tecnici
 
-- Le foto sono servite con `f_auto,q_auto`: Cloudinary sceglie da solo il
-  formato migliore (WebP/AVIF) e la qualità ottimale.
+- Le foto sono servite con `f_auto,q_auto,w_960,c_limit`: Cloudinary sceglie
+  da solo il formato migliore (WebP/AVIF), la qualità ottimale, e non le
+  consegna mai più larghe di 960px (il carosello non le mostra comunque più
+  grandi) — anche se carichi uno scatto a piena risoluzione dal telefono.
 - L'ordine nel carosello segue l'elenco restituito da Cloudinary.
 - Il codice coinvolto:
   - `src/data/media.ts` → `fetchStudioGallery()` scarica l'elenco.

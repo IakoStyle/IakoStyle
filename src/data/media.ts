@@ -34,12 +34,20 @@ const CLOUDINARY_FOLDER = 'iako-style/studio'
 // (con il tag) e compare da sola sul sito, senza toccare il codice.
 const CLOUDINARY_TAG = 'iako-studio'
 
+// Larghezza massima con cui le foto dello studio vengono servite da
+// Cloudinary: nel carosello non superano mai ~360px (~720px su schermi
+// retina), quindi non serve consegnare l'originale a piena risoluzione
+// (es. 4000px da uno scatto col telefono) solo per poi ridimensionarlo nel
+// browser.
+const CLOUDINARY_MAX_WIDTH = 960
+
 // Costruisce l'URL di una foto dello studio. Se Cloudinary è configurato
 // serve dal CDN con ottimizzazione automatica (f_auto = miglior formato
-// WebP/AVIF, q_auto = qualità automatica); altrimenti resta sul file locale.
+// WebP/AVIF, q_auto = qualità automatica, w_960 = mai più largo del
+// necessario per il carosello); altrimenti resta sul file locale.
 function studioImg(name: string, localExt = 'webp'): string {
   if (CLOUDINARY_CLOUD_NAME) {
-    return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/${CLOUDINARY_FOLDER}/${name}`
+    return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_${CLOUDINARY_MAX_WIDTH},c_limit/${CLOUDINARY_FOLDER}/${name}`
   }
   return `/studio/${name}.${localExt}`
 }
@@ -97,7 +105,7 @@ export async function fetchStudioGallery(): Promise<MediaItem[] | null> {
     if (resources.length === 0) return null
     return resources.map((r) => ({
       type: 'image' as const,
-      src: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/${r.public_id}`,
+      src: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_${CLOUDINARY_MAX_WIDTH},c_limit/${r.public_id}`,
       alt: 'Foto Iako Style',
     }))
   } catch {
