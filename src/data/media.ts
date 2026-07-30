@@ -127,7 +127,7 @@ export const gallery: MediaItem[] = [
 // Galleria di Iako Ritual: foto reali caricate a mano (vedi TODO.md).
 export const ritualGallery: MediaItem[] = [
   { type: 'image', src: '/ritual/volantino.webp', alt: 'Volantino Iako Ritual' },
-  { type: 'image', src: '/ritual/trattamentoRitual.png', alt: 'Trattamento Iako Ritual, risultati prima e dopo' },
+  { type: 'image', src: '/ritual/trattamentoRitual.webp', alt: 'Trattamento Iako Ritual, risultati prima e dopo' },
   { type: 'image', src: '/ritual/IMG_2114.webp', alt: 'Trattamento Iako Ritual' },
   { type: 'image', src: '/ritual/IMG_2115.webp', alt: 'Trattamento Iako Ritual' },
 ]

@@ -29,6 +29,10 @@ const status = computed(() => getOpenStatus())
     <img
       :src="heroPhoto"
       alt="Interno del salone Iako Style"
+      width="1080"
+      height="720"
+      fetchpriority="high"
+      decoding="async"
       class="absolute inset-0 h-full w-full object-cover"
     />
     <!-- Scurimento uniforme -->

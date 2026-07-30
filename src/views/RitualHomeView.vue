@@ -50,7 +50,7 @@ onMounted(async () => {
       :poster="heroPoster"
       loop
       playsinline
-      preload="auto"
+      preload="metadata"
       aria-hidden="true"
     >
       <source src="/ritual/mare.mp4" type="video/mp4" />
@@ -118,6 +118,10 @@ onMounted(async () => {
         </span>
         <h3 class="mt-4 ritual-wordmark text-lg font-semibold text-foreground">I Rituali</h3>
         <p class="mt-1 text-sm text-muted">Scopri Rituale Origine e Rituale Rinascita, prezzi e durata.</p>
+        <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-gold">
+          Scopri il listino
+          <font-awesome-icon :icon="['fas', 'arrow-right']" class="transition-transform duration-300 group-hover:translate-x-1" />
+        </span>
       </RouterLink>
     </div>
   </section>

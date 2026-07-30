@@ -12,10 +12,12 @@ const detailsOpen = ref(false)
   <section class="relative h-[26rem] w-full overflow-hidden sm:h-[24rem]">
     <video
       src="/everywhere/video.mp4"
+      poster="/everywhere/video-poster.webp"
       autoplay
       loop
       muted
       playsinline
+      preload="auto"
       class="absolute inset-0 h-full w-full object-cover"
     ></video>
     <!-- Scurimento uniforme -->
@@ -89,8 +91,10 @@ const detailsOpen = ref(false)
   <section class="mx-auto max-w-3xl px-6 pb-20">
     <div class="overflow-hidden rounded-xl border border-border bg-surface">
       <img
-        src="/everywhere/pochette.jpeg"
+        src="/everywhere/pochette.webp"
         alt="Pochette Everywhere with you"
+        loading="lazy"
+        decoding="async"
         class="h-72 w-full object-cover sm:h-96"
       />
 
