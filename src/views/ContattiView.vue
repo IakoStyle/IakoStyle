@@ -82,10 +82,10 @@ const mapsLink = computed(
             <span class="h-1.5 w-1.5 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
             {{ status.isOpen ? `${status.label} · ${status.detail}` : status.nextOpenLabel }}
           </span>
-          <span class="flex items-center gap-1.5 rounded-full bg-gold-soft px-3 py-1 text-xs font-bold text-gold">
-            <font-awesome-icon :icon="['fas', 'sun']" />
+          <span class="flex items-center gap-1.5 rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-700">
+            <font-awesome-icon :icon="['fas', 'leaf']" />
             {{ salon.seasonLabel }}
-          </span>
+        </span>
         </div>
       </div>
       <ul class="mt-5 space-y-1.5">

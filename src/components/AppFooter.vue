@@ -138,8 +138,8 @@ const otherBrands = computed(() =>
             <span class="h-1.5 w-1.5 rounded-full" :class="status.isOpen ? 'bg-primary' : 'bg-closed'"></span>
             {{ status.isOpen ? status.label : status.nextOpenLabel }}
           </span>
-          <span class="flex items-center gap-1.5 text-xs font-bold text-gold">
-            <font-awesome-icon :icon="['fas', 'sun']" />
+          <span class="flex items-center gap-1.5 text-xs font-bold text-orange-700">
+            <font-awesome-icon :icon="['fas', 'leaf']" />
             {{ salon.seasonLabel }}
           </span>
         </p>
