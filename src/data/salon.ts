@@ -27,7 +27,7 @@ export const salon = {
   whatsappDisplay: '320 015 5148',
   owner: 'Matteo Iacovello',
   vatNumber: '03209300593',
-  seasonLabel: 'Orario estivo 2026',
+  seasonLabel: 'Orario Autunnale 2026',
 }
 
 // Costruisce il link diretto al calendario di disponibilità Treatwell
@@ -83,14 +83,14 @@ export interface OpeningDay {
   closed?: boolean
 }
 
-// Orario estivo 2026 (da locandina del salone)
+// Orario Autunnale/Invernale 2026 (da locandina del salone)
 export const openingHours: OpeningDay[] = [
-  { day: 'Lunedì', hours: '09:00 – 13:00' },
-  { day: 'Martedì', hours: '16:00 – 20:30' },
-  { day: 'Mercoledì', hours: '16:00 – 20:30' },
-  { day: 'Giovedì', hours: '16:00 – 20:30' },
-  { day: 'Venerdì', hours: '09:00 – 13:00 / 16:00 – 20:30' },
-  { day: 'Sabato', hours: '09:00 – 13:00' },
+  { day: 'Lunedì', hours: '15:00 – 19:00' },
+  { day: 'Martedì', hours: '10:00 – 18:00' },
+  { day: 'Mercoledì', hours: '10:00 – 18:00' },
+  { day: 'Giovedì', hours: '15:00 – 19:00' },
+  { day: 'Venerdì', hours: '09:00 – 13:00 / 15:00 – 19:00' },
+  { day: 'Sabato', hours: '09:00 – 17:00' },
   { day: 'Domenica', hours: 'Chiuso', closed: true },
 ]
 
